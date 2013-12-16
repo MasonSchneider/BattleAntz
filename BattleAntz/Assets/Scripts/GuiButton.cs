@@ -7,7 +7,7 @@ public class GuiButton : MonoBehaviour {
 	//Use hitBox to display the size of the hitbox on screen
 
 	private static GUIStyle emptyStyle = new GUIStyle();
-	private static bool hitBox = true;
+	private static bool hitBox = false;
 	private static bool debug = false;
 
 	//Displays a textured button with position r.x and r.y and size of texture
