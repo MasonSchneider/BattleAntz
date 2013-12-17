@@ -12,8 +12,8 @@ public class GameMenu : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		pauseRect = new Rect(300, 20, 30, 30);
-		antRect = new Rect(0, 0, 10, 10);
+		pauseRect = new Rect(Screen.width/2 - 24, 24, 52, 55);
+		antRect = new Rect(Screen.width - 78*4, 20, 78, 58);
 		antController = GameObject.Find("Ant Controller").GetComponent("AntController") as AntController;
 	}
 	
@@ -22,6 +22,7 @@ public class GameMenu : MonoBehaviour {
 		
 	}
 	void OnGUI () {
+		GUI.Box(new Rect(0,0,Screen.width,90), "Battle Antz");
 		if (GuiButton.textureButton(pauseRect, pauseTexture)) {
 			Application.LoadLevel("MainMenu");
 		}
