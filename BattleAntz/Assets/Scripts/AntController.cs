@@ -4,6 +4,8 @@ using System.Collections;
 public class AntController : MonoBehaviour {
 	public Ant ant;
 
+	private int amount = 10; 
+
 	// Use this for initialization
 	void Start () {
 	
@@ -15,9 +17,7 @@ public class AntController : MonoBehaviour {
 	}
 
 	public void spawnAnt(){
-		Debug.Log("spawn an ant");
-		
-		Ant a = (Ant) Instantiate (this.ant);
-		a.transform.position = new Vector3(Random.Range(-5, 5), Random.Range(-5, 5), 0);
+		for(int i=0; i<amount; i++) 
+			Instantiate (this.ant);
 	}
 }
