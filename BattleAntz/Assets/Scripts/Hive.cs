@@ -18,11 +18,14 @@ public class Hive : MonoBehaviour {
 	public int workers;
 	public int income; // total production of the hive
 
+	private AntController antController;
+
 	// Use this for initialization
 	void Start () {
 		income  = BASE_PRODUCTION;
 		sugar = 100;
 		health = 100;
+		antController = GameObject.Find("Ant Controller").GetComponent("AntController") as AntController;
 	}
 	
 	// Update is called once per frame (60fps?)
@@ -36,7 +39,7 @@ public class Hive : MonoBehaviour {
 	
 	// Buy a worker
 	public bool buyWorker(){
-		if(sugar > WORKER_COST){
+		if(sugar >= WORKER_COST){
 			sugar -= WORKER_COST;
 			workers += 1;
 			income += WORKER_PRODUCTION;
@@ -50,16 +53,20 @@ public class Hive : MonoBehaviour {
 			workers -= 1;
 			income -= WORKER_PRODUCTION;
 			sugar += WORKER_COST/RETURN_VALUE;
+			antController.spawnAnt();
 			return true;
 		}
 		return false;
 	}
-	
-	public void buyAnt(int n){
-		if (sugar > n * ANT_COST) {
-			sugar -= n * ANT_COST;
-			// TODO: SPAWN N ants
+
+	// Buy an army ant
+	public bool buyArmyAnt(){
+		if (sugar >= ARMY_ANT_COST) {
+			sugar -= ANT_COST;
+			// TODO create army ant
+			return true;
 		}
+		return false;
 	}
 	
 	public void takeDamage(int damage){
