@@ -11,7 +11,6 @@ public class Hive : MonoBehaviour {
 	int BULL_ANT_COST = 100;
 	int FIRE_ANT_COST = 150;
 	int RETURN_VALUE = 2;
-	int ANT_COST = 10; // ONLY FOR DEBUGGING PURPOSES
 
 	public int sugar;
 	public int health;
@@ -43,7 +42,6 @@ public class Hive : MonoBehaviour {
 			sugar -= WORKER_COST;
 			workers += 1;
 			income += WORKER_PRODUCTION;
-			antController.spawnAnt();
 			return true;
 		}
 		return false;
@@ -62,8 +60,8 @@ public class Hive : MonoBehaviour {
 	// Buy an army ant
 	public bool buyArmyAnt(){
 		if (sugar >= ARMY_ANT_COST) {
-			sugar -= ANT_COST;
-			// TODO create army ant
+			sugar -= ARMY_ANT_COST;
+			antController.spawnAnt();
 			return true;
 		}
 		return false;
@@ -78,7 +76,7 @@ public class Hive : MonoBehaviour {
 
 	public void upgrade(string upgrade){
 		// worker speed, armyant health, bullant strength, fireant special
-		//string ant = upgrade.Split[0]
-		//string cate = upgrade.Split[1]
+		// string ant = upgrade.Split[0]
+		// string cate = upgrade.Split[1]
 	}
 }
