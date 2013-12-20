@@ -8,7 +8,6 @@ public class GameMenu : MonoBehaviour {
 	private Rect pauseRect;
 	private Rect antRect;
 
-	private AntController antController;
 	private Hive homeHive;
 	
 	// Use this for initialization
@@ -16,7 +15,6 @@ public class GameMenu : MonoBehaviour {
 		homeHive = GameObject.Find("Hive").GetComponent("Hive") as Hive;
 		pauseRect = new Rect(Screen.width/2 - 24, 24, 52, 55);
 		antRect = new Rect(Screen.width - 78*4, 20, 78, 58);
-		antController = GameObject.Find("Ant Controller").GetComponent("AntController") as AntController;
 	}
 
 	void OnGUI () {
@@ -30,9 +28,7 @@ public class GameMenu : MonoBehaviour {
 		}
 
 		if (GuiButton.textureButton(antRect, antTexture)) {
-			if(homeHive.buyWorker()) {
-				antController.spawnAnt();
-			}
+			homeHive.buyWorker();
 		}
 	}
 }
