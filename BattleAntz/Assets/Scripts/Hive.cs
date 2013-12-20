@@ -43,6 +43,7 @@ public class Hive : MonoBehaviour {
 			sugar -= WORKER_COST;
 			workers += 1;
 			income += WORKER_PRODUCTION;
+			antController.spawnAnt();
 			return true;
 		}
 		return false;
@@ -53,7 +54,6 @@ public class Hive : MonoBehaviour {
 			workers -= 1;
 			income -= WORKER_PRODUCTION;
 			sugar += WORKER_COST/RETURN_VALUE;
-			antController.spawnAnt();
 			return true;
 		}
 		return false;
