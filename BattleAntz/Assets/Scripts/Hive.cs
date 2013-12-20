@@ -10,6 +10,7 @@ public class Hive : MonoBehaviour {
 	int ARMY_ANT_COST = 50;
 	int BULL_ANT_COST = 100;
 	int FIRE_ANT_COST = 150;
+	int RETURN_VALUE = .5;
 	int ANT_COST = 10; // ONLY FOR DEBUGGING PURPOSES
 
 	public int sugar;
@@ -33,13 +34,25 @@ public class Hive : MonoBehaviour {
 		}
 	}
 	
-	// Buy a certain number of workers.
-	void buyWorker(int n){
-		if(sugar > n*WORKER_COST){
-			sugar -= n * WORKER_COST;
-			workers += n;
-			income += n*WORKER_PRODUCTION;
+	// Buy a worker
+	bool buyWorker(){
+		if(sugar > WORKER_COST){
+			sugar -= WORKER_COST;
+			workers += 1;
+			income += WORKER_PRODUCTION;
+			return true;
 		}
+		return false;
+	}
+	// Sell a worker.
+	bool sellWorker(){
+		if(workers > 0){
+			workers -= 1;
+			income -= WORKER_PRODUCTION;
+			sugar += WORKER_COST*RETURN_VALUE;
+			return true;
+		}
+		return false;
 	}
 	
 	void buyAnt(int n){
