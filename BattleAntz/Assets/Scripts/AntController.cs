@@ -4,7 +4,7 @@ using System.Collections;
 public class AntController : MonoBehaviour {
 	public Ant ant;
 
-	private int amount = 10; 
+	private int amount = 1; 
 
 	// Use this for initialization
 	void Start () {
