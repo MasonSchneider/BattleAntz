@@ -21,13 +21,13 @@ public class GameMenu : MonoBehaviour {
 		GUI.Box(new Rect(0,0,Screen.width,90), "Battle Antz");
 		GUI.Label(new Rect(16,15,100,40), "Sugar: " + homeHive.sugar);
 		GUI.Label(new Rect(15,55,100,40), "Health: " + homeHive.health + "/100");
-		GUI.Label(new Rect(160,15,100,40), "Sugar/Sec: " + homeHive.income);
-		GUI.Label(new Rect(160,55,100,40), "Workers: " + homeHive.workers);
+		GUI.Label(new Rect(140,15,100,40), "Sugar/Sec: " + homeHive.income);
+		GUI.Label(new Rect(140,55,100,40), "Workers: " + homeHive.workers);
 		if (GuiButton.textureButton(pauseRect, pauseTexture)) {
 			Application.LoadLevel("MainMenu");
 		}
 
-		if(GUI.Button(new Rect(240,55,85,20),"Buy Worker")) {
+		if(GUI.Button(new Rect(220,55,85,20),"Buy Worker")) {
 			homeHive.buyWorker();
 		}
 
