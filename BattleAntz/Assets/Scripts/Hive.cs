@@ -35,7 +35,7 @@ public class Hive : MonoBehaviour {
 	}
 	
 	// Buy a worker
-	bool buyWorker(){
+	public bool buyWorker(){
 		if(sugar > WORKER_COST){
 			sugar -= WORKER_COST;
 			workers += 1;
@@ -45,7 +45,7 @@ public class Hive : MonoBehaviour {
 		return false;
 	}
 	// Sell a worker.
-	bool sellWorker(){
+	public bool sellWorker(){
 		if(workers > 0){
 			workers -= 1;
 			income -= WORKER_PRODUCTION;
@@ -55,21 +55,21 @@ public class Hive : MonoBehaviour {
 		return false;
 	}
 	
-	void buyAnt(int n){
+	public void buyAnt(int n){
 		if (sugar > n * ANT_COST) {
 			sugar -= n * ANT_COST;
 			// TODO: SPAWN N ants
 		}
 	}
 	
-	void takeDamage(int damage){
+	public void takeDamage(int damage){
 		health -= damage;
 		if (health <= 0) {
 			// TODO: end game
 		}
 	}
 
-	void upgrade(string upgrade){
+	public void upgrade(string upgrade){
 		// worker speed, armyant health, bullant strength, fireant special
 		//string ant = upgrade.Split[0]
 		//string cate = upgrade.Split[1]
