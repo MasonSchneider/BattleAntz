@@ -10,7 +10,7 @@ public class Hive : MonoBehaviour {
 	int ARMY_ANT_COST = 50;
 	int BULL_ANT_COST = 100;
 	int FIRE_ANT_COST = 150;
-	int RETURN_VALUE = .5;
+	int RETURN_VALUE = 2;
 	int ANT_COST = 10; // ONLY FOR DEBUGGING PURPOSES
 
 	public int sugar;
@@ -49,7 +49,7 @@ public class Hive : MonoBehaviour {
 		if(workers > 0){
 			workers -= 1;
 			income -= WORKER_PRODUCTION;
-			sugar += WORKER_COST*RETURN_VALUE;
+			sugar += WORKER_COST/RETURN_VALUE;
 			return true;
 		}
 		return false;
