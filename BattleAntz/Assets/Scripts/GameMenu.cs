@@ -27,8 +27,12 @@ public class GameMenu : MonoBehaviour {
 			Application.LoadLevel("MainMenu");
 		}
 
-		if (GuiButton.textureButton(antRect, antTexture)) {
+		if(GUI.Button(new Rect(240,55,85,20),"Buy Worker")) {
 			homeHive.buyWorker();
+		}
+
+		if (GuiButton.textureButton(antRect, antTexture)) {
+			homeHive.buyArmyAnt();
 		}
 	}
 }
