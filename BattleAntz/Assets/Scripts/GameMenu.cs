@@ -22,7 +22,7 @@ public class GameMenu : MonoBehaviour {
 	void OnGUI () {
 		GUI.Box(new Rect(0,0,Screen.width,90), "Battle Antz");
 		GUI.Label(new Rect(6,5,100,40), "Sugar: " + homeHive.sugar);
-		GUI.Label(new Rect(5,45,100,40), "Health: " + homeHive.health);
+		GUI.Label(new Rect(5,45,100,40), "Health: " + homeHive.health + "/100");
 		if (GuiButton.textureButton(pauseRect, pauseTexture)) {
 			Application.LoadLevel("MainMenu");
 		}
