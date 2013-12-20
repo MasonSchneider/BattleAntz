@@ -2,6 +2,9 @@
 using System.Collections;
 
 public class Hive : MonoBehaviour {
+	float nextTick = 0;
+	int SUGAR_RATE = 1;
+	int BASE_PRODUCTION = 10;
 	int WORKER_COST = 50;
 	int WORKER_PRODUCTION = 10;
 	int ARMY_ANT_COST = 50;
@@ -11,21 +14,23 @@ public class Hive : MonoBehaviour {
 
 	public int sugar;
 	public int health;
-	private int workers;
-	int income; // 10 Sugar per second base production
-	public Hive(){ // Constructor
-		Start ();
-	}
+	public int workers;
+	public int income; // total production of the hive
+
 	// Use this for initialization
 	void Start () {
-		income  = 10;
+		income  = BASE_PRODUCTION;
 		sugar = 100;
 		health = 100;
 	}
 	
 	// Update is called once per frame (60fps?)
 	void Update () {
-		sugar += income + workers*WORKER_PRODUCTION;
+		Debug.Log (sugar);
+		if (Time.time > nextTick) {
+			nextTick = Time.time + SUGAR_RATE;
+			sugar += income;
+		}
 	}
 	
 	// Buy a certain number of workers.
@@ -33,6 +38,7 @@ public class Hive : MonoBehaviour {
 		if(sugar > n*WORKER_COST){
 			sugar -= n * WORKER_COST;
 			workers += n;
+			income += n*WORKER_PRODUCTION;
 		}
 	}
 	
