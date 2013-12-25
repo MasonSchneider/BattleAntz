@@ -5,16 +5,15 @@ public class GameMenu : MonoBehaviour {
 	public Texture pauseTexture;
 	public Texture fireAntTexture;
 	public Texture armyAntTexture;
+	public Texture bullAntTexture;
 
 	private Rect pauseRect;
-	private Rect antRect;
 
 	public Hive playerHive;
 	
 	// Use this for initialization
 	void Start () {
 		pauseRect = new Rect(Screen.width/2 - 24, 24, 0, 0);
-		antRect = new Rect(Screen.width - 78*4, 20, 0, 0);
 	}
 
 	void OnGUI () {
@@ -35,12 +34,16 @@ public class GameMenu : MonoBehaviour {
 			playerHive.sellWorker();
 		}
 		
-		if (GuiButton.textureButton(antRect, armyAntTexture)) {
+		if (GuiButton.textureButton(new Rect(Screen.width - 100*3, 10, 0, 0), armyAntTexture)) {
 			playerHive.buyArmyAnt();
 		}
-
-		if (GuiButton.textureButton(new Rect(Screen.width - 78*2, 20, 0, 0), fireAntTexture)) {
+		
+		if (GuiButton.textureButton(new Rect(Screen.width - 100*2, 10, 0, 0), fireAntTexture)) {
 			playerHive.buyFireAnt();
+		}
+		
+		if (GuiButton.textureButton(new Rect(Screen.width - 100*1, 10, 0, 0), bullAntTexture)) {
+			playerHive.buyBullAnt();
 		}
 	}
 }

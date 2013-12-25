@@ -4,7 +4,8 @@ using System.Collections;
 public class Ant : MonoBehaviour {
 	private Vector3 lastPosition;
 	private RoadController roadController;
-	private float speed = 0.3f;
+
+	protected float speed;
 
 	public Vector3 target;
 	// Use this for initialization

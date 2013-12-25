@@ -4,7 +4,7 @@ using System.Collections;
 public class Hive : MonoBehaviour {
 	float nextTick = 0;
 	int SUGAR_RATE = 1;
-	int BASE_PRODUCTION = 10;
+//	int BASE_PRODUCTION = 10;
 	int WORKER_COST = 50;
 	int WORKER_PRODUCTION = 10;
 	int ARMY_ANT_COST = 50;
@@ -62,12 +62,22 @@ public class Hive : MonoBehaviour {
 		}
 		return false;
 	}
-
+	
 	//Buy a fire ant
 	public bool buyFireAnt(){
 		if (sugar >= FIRE_ANT_COST) {
 			sugar -= FIRE_ANT_COST;
 			antFactory.spawnFireAnt();
+			return true;
+		}
+		return false;
+	}
+
+	//Buy a bull ant
+	public bool buyBullAnt(){
+		if (sugar >= BULL_ANT_COST) {
+			sugar -= BULL_ANT_COST;
+			antFactory.spawnBullAnt();
 			return true;
 		}
 		return false;

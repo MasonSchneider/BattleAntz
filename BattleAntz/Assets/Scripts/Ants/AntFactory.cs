@@ -22,9 +22,14 @@ public class AntFactory : MonoBehaviour {
 		ArmyAnt a = (ArmyAnt) Instantiate (this.armyAnt, spawnPosition.transform.position, Quaternion.identity);
 		setupAnt(a);
 	}
-
+	
 	public void spawnFireAnt(){
 		FireAnt a = (FireAnt) Instantiate (this.fireAnt, spawnPosition.transform.position, Quaternion.identity);
+		setupAnt(a);
+	}
+	
+	public void spawnBullAnt(){
+		BullAnt a = (BullAnt) Instantiate (this.bullAnt, spawnPosition.transform.position, Quaternion.identity);
 		setupAnt(a);
 	}
 
