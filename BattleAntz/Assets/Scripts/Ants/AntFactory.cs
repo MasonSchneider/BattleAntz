@@ -7,6 +7,10 @@ public class AntFactory : MonoBehaviour {
 	public Ant bullAnt;
 	public GameObject spawnPosition;
 	public GameObject targetPosition;
+	public GameObject enemyFactory;
+	public bool computer;
+
+	private int ants_created = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -33,9 +37,12 @@ public class AntFactory : MonoBehaviour {
 		setupAnt(a);
 	}
 
+	//Set the correct parameters for the ant to be created
 	private void setupAnt(Ant a){
 		a.transform.parent = this.transform;
-		a.target = targetPosition.transform.position;
+		a.hiveTarget = targetPosition.transform.position;
+		a.enemyFactory = enemyFactory;
+		a.ID = ants_created++;
 		a.spawn();
 	}
 

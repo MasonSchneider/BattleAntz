@@ -12,6 +12,4 @@ public class PlayerHive : Hive {
 	public override void Update () {
 		base.Update();
 	}
-
-
 }
