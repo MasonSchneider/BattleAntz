@@ -13,7 +13,7 @@ public class Hive : MonoBehaviour {
 	int RETURN_VALUE = 2;
 
 	public int sugar;
-	public int health;
+	public float health;
 	public int workers;
 	public int income; // total production of the hive
 
@@ -82,12 +82,12 @@ public class Hive : MonoBehaviour {
 		}
 		return false;
 	}
-
 	
-	public void takeDamage(int damage){
+	public void takeDamage(float damage){
 		health -= damage;
 		if (health <= 0) {
 			// TODO: end game
+			Application.LoadLevel("MainMenu");
 		}
 	}
 

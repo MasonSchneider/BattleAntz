@@ -5,7 +5,7 @@ public class Ant : MonoBehaviour {
 	private Vector3 lastPosition;
 	private RoadController roadController;
 	private Ant antTarget;
-
+	
 	protected float speed;
 	protected float damage;
 	protected float life;
@@ -13,7 +13,7 @@ public class Ant : MonoBehaviour {
 
 	public int ID;
 	public GameObject enemyFactory;
-	public Vector3 hiveTarget;
+	public Hive enemyHive;
 
 	// Use this for initialization
 	public void spawn () {
@@ -26,7 +26,7 @@ public class Ant : MonoBehaviour {
 		Vector3 offset;
 		antTarget = getNearestAnt();
 		if(antTarget == null)
-			offset = hiveTarget-transform.position;
+			offset = enemyHive.gameObject.transform.position-transform.position;
 		else{
 			offset = antTarget.gameObject.transform.position-transform.position;
 		}
@@ -77,4 +77,12 @@ public class Ant : MonoBehaviour {
 			Destroy(this.gameObject);
 	}
 
+	// Gets called everytime an ant collides with something
+	void OnCollisionEnter(Collision collision) {
+		//If colliding with enemy hive, do dmg and destroy self
+		if(collision.gameObject.tag == enemyHive.tag){
+			enemyHive.takeDamage(damage);
+			Destroy(this.gameObject);
+		}
+	}
 }
