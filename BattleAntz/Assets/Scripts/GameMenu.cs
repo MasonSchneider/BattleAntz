@@ -13,6 +13,7 @@ public class GameMenu : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		gameObject.GetComponent<PauseMenu>().enabled = false;
 		pauseRect = new Rect(Screen.width/2 - 24, 24, 0, 0);
 	}
 
@@ -23,22 +24,23 @@ public class GameMenu : MonoBehaviour {
 		GUI.Label(new Rect(140,15,100,40), "Sugar/Sec: " + playerHive.income);
 		GUI.Label(new Rect(140,55,100,40), "Workers: " + playerHive.workers);
 		if (GuiButton.textureButton(pauseRect, pauseTexture)) {
-			Application.LoadLevel("MainMenu");
+			Time.timeScale = 0;
+			gameObject.GetComponent<PauseMenu>().enabled = true;
 		}
 
-		if(GUI.Button(new Rect(220,55,45,20),"Buy")) {
+		if(GUI.Button(new Rect(215,55,43,20),"Buy")) {
 			playerHive.buyWorker();
 		}
 
-		if(GUI.Button(new Rect(265,55,45,20),"Sell")) {
+		if(GUI.Button(new Rect(260,55,43,20),"Sell")) {
 			playerHive.sellWorker();
 		}
 		
-		if (GuiButton.textureButton(new Rect(Screen.width - 100*3, 10, 0, 0), armyAntTexture)) {
+		if (GuiButton.textureButton(new Rect(Screen.width - 100*3 - 100, 10, 0, 0), armyAntTexture)) {
 			playerHive.buyArmyAnt();
 		}
 		
-		if (GuiButton.textureButton(new Rect(Screen.width - 100*2, 10, 0, 0), fireAntTexture)) {
+		if (GuiButton.textureButton(new Rect(Screen.width - 100*2 - 50, 10, 0, 0), fireAntTexture)) {
 			playerHive.buyFireAnt();
 		}
 		
