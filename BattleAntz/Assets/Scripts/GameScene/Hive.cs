@@ -87,7 +87,7 @@ public class Hive : MonoBehaviour {
 		health -= damage;
 		if (health <= 0) {
 			// TODO: end game
-			Application.LoadLevel("MainMenu");
+			Application.LoadLevel("EndScene");
 		}
 	}
 
