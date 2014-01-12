@@ -12,6 +12,7 @@ public class Ant : MonoBehaviour {
 	protected float range;
 
 	public int ID;
+	public int[] upgrades;
 	public GameObject enemyFactory;
 	public Hive enemyHive;
 

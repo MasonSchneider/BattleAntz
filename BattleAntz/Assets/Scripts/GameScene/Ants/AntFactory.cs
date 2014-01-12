@@ -22,27 +22,28 @@ public class AntFactory : MonoBehaviour {
 	
 	}
 	
-	public void spawnArmyAnt(){
+	public void spawnArmyAnt(int[] upgrades){
 		ArmyAnt a = (ArmyAnt) Instantiate (this.armyAnt, spawnPosition.transform.position, Quaternion.identity);
-		setupAnt(a);
+		setupAnt(a, upgrades);
 	}
 	
-	public void spawnFireAnt(){
+	public void spawnFireAnt(int[] upgrades){
 		FireAnt a = (FireAnt) Instantiate (this.fireAnt, spawnPosition.transform.position, Quaternion.identity);
-		setupAnt(a);
+		setupAnt(a, upgrades);
 	}
 	
-	public void spawnBullAnt(){
+	public void spawnBullAnt(int[] upgrades){
 		BullAnt a = (BullAnt) Instantiate (this.bullAnt, spawnPosition.transform.position, Quaternion.identity);
-		setupAnt(a);
+		setupAnt(a, upgrades);
 	}
 
 	//Set the correct parameters for the ant to be created
-	private void setupAnt(Ant a){
+	private void setupAnt(Ant a, int[] upgrades){
 		a.transform.parent = this.transform;
 		a.enemyHive = enemyHive;
 		a.enemyFactory = enemyFactory;
 		a.ID = ants_created++;
+		a.upgrades = upgrades;
 		a.spawn();
 	}
 
