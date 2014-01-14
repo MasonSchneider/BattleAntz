@@ -86,8 +86,12 @@ public class Hive : MonoBehaviour {
 	public void takeDamage(float damage){
 		health -= damage;
 		if (health <= 0) {
-			// TODO: end game
-			Application.LoadLevel("MainMenu");
+			if(gameObject.tag == "PlayerHive"){
+				GameObject.Find("Game Menu").GetComponent<GameOverMenu>().gameOver("You LOOSE!");
+			}
+			else{
+				GameObject.Find("Game Menu").GetComponent<GameOverMenu>().gameOver("You WIN!");
+			}
 		}
 	}
 
