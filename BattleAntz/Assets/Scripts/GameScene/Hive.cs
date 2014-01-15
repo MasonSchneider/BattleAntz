@@ -11,16 +11,36 @@ public class Hive : MonoBehaviour {
 	int BULL_ANT_COST = 100;
 	int FIRE_ANT_COST = 150;
 	int RETURN_VALUE = 2;
+	
+	const int UPGRADE_COST = 500;
 
+	const int U_WORKER = 0;
+	const int U_ARMYANT = 1;
+	const int U_BULLANT = 2;
+	const int U_FIREANT = 3;
+	
+	const int U_SPEED = 0;
+	const int U_HEALTH = 1;
+	const int U_STRENGTH = 2;
+	const int U_SPECIAL = 3;
+	
 	public int sugar;
 	public float health;
 	public int workers;
 	public int income; // total production of the hive
 
+	// String array storing the current upgrades of the hive
+	// 0-indexed, [ant class][upgrade type]
+	protected int[][] upgrades = new int[4][];
+	
 	public AntFactory antFactory;
 
 	// Use this for initialization
 	public virtual void Start () {
+		upgrades[0] = new int[4];
+		upgrades[1] = new int[4];
+		upgrades[2] = new int[4];
+		upgrades[3] = new int[4];
 	}
 	
 	// Update is called once per frame (60fps?)
@@ -57,17 +77,7 @@ public class Hive : MonoBehaviour {
 	public bool buyArmyAnt(){
 		if (sugar >= ARMY_ANT_COST) {
 			sugar -= ARMY_ANT_COST;
-			antFactory.spawnArmyAnt();
-			return true;
-		}
-		return false;
-	}
-	
-	//Buy a fire ant
-	public bool buyFireAnt(){
-		if (sugar >= FIRE_ANT_COST) {
-			sugar -= FIRE_ANT_COST;
-			antFactory.spawnFireAnt();
+			antFactory.spawnArmyAnt(upgrades[U_ARMYANT]);
 			return true;
 		}
 		return false;
@@ -77,7 +87,17 @@ public class Hive : MonoBehaviour {
 	public bool buyBullAnt(){
 		if (sugar >= BULL_ANT_COST) {
 			sugar -= BULL_ANT_COST;
-			antFactory.spawnBullAnt();
+			antFactory.spawnBullAnt(upgrades[U_BULLANT]);
+			return true;
+		}
+		return false;
+	}
+	
+	//Buy a fire ant
+	public bool buyFireAnt(){
+		if (sugar >= FIRE_ANT_COST) {
+			sugar -= FIRE_ANT_COST;
+			antFactory.spawnFireAnt(upgrades[U_FIREANT]);
 			return true;
 		}
 		return false;
@@ -95,9 +115,14 @@ public class Hive : MonoBehaviour {
 		}
 	}
 
-	public void upgrade(string upgrade){
-		// worker speed, armyant health, bullant strength, fireant special
-		// string ant = upgrade.Split[0]
-		// string cate = upgrade.Split[1]
+	public void upgrade(string u){
+		if (sugar >= UPGRADE_COST){ // Check if enough sugar
+			if (upgrades [u[0]][u[1]] < 2) { // Check if upgrade not full
+				// reduce sugar
+				sugar -= UPGRADE_COST;
+				// Increase upgrade
+				upgrades[u[0]][u[1]]++;
+			}
+		}
 	}
 }
