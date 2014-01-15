@@ -56,7 +56,7 @@ public class Hive : MonoBehaviour {
 		if(sugar >= WORKER_COST){
 			sugar -= WORKER_COST;
 			workers += 1;
-			income += WORKER_PRODUCTION;
+			income += (int) (WORKER_PRODUCTION*(1+(upgrades[U_WORKER][U_SPEED]+upgrades[U_WORKER][U_STRENGTH])*.10));
 			return true;
 		}
 		return false;
@@ -117,11 +117,34 @@ public class Hive : MonoBehaviour {
 
 	public void upgrade(string u){
 		if (sugar >= UPGRADE_COST){ // Check if enough sugar
-			if (upgrades [u[0]][u[1]] < 2) { // Check if upgrade not full
-				// reduce sugar
-				sugar -= UPGRADE_COST;
-				// Increase upgrade
-				upgrades[u[0]][u[1]]++;
+			if((u[0] == U_WORKER && u[1] == U_HEALTH) || (u[0] == U_WORKER && u[1] == U_SPECIAL)){
+				return;
+			}
+			if(u[1] == U_SPECIAL){
+				if (upgrades [u[0]][u[1]] < 1) { // Check if upgrade not full
+					// reduce sugar
+					sugar -= UPGRADE_COST;
+
+					if(u[0] == U_BULLANT){ // MS and AS increase to 1
+						
+					}
+					if(u[0] == U_FIREANT){ // baneling 15 damage
+						
+					}
+					if(u[0] == U_ARMYANT){ // +1 ad +1 hp for each army ant on map
+						
+					}
+					// Increase upgrade
+					upgrades[u[0]][u[1]]++;
+				}
+			}
+			else if (u[1] > U_SPEED || u[1] == U_STRENGTH || u[1] == U_HEALTH){
+				if (upgrades [u[0]][u[1]] < 2) { // Check if upgrade not full
+					// reduce sugar
+					sugar -= UPGRADE_COST;
+					// Increase upgrade
+					upgrades[u[0]][u[1]]++;
+				}
 			}
 		}
 	}
