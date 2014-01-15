@@ -5,7 +5,8 @@ public class Ant : MonoBehaviour {
 	private Vector3 lastPosition;
 	private RoadController roadController;
 	private Ant antTarget;
-	
+
+	protected float maxHealth;
 	protected float speed;
 	protected float damage;
 	protected float life;
@@ -14,6 +15,7 @@ public class Ant : MonoBehaviour {
 	public int ID;
 	public int[] upgrades;
 	public GameObject enemyFactory;
+	public GameObject lifeBar;
 	public Hive enemyHive;
 
 	// Use this for initialization
@@ -41,6 +43,7 @@ public class Ant : MonoBehaviour {
 		if(antTarget != null){
 			antTarget.attack(this);
 		}
+		lifeBar.transform.localScale = new Vector2(life/maxHealth, lifeBar.transform.localScale.y);
 	}
 	
 	// After the ant has moved, check that it is still inbound

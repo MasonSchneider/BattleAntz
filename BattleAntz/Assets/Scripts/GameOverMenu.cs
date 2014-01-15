@@ -5,6 +5,7 @@ public class GameOverMenu : MonoBehaviour {
 	private string gameResult;
 	private GUIStyle style = new GUIStyle();
 
+
 	// Use this for initialization
 	void Start () {
 		enabled = false;
@@ -13,7 +14,7 @@ public class GameOverMenu : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		
 	}
 
 	public void gameOver(string result){

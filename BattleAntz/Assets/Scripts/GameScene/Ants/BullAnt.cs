@@ -7,7 +7,7 @@ public class BullAnt : Ant {
 	void Start () {
 		speed = 0.05f*(1 + upgrades[0]*1.0f/3.0f);
 		damage = 30 + upgrades[2]*6;
-		life = 100 + upgrades[1]*20;
+		life = maxHealth =100 + upgrades[1]*20;
 		range = 1;
 	}
 	
