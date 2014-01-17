@@ -24,10 +24,8 @@ public class EnemyAI : MonoBehaviour {
 		for(int i=0; i<schedule.Length/3; i++){
 			float time = schedule[i,0];
 			if(Time.time > lastSpawn + time && i == nextIndex){
-				Debug.Log("Its within time");
 				lastSpawn += time;
 				nextIndex = i<schedule.Length/3-1 ? i+1 : 0;
-				Debug.Log("Setting next index: " + nextIndex);
 				if(schedule[i,1] == Publics.WORKER)
 					spawnWorkers((int)schedule[i,2]);
 
@@ -40,7 +38,6 @@ public class EnemyAI : MonoBehaviour {
 				else if(schedule[i,1] == Publics.FIREANT)
 					spawnFireAnts((int)schedule[i,2]);
 			}
-//			Debug.Log("Should spawn " + schedule[i, 2] + " of type " + schedule[i,1] + " at " + schedule[i,0]);
 		}
 	}
 	
