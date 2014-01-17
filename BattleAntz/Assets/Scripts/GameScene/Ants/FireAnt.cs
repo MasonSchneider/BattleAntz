@@ -15,4 +15,9 @@ public class FireAnt : Ant {
 	public override void Update () {
 		base.Update();
 	}
+
+	public override void die(){
+		// Deal 15 damage to everyone around this ant
+		Destroy (this.gameObject);
+	}
 }
