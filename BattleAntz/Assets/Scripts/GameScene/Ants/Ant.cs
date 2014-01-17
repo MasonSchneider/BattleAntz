@@ -78,7 +78,7 @@ public class Ant : MonoBehaviour {
 			life -= a.damage * Time.deltaTime;
 		}
 		if(life < 0)
-			Destroy(this.gameObject);
+			die();
 	}
 
 	// Gets called everytime an ant collides with something
@@ -86,7 +86,10 @@ public class Ant : MonoBehaviour {
 		//If colliding with enemy hive, do dmg and destroy self
 		if(collision.gameObject.tag == enemyHive.tag){
 			enemyHive.takeDamage(damage);
-			Destroy(this.gameObject);
+			die();
 		}
+	}
+	public virtual void die(){
+		Destroy (this.gameObject);
 	}
 }

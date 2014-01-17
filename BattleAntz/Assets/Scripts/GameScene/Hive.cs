@@ -11,7 +11,9 @@ public class Hive : MonoBehaviour {
 	int BULL_ANT_COST = 100;
 	int FIRE_ANT_COST = 150;
 	int RETURN_VALUE = 2;
-	
+
+	public int armyantmodifier = 1;
+
 	const int UPGRADE_COST = 500;
 
 	const int U_WORKER = 0;
@@ -78,6 +80,7 @@ public class Hive : MonoBehaviour {
 		if (sugar >= ARMY_ANT_COST) {
 			sugar -= ARMY_ANT_COST;
 			antFactory.spawnArmyAnt(upgrades[U_ARMYANT]);
+			armyantmodifier += 1;
 			return true;
 		}
 		return false;
@@ -104,8 +107,9 @@ public class Hive : MonoBehaviour {
 	}
 	
 	public void takeDamage(float damage){
-		health -= damage;
+		health -= damage/2;
 		if (health <= 0) {
+			health = 0;
 			if(gameObject.tag == "PlayerHive"){
 				GameObject.Find("Game Menu").GetComponent<GameOverMenu>().gameOver("You LOOSE!");
 			}
@@ -125,14 +129,11 @@ public class Hive : MonoBehaviour {
 					// reduce sugar
 					sugar -= UPGRADE_COST;
 
-					if(u[0] == U_BULLANT){ // MS and AS increase to 1
-						
-					}
 					if(u[0] == U_FIREANT){ // baneling 15 damage
 						
 					}
 					if(u[0] == U_ARMYANT){ // +1 ad +1 hp for each army ant on map
-						
+						upgrades[U_ARMYANT][U_SPECIAL] = armyantmodifier;
 					}
 					// Increase upgrade
 					upgrades[u[0]][u[1]]++;

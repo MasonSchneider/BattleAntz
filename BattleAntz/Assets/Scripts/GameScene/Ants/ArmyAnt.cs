@@ -10,9 +10,13 @@ public class ArmyAnt : Ant {
 		life = maxHealth = 50 + upgrades[1]*10;
 		range = 1;
 	}
-	
+
 	// Update is called once per frame
 	public override void Update () {
 		base.Update();
+	}
+
+	public override void die(){
+		Destroy (this.gameObject);
 	}
 }
