@@ -111,40 +111,40 @@ public class Hive : MonoBehaviour {
 		if (health <= 0) {
 			health = 0;
 			if(gameObject.tag == "PlayerHive"){
-				GameObject.Find("Game Menu").GetComponent<GameOverMenu>().gameOver("You LOOSE!");
+				GameObject.Find("Game Menu").GetComponent<GameOverMenu>().gameOver("You lose!");
 			}
 			else{
-				GameObject.Find("Game Menu").GetComponent<GameOverMenu>().gameOver("You WIN!");
+				GameObject.Find("Game Menu").GetComponent<GameOverMenu>().gameOver("You win!");
 			}
 		}
 	}
 
-	public void upgrade(string u){
+	public void upgrade(int[] specificupgrade){
 		if (sugar >= UPGRADE_COST){ // Check if enough sugar
-			if((u[0] == U_WORKER && u[1] == U_HEALTH) || (u[0] == U_WORKER && u[1] == U_SPECIAL)){
+			if((specificupgrade[0] == U_WORKER && specificupgrade[1] == U_HEALTH) || (specificupgrade[0] == U_WORKER && specificupgrade[1] == U_SPECIAL)){
 				return;
 			}
-			if(u[1] == U_SPECIAL){
-				if (upgrades [u[0]][u[1]] < 1) { // Check if upgrade not full
+			if(specificupgrade[1] == U_SPECIAL){
+				if (upgrades [specificupgrade[0]][specificupgrade[1]] < 1) { // Check if upgrade not full
 					// reduce sugar
 					sugar -= UPGRADE_COST;
 
-					if(u[0] == U_FIREANT){ // baneling 15 damage
+					if(specificupgrade[0] == U_FIREANT){ // baneling 15 damage
 						
 					}
-					if(u[0] == U_ARMYANT){ // +1 ad +1 hp for each army ant on map
+					if(specificupgrade[0] == U_ARMYANT){ // +1 ad +1 hp for each army ant on map
 						upgrades[U_ARMYANT][U_SPECIAL] = armyantmodifier;
 					}
 					// Increase upgrade
-					upgrades[u[0]][u[1]]++;
+					upgrades[specificupgrade[0]][specificupgrade[1]]++;
 				}
 			}
-			else if (u[1] > U_SPEED || u[1] == U_STRENGTH || u[1] == U_HEALTH){
-				if (upgrades [u[0]][u[1]] < 2) { // Check if upgrade not full
+			else if (specificupgrade[1] > U_SPEED || specificupgrade[1] == U_STRENGTH || specificupgrade[1] == U_HEALTH){
+				if (upgrades [specificupgrade[0]][specificupgrade[1]] < 2) { // Check if upgrade not full
 					// reduce sugar
 					sugar -= UPGRADE_COST;
 					// Increase upgrade
-					upgrades[u[0]][u[1]]++;
+					upgrades[specificupgrade[0]][specificupgrade[1]]++;
 				}
 			}
 		}
