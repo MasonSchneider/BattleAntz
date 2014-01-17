@@ -3,13 +3,10 @@ using System.Collections;
 
 public class MainCamera : MonoBehaviour
 {
-	const float SCREEN_MOVEMENT_COEFFICIENT = 5;
-	private Vector3 previousMousePosition;
-	private Vector3 currentMousePosition;
+	const float SCREEN_MOVEMENT_COEFFICIENT = 7;
 	private Vector3 mapPosition;
-	private bool leftButtonIsDown = false;
-	private float minCamaraZoom = 1;
-	private float maxCameraZoom = 20;
+	private float minCamaraZoom = 6;
+	private float maxCameraZoom = 18;
 
 	// Use this for initialization
 	void Start ()
@@ -19,67 +16,85 @@ public class MainCamera : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		//Marks that the left button is no longer being held
-		if (Input.GetMouseButtonUp (0))
-			leftButtonIsDown = false;
-		
-		currentMousePosition = Input.mousePosition;
-
-		//Left mouse button down drags the main camera
-		if (Input.GetMouseButton(0) && leftButtonIsDown && currentMousePosition.y < Screen.height - 90) {
-			mapPosition = this.transform.position;
-
-			//Checks if this is the first update
-			if (previousMousePosition == null)
-				previousMousePosition = currentMousePosition;
-
-			//Moves the map x-coordinate if the mouse x-position has changed
-			if (currentMousePosition.x.CompareTo(previousMousePosition.x) != 0)
-			{
-				if (currentMousePosition.x - previousMousePosition.x > SCREEN_MOVEMENT_COEFFICIENT)
-				{
-					mapPosition.x--;
-					previousMousePosition.x = currentMousePosition.x;
-				}
-				else if (currentMousePosition.x - previousMousePosition.x < -SCREEN_MOVEMENT_COEFFICIENT)
-				{
-					mapPosition.x++;
-					previousMousePosition.x = currentMousePosition.x;
-				}
-			}
-
-			//Moves the map y-coordinate if the mouse y-position has changed
-			if (currentMousePosition.y.CompareTo(previousMousePosition.y) != 0)
-			{
-				if (currentMousePosition.y - previousMousePosition.y > SCREEN_MOVEMENT_COEFFICIENT)
-				{
-					mapPosition.y--;
-					previousMousePosition.y = currentMousePosition.y;
-				}
-				else if (currentMousePosition.y - previousMousePosition.y < -SCREEN_MOVEMENT_COEFFICIENT)
-				{
-					mapPosition.y++;
-					previousMousePosition.y = currentMousePosition.y;
-				}
-			}
-			this.transform.position = mapPosition;
-		}
-
-		//Marks that the left button was pressed down
-		if (Input.GetMouseButtonDown (0))
-			leftButtonIsDown = true;
-
-		//Scroll down, "zoom" the camera out
-		if (Input.GetAxis ("Mouse ScrollWheel") < 0) 
+		//Pinch zoom [for mobile devices]
+		if (Input.touchCount >= 2)
 		{
-			if (Camera.main.orthographicSize < maxCameraZoom)
-				Camera.main.orthographicSize++;
+			Vector2 touch0, touch1;
+			float distance;
+			touch0 = Input.GetTouch(0).position;
+			touch1 = Input.GetTouch(1).position;
+			
+			distance = Vector2.Distance(touch0, touch1);
+			
+			if (distance < 0)
+			{
+				if (Camera.main.orthographicSize < maxCameraZoom)
+					Camera.main.orthographicSize++;
+			}
+			else if (distance > 0)
+			{
+				if (Camera.main.orthographicSize > minCamaraZoom)
+					Camera.main.orthographicSize--;
+			}
 		}
-		//Scroll up, "zoom" the camera in
-		else if (Input.GetAxis ("Mouse ScrollWheel") > 0) 
+	}
+
+	public void OnGUI()
+	{
+		//Zoom when using scroll wheel (or zoom on synaptics laptop pad)
+		if (Event.current.type == EventType.ScrollWheel) 
 		{
-			if (Camera.main.orthographicSize > minCamaraZoom)
-				Camera.main.orthographicSize--;
+			if (Event.current.delta.y < 0)
+			{
+				if (Camera.main.orthographicSize > minCamaraZoom)
+					Camera.main.orthographicSize--;
+			}
+			else if (Event.current.delta.y > 0)
+			{
+				if (Camera.main.orthographicSize < maxCameraZoom)
+					Camera.main.orthographicSize++;
+			}
 		}
+
+		//Pan camera when mouse button is dragged
+		if (Event.current.type == EventType.MouseDrag) 
+		{
+			if (Input.GetMouseButton(0) && Input.mousePosition.y < Screen.height - 90) {
+				
+				mapPosition = this.transform.position;
+
+				TranslateInXDirection();
+
+				//Not currently in use
+				//TranslateInYDirection();
+
+				//Actually moves the camera
+				this.transform.position = mapPosition;
+			}
+		}
+	}
+	
+	//Moves the map x-coordinate if the mouse x-position has changed
+	void TranslateInXDirection()
+	{
+		if (Event.current.delta.x > SCREEN_MOVEMENT_COEFFICIENT) {
+			mapPosition.x--;
+		}
+		else
+			if (Event.current.delta.x < -SCREEN_MOVEMENT_COEFFICIENT) {
+				mapPosition.x++;
+			}
+	}
+	
+	//Moves the map y-coordinate if the mouse y-position has changed
+	void TranslateInYDirection()
+	{
+		if (Event.current.delta.y > SCREEN_MOVEMENT_COEFFICIENT) {
+			mapPosition.y++;
+		}
+		else
+			if (Event.current.delta.y < -SCREEN_MOVEMENT_COEFFICIENT) {
+				mapPosition.y--;
+			}
 	}
 }
