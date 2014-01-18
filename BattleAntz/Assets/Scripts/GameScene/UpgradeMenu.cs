@@ -66,7 +66,7 @@ public class UpgradeMenu : MonoBehaviour {
 
 		switch(upgrade) {
 		case 0:
-			desc = "This upgrade causes the " + type + " ant to move towards the enemy faster. This gives the ability to rush the enemy before they know what hit them.\n\n    Cost: 500 Sugar";
+			desc = "This upgrade causes the " + type + " ant to move towards the enemy faster. This gives the ability to rush the enemy before they know what hit them.\n\n     Cost: 500 Sugar";
 			break;
 		case 1:
 			desc = "This upgrade causes the " + type + " ant to spawn with more health. This allows it to leave longer in fights and even helps it beat its counter.\n\n\n     Cost: 500 Sugar";
@@ -104,13 +104,13 @@ public class UpgradeMenu : MonoBehaviour {
 		string desc = "";
 		switch(type) {
 		case "army":
-			desc = "Army ants are standard fighters used to wage war against the rival colony. These ants move at a normal speed and have normal health. Army ants are highly effective against  Bull Ants because they can swarm and overpower them.";
+			desc = "Army ants are standard fighters used to wage war against the rival colony. These ants move at a normal speed and have normal health. Army ants are highly effective against  Bull Ants because they can swarm and overpower them.\nCost: 50 Sugar";
 			break;
 		case "fire":
-			desc = "Fire ants are small insects with a very strong attack. What they lack in health they make up for in damage. These ants are very effective against Army Ants due to their range and ability to bring the pain.";
+			desc = "Fire ants are small insects with a very strong attack. What they lack in health they make up for in damage. These ants are very effective against Army Ants due to their range and ability to bring the pain.\nCost: 150 Sugar";
 			break;
 		case "bull":
-			desc = "Bull ants are massive insects that can withstand a large amount of damage but struggle to deal much damage of their own. These ants are very effective against Fire Ants because they can crush those puny punks and live through the pain.";
+			desc = "Bull ants are massive insects that can withstand a large amount of damage but struggle to deal much damage of their own. These ants are very effective against Fire Ants because they can crush those puny punks and live through the pain.\nCost: 100 Sugar";
 			break;
 		default:
 			desc = "";

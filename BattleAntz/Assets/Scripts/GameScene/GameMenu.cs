@@ -54,23 +54,23 @@ public class GameMenu : MonoBehaviour {
 		if (GUI.Button(new Rect(Screen.width - 338, 10, 25, 25), "+")) {
 			upgrades.type = "army";
 			upgrades.enabled = true;
-		}
-
-		// Manage Fire Ant
-		if (GUI.Button(new Rect(Screen.width - 250, 35, 50, 50), "Fire")) {
-			playerHive.buyFireAnt();
+		}		
+		
+		// Manage Bull Ant
+		if (GUI.Button(new Rect(Screen.width - 250, 35, 50, 50), "Bull")) {
+			playerHive.buyBullAnt();
 		}
 		if (GUI.Button(new Rect(Screen.width - 238, 10, 25, 25), "+")) {
-			upgrades.type = "fire";
+			upgrades.type = "bull";
 			upgrades.enabled = true;
 		}
 
-		// Manage Bull Ant
-		if (GUI.Button(new Rect(Screen.width - 150, 35, 50, 50), "Bull")) {
-			playerHive.buyBullAnt();
+		// Manage Fire Ant
+		if (GUI.Button(new Rect(Screen.width - 150, 35, 50, 50), "Fire")) {
+			playerHive.buyFireAnt();
 		}
 		if (GUI.Button(new Rect(Screen.width - 138, 10, 25, 25), "+")) {
-			upgrades.type = "bull";
+			upgrades.type = "fire";
 			upgrades.enabled = true;
 		}
 	}
