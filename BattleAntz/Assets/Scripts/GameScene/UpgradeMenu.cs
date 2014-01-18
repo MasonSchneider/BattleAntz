@@ -4,19 +4,23 @@ using System.Collections;
 public class UpgradeMenu : MonoBehaviour {
 
 	public string type;
+	private int typeInt = 0;
+	private int upgrade = 0;
+	private bool showingInfo;
 
 	// Use this for initialization
 	void Start () {
 		type = "army";
+		showingInfo = true;
 	}
 
 	void OnGUI() {
 		GUI.Box(new Rect(Screen.width-400,90,400,200), "Upgrades");
 		if(GUI.Button(new Rect(Screen.width-30,95,25,25), "X")) {
+			showingInfo = true;
 			this.enabled = false;
 		}
-		int typeInt = 0;
-		int upgrade = 0;
+
 		switch(type) {
 		case "army":
 			typeInt = 1;
@@ -32,22 +36,68 @@ public class UpgradeMenu : MonoBehaviour {
 			break;
 		}
 
-		showInfo();
+		if(showingInfo)
+			showInfo();
+		else
+			showUpgrade();
 
 		if(GUI.Button(new Rect(Screen.width-375,120,100,30),"Speed")) {
+			showingInfo = false;
 			upgrade = 0;
 		}
 		if(GUI.Button(new Rect(Screen.width-375,160,100,30),"Health")) {
+			showingInfo = false;
 			upgrade = 1;
 		}
 		if(GUI.Button(new Rect(Screen.width-375,200,100,30),"Strength")) {
+			showingInfo = false;
 			upgrade = 2;
 		}
 		if(GUI.Button(new Rect(Screen.width-375,240,100,30),"Special")) {
+			showingInfo = false;
 			upgrade =3;
 		}
 
 
+	}
+
+	private void showUpgrade() {
+		string desc = "";
+
+		switch(upgrade) {
+		case 0:
+			desc = "This upgrade causes the " + type + " ant to move towards the enemy faster. This gives the ability to rush the enemy before they know what hit them.\n\n    Cost: 500 Sugar";
+			break;
+		case 1:
+			desc = "This upgrade causes the " + type + " ant to spawn with more health. This allows it to leave longer in fights and even helps it beat its counter.\n\n\n     Cost: 500 Sugar";
+			break;
+		case 2:
+			desc = "This upgrade causes the " + type + " ant to have stronger attacks. This gives the ant the power to crush his enemies and carry his team to success.\n\n     Cost: 500 Sugar";;
+			break;
+		case 3:
+			switch(type) {
+			case "army":				
+				desc = "This upgrade causes the " + type + " ant to \n\n     Cost: 500 Sugar";
+				break;
+			case "fire":
+				desc = "This upgrade causes the " + type + " ant to \n\n     Cost: 500 Sugar";
+				break;
+			case "bull":
+				desc = "This upgrade causes the " + type + " ant to \n\n     Cost: 500 Sugar";
+				break;
+			default:
+				desc = "This upgrade causes the worker ant to \n\n     Cost: 500 Sugar";
+				break;
+			}
+			break;
+		default:
+			break;
+		}
+		GUI.Label(new Rect(Screen.width-250,130,200,150), desc);
+		if(GUI.Button(new Rect(Screen.width-200,250,100,30),"Purchase")) {
+			Debug.Log("Purchased");
+			gameObject.GetComponent<GameMenu>().playerHive.upgrade(new int[]{typeInt,upgrade});
+		}
 	}
 
 	private void showInfo() {
