@@ -12,6 +12,7 @@ public class NetworkManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		style.fontSize = 30;
+		DontDestroyOnLoad(this);
 	}
 	
 	private void startServer() {
@@ -38,6 +39,7 @@ public class NetworkManager : MonoBehaviour {
 
 	[RPC]
 	private void startGame(){
+		Publics.multiplayer = true;
 		Application.LoadLevel("GameScene");
 		Debug.Log("Should start game");
 	}
@@ -56,6 +58,7 @@ public class NetworkManager : MonoBehaviour {
 	}
 
 	void OnGUI() {
+
 		//The name of the game label
 		GUI.Label(new Rect(100, 50, 100, 50), "Name:", style);
 		gameName = GUI.TextField(new Rect(200, 50, 200, 50), gameName, style);
@@ -68,7 +71,7 @@ public class NetworkManager : MonoBehaviour {
 		
 				if (GUI.Button(new Rect(400, 300, 250, 100), "Start game!")){
 					networkView.RPC("startGame", RPCMode.Others);
-					Application.LoadLevel("GameScene");
+					startGame();
 				}
 			}
 
@@ -101,8 +104,10 @@ public class NetworkManager : MonoBehaviour {
 		}
 
 		//Back button
-		if (GUI.Button(new Rect(100, 100, 250, 100), "Back"))
+		if (GUI.Button(new Rect(800, 700, 150, 50), "Back")){
+			stopServer();
 			Application.LoadLevel("MainMenu");
+		}
 	}
 	
 	// Update is called once per frame

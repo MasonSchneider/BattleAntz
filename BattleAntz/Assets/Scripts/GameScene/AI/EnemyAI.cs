@@ -18,6 +18,8 @@ public class EnemyAI : MonoBehaviour {
 		t = Time.time;
 		schedule = LevelAI.getLevel(level);
 		lastSpawn = Time.time;
+		if(Publics.multiplayer)
+			Destroy(this);
 	}
 
 	void preScheduleAI(){
