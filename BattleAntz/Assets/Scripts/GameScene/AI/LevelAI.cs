@@ -28,6 +28,11 @@ public class LevelAI : MonoBehaviour {
 			{2, 	Publics.BULLANT, 	1},
 			{2, 	Publics.FIREANT, 	1}};
 		levels[0] = level0;
+		
+		// Level 1 info
+		float[,] level1 = {
+			{5, 	Publics.ARMYANT, 1}};
+		levels[1] = level1;
 	}
 
 }

@@ -4,12 +4,8 @@ using System.Collections;
 public class MainMenu : MonoBehaviour {
 	public Texture newGameTexture;
 	
-	private Rect newGameRect;
-
 	// Use this for initialization
 	void Start () {
-		newGameRect = new Rect(200, 200, 30, 30);
-	
 	}
 	
 	// Update is called once per frame
@@ -17,8 +13,14 @@ public class MainMenu : MonoBehaviour {
 	
 	}
 	void OnGUI () {
-		if (GuiButton.textureButton(newGameRect, newGameTexture)) {
+		if (GuiButton.textureButton(new Rect(400, 100, 30, 30), newGameTexture)) {
 			Application.LoadLevel("GameScene");
+		}
+		if (GUI.Button(new Rect(400, 200, 200, 50), "Single Player")) {
+			Application.LoadLevel("SinglePlayer");
+		}
+		if (GUI.Button(new Rect(400, 300, 200, 50), "Multi Player")) {
+			Application.LoadLevel("MultiPlayer");
 		}
 	}
 }
