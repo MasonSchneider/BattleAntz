@@ -36,6 +36,7 @@ public class NetworkManager : MonoBehaviour {
 		MasterServer.RequestHostList(typeName);
 	}
 
+	[RPC]
 	private void startGame(){
 		Application.LoadLevel("GameScene");
 		Debug.Log("Should start game");
@@ -55,7 +56,7 @@ public class NetworkManager : MonoBehaviour {
 	}
 
 	void OnGUI() {
-		
+		//The name of the game label
 		GUI.Label(new Rect(100, 50, 100, 50), "Name:", style);
 		gameName = GUI.TextField(new Rect(200, 50, 200, 50), gameName, style);
 
@@ -65,20 +66,25 @@ public class NetworkManager : MonoBehaviour {
 			if(Network.connections.Length > 0){
 				GUI.TextArea(new Rect(400, 150, 200, 50),  Network.connections[0].ipAddress, style);
 		
-				if (GUI.Button(new Rect(400, 300, 250, 100), "Start game!"))
-					startGame();
+				if (GUI.Button(new Rect(400, 300, 250, 100), "Start game!")){
+					networkView.RPC("startGame", RPCMode.Others);
+					Application.LoadLevel("GameScene");
+				}
 			}
 
 			if (GUI.Button(new Rect(100, 100, 250, 100), "Close Server"))
 				stopServer();
 		}
 
+		// If we are a client
 		else if(Network.isClient) {	
 			GUI.Label(new Rect(100, 150, 100, 50), "Connected to: " + MasterServer.ipAddress, style);
 
 			if (GUI.Button(new Rect(100, 300, 250, 100), "Disconnect"))
 				disconnect();
 		}
+
+		// Else we are nothing yet
 		else {
 			if (GUI.Button(new Rect(100, 100, 250, 100), "Start Server"))
 				startServer();
@@ -93,6 +99,10 @@ public class NetworkManager : MonoBehaviour {
 				}
 			}
 		}
+
+		//Back button
+		if (GUI.Button(new Rect(100, 100, 250, 100), "Back"))
+			Application.LoadLevel("MainMenu");
 	}
 	
 	// Update is called once per frame
