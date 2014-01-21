@@ -15,6 +15,7 @@ public class GameMenu : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		Time.timeScale = 1;
 		gameObject.GetComponent<PauseMenu>().enabled = false;
 		upgrades = gameObject.GetComponent<UpgradeMenu>();
 		upgrades.enabled = false;
@@ -52,8 +53,8 @@ public class GameMenu : MonoBehaviour {
 			playerHive.buyArmyAnt();
 		}
 		if (GUI.Button(new Rect(Screen.width - 338, 10, 25, 25), "+")) {
-			upgrades.type = "army";
 			upgrades.enabled = true;
+			upgrades.type = "army";
 		}		
 		
 		// Manage Bull Ant
@@ -61,8 +62,8 @@ public class GameMenu : MonoBehaviour {
 			playerHive.buyBullAnt();
 		}
 		if (GUI.Button(new Rect(Screen.width - 238, 10, 25, 25), "+")) {
-			upgrades.type = "bull";
 			upgrades.enabled = true;
+			upgrades.type = "bull";
 		}
 
 		// Manage Fire Ant
@@ -70,8 +71,8 @@ public class GameMenu : MonoBehaviour {
 			playerHive.buyFireAnt();
 		}
 		if (GUI.Button(new Rect(Screen.width - 138, 10, 25, 25), "+")) {
-			upgrades.type = "fire";
 			upgrades.enabled = true;
+			upgrades.type = "fire";
 		}
 	}
 }

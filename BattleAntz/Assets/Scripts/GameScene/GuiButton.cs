@@ -33,7 +33,7 @@ public class GuiButton : MonoBehaviour {
 	
 	//Display a text button with position r.x and r.y and size of the text
 	//r.width and r.height is used for hitbox increase/decrease
-	public static bool textButton(Rect r, string t, GUIStyle s=null){
+	public static bool textButton(Rect r, string t, GUIStyle s){
 		if(s == null)
 			s = new GUIStyle();
 		Vector2 size = s.CalcSize(new GUIContent(t));
