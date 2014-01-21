@@ -10,6 +10,7 @@ public class GameMenu : MonoBehaviour {
 	private Rect pauseRect;
 
 	public Hive playerHive;
+	private NetworkManager netMan;
 
 	private UpgradeMenu upgrades;
 	
@@ -20,6 +21,9 @@ public class GameMenu : MonoBehaviour {
 		upgrades = gameObject.GetComponent<UpgradeMenu>();
 		upgrades.enabled = false;
 		pauseRect = new Rect(Screen.width/2 - 24, 24, 0, 0);
+
+		if(Publics.multiplayer)
+			netMan = GameObject.Find("Network Manager").GetComponent("NetworkManager") as NetworkManager;
 	}
 
 	void OnGUI () {
@@ -40,16 +44,22 @@ public class GameMenu : MonoBehaviour {
 
 		// Manage Workers
 		if(GUI.Button(new Rect(215,55,43,20),"Buy")) {
+			if(Publics.multiplayer)
+				netMan.sendWorker();
 			playerHive.buyWorker();
 		}
 
 		if(GUI.Button(new Rect(260,55,43,20),"Sell")) {
+			if(Publics.multiplayer)
+				netMan.sendSellWorker();
 			playerHive.sellWorker();
 		}
 		// --------------
 
 		// Manage Army Ants
 		if (GUI.Button(new Rect(Screen.width - 350, 35, 50, 50), "Army")) {
+			if(Publics.multiplayer)
+				netMan.sendArmyAnt();
 			playerHive.buyArmyAnt();
 		}
 		if (GUI.Button(new Rect(Screen.width - 338, 10, 25, 25), "+")) {
@@ -59,6 +69,8 @@ public class GameMenu : MonoBehaviour {
 		
 		// Manage Bull Ant
 		if (GUI.Button(new Rect(Screen.width - 250, 35, 50, 50), "Bull")) {
+			if(Publics.multiplayer)
+				netMan.sendBullAnt();
 			playerHive.buyBullAnt();
 		}
 		if (GUI.Button(new Rect(Screen.width - 238, 10, 25, 25), "+")) {
@@ -68,6 +80,8 @@ public class GameMenu : MonoBehaviour {
 
 		// Manage Fire Ant
 		if (GUI.Button(new Rect(Screen.width - 150, 35, 50, 50), "Fire")) {
+			if(Publics.multiplayer)
+				netMan.sendFireAnt();
 			playerHive.buyFireAnt();
 		}
 		if (GUI.Button(new Rect(Screen.width - 138, 10, 25, 25), "+")) {

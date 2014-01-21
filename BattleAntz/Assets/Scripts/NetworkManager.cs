@@ -8,6 +8,7 @@ public class NetworkManager : MonoBehaviour {
 	private HostData[] hostList;
 	private GUIStyle style = new GUIStyle();
 	private string gameName = "New game";
+	private Hive _enemyHive;
 
 	// Use this for initialization
 	void Start () {
@@ -36,12 +37,56 @@ public class NetworkManager : MonoBehaviour {
 	private void refreshHostList() {
 		MasterServer.RequestHostList(typeName);
 	}
-
+	
+	public void sendArmyAnt(){
+		networkView.RPC("recieveArmyAnt", RPCMode.Others);
+	}
+	
+	public void sendBullAnt(){
+		networkView.RPC("recieveBullAnt", RPCMode.Others);
+	}
+	
+	public void sendFireAnt(){
+		networkView.RPC("recieveFireAnt", RPCMode.Others);
+	}
+	
+	public void sendWorker(){
+		networkView.RPC("recieveWorker", RPCMode.Others);
+	}
+	
+	public void sendSellWorker(){
+		networkView.RPC("recieveSellWorker", RPCMode.Others);
+	}
+	
+	[RPC]
+	private void recieveArmyAnt(){
+		enemyHive().buyArmyAnt();
+	}
+	
+	[RPC]
+	private void recieveBullAnt(){
+		enemyHive().buyBullAnt();
+	}
+	
+	[RPC]
+	private void recieveFireAnt(){
+		enemyHive().buyFireAnt();
+	}
+	
+	[RPC]
+	private void recieveWorker(){
+		enemyHive().buyWorker();
+	}
+	
+	[RPC]
+	private void recieveSellWorker(){
+		enemyHive().buyWorker();
+	}
+	
 	[RPC]
 	private void startGame(){
 		Publics.multiplayer = true;
 		Application.LoadLevel("GameScene");
-		Debug.Log("Should start game");
 	}
 
 	void OnServerInitialized() {
@@ -58,6 +103,7 @@ public class NetworkManager : MonoBehaviour {
 	}
 
 	void OnGUI() {
+		if(Publics.multiplayer) return;
 
 		//The name of the game label
 		GUI.Label(new Rect(100, 50, 100, 50), "Name:", style);
@@ -109,9 +155,10 @@ public class NetworkManager : MonoBehaviour {
 			Application.LoadLevel("MainMenu");
 		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	private Hive enemyHive(){
+		if(_enemyHive == null)
+			_enemyHive = GameObject.FindGameObjectWithTag("EnemyHive").GetComponent("Hive") as Hive;
+		return _enemyHive;
 	}
 }
