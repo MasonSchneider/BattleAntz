@@ -81,6 +81,15 @@ public class Ant : MonoBehaviour {
 			die();
 	}
 
+	// Take damage from attacking ant
+	public void doDamage(int damage){
+		if (life <= 0)
+			return;
+		life -= damage;
+		if(life <= 0)
+			die();
+	}
+
 	// Gets called everytime an ant collides with something
 	void OnCollisionEnter(Collision collision) {
 		//If colliding with enemy hive, do dmg and destroy self

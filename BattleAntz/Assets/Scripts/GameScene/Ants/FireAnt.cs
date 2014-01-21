@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class FireAnt : Ant {
-
+	int radius = 500;
+	int BANELING_DAMAGE = 15;
 	// Use this for initialization
 	void Start () {
 
@@ -25,8 +26,14 @@ public class FireAnt : Ant {
 		base.Update();
 	}
 
-	public override void die(){
-		// Deal 15 damage to everyone around this ant
-		Destroy (this.gameObject);
+	public override void die(){ // Deal 30 damage to enemies around this ant
+		Ant[] ants = enemyFactory.GetComponentsInChildren<Ant>();
+		foreach(Ant a in ants){
+			Vector2 diff = a.gameObject.transform.position-transform.position;
+			if(diff.sqrMagnitude < radius){
+				a.doDamage (BANELING_DAMAGE);
+			}
+		}
+		Destroy(this.gameObject);
 	}
 }

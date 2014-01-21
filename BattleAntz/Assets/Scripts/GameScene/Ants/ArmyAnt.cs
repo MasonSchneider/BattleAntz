@@ -15,8 +15,4 @@ public class ArmyAnt : Ant {
 	public override void Update () {
 		base.Update();
 	}
-
-	public override void die(){
-		Destroy (this.gameObject);
-	}
 }
