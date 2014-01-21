@@ -10,16 +10,17 @@ public class UpgradeMenu : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		type = "army";
 		showingInfo = true;
 	}
 
-	void OnGUI() {
+	public void OnGUI() {
 		GUI.Box(new Rect(Screen.width-400,90,400,200), "Upgrades");
 		if(GUI.Button(new Rect(Screen.width-30,95,25,25), "X")) {
 			showingInfo = true;
 			this.enabled = false;
 		}
+
+		Debug.Log(type);
 
 		switch(type) {
 		case "army":
@@ -35,6 +36,8 @@ public class UpgradeMenu : MonoBehaviour {
 			typeInt = 0;
 			break;
 		}
+
+		Debug.Log(typeInt.ToString());
 
 		if(showingInfo)
 			showInfo();
@@ -95,8 +98,10 @@ public class UpgradeMenu : MonoBehaviour {
 		}
 		GUI.Label(new Rect(Screen.width-250,130,200,150), desc);
 		if(GUI.Button(new Rect(Screen.width-200,250,100,30),"Purchase")) {
-			Debug.Log("Purchased");
-			gameObject.GetComponent<GameMenu>().playerHive.upgrade(new int[]{typeInt,upgrade});
+			Debug.Log("Purchased" + typeInt.ToString() + type + upgrade.ToString());
+			int[] upgradeParam = new int[]{typeInt,upgrade};
+			Debug.Log(upgradeParam[0].ToString() + upgradeParam[1].ToString());
+			gameObject.GetComponent<GameMenu>().playerHive.upgrade(upgradeParam);
 		}
 	}
 
