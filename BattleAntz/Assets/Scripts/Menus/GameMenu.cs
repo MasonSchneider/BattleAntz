@@ -11,7 +11,7 @@ public class GameMenu : MonoBehaviour {
 
 	public Hive playerHive;
 	private NetworkManager netMan;
-
+	public bool paused = false;
 	private UpgradeMenu upgrades;
 	
 	// Use this for initialization
@@ -39,17 +39,18 @@ public class GameMenu : MonoBehaviour {
 		// Pause Game
 		if (GuiButton.textureButton(pauseRect, pauseTexture)) {
 			Time.timeScale = 0;
+			paused = true;
 			gameObject.GetComponent<PauseMenu>().enabled = true;
 		}
 
 		// Manage Workers
-		if(GUI.Button(new Rect(215,55,43,20),"Buy")) {
+		if(GUI.Button(new Rect(215,55,43,20),"Buy") && !paused) {
 			if(Publics.multiplayer)
 				netMan.sendWorker();
 			playerHive.buyWorker();
 		}
 
-		if(GUI.Button(new Rect(260,55,43,20),"Sell")) {
+		if(GUI.Button(new Rect(260,55,43,20),"Sell") && !paused) {
 			if(Publics.multiplayer)
 				netMan.sendSellWorker();
 			playerHive.sellWorker();
@@ -57,34 +58,34 @@ public class GameMenu : MonoBehaviour {
 		// --------------
 
 		// Manage Army Ants
-		if (GUI.Button(new Rect(Screen.width - 350, 35, 50, 50), "Army")) {
+		if (GUI.Button(new Rect(Screen.width - 350, 35, 50, 50), "Army") && !paused) {
 			if(Publics.multiplayer)
 				netMan.sendArmyAnt();
 			playerHive.buyArmyAnt();
 		}
-		if (GUI.Button(new Rect(Screen.width - 338, 10, 25, 25), "+")) {
+		if (GUI.Button(new Rect(Screen.width - 338, 10, 25, 25), "+") && !paused) {
 			upgrades.enabled = true;
 			upgrades.type = "army";
 		}		
 		
 		// Manage Bull Ant
-		if (GUI.Button(new Rect(Screen.width - 250, 35, 50, 50), "Bull")) {
+		if (GUI.Button(new Rect(Screen.width - 250, 35, 50, 50), "Bull") && !paused) {
 			if(Publics.multiplayer)
 				netMan.sendBullAnt();
 			playerHive.buyBullAnt();
 		}
-		if (GUI.Button(new Rect(Screen.width - 238, 10, 25, 25), "+")) {
+		if (GUI.Button(new Rect(Screen.width - 238, 10, 25, 25), "+") && !paused) {
 			upgrades.enabled = true;
 			upgrades.type = "bull";
 		}
 
 		// Manage Fire Ant
-		if (GUI.Button(new Rect(Screen.width - 150, 35, 50, 50), "Fire")) {
+		if (GUI.Button(new Rect(Screen.width - 150, 35, 50, 50), "Fire") && !paused) {
 			if(Publics.multiplayer)
 				netMan.sendFireAnt();
 			playerHive.buyFireAnt();
 		}
-		if (GUI.Button(new Rect(Screen.width - 138, 10, 25, 25), "+")) {
+		if (GUI.Button(new Rect(Screen.width - 138, 10, 25, 25), "+") && !paused) {
 			upgrades.enabled = true;
 			upgrades.type = "fire";
 		}
