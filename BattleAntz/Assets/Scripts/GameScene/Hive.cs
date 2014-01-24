@@ -12,7 +12,7 @@ public class Hive : MonoBehaviour {
 
 	// String array storing the current upgrades of the hive
 	// 0-indexed, [ant class][upgrade type]
-	protected int[][] upgrades = new int[4][];
+	public int[][] upgrades = new int[4][];
 	
 	public AntFactory antFactory;
 

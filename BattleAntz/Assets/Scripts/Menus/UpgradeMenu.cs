@@ -16,6 +16,7 @@ public class UpgradeMenu : MonoBehaviour {
 	}
 
 	public void OnGUI() {
+		if(gameObject.GetComponent<GameMenu>().paused) return;
 		GUI.Box(new Rect(Screen.width-400,90,400,200), "Upgrades");
 		if(GUI.Button(new Rect(Screen.width-30,95,25,25), "X")) {
 			showingInfo = true;
@@ -81,10 +82,10 @@ public class UpgradeMenu : MonoBehaviour {
 				desc = "This upgrade causes the " + type + " ant to become more powerful with each other friendly army ant on the field. Gains health and damage for each other army ant.\n\n     Cost: " + constants.UPGRADE_COST + " sugar";
 				break;
 			case "fire":
-				desc = "This upgrade causes the " + type + " ant to explode on death, dealing damage to enemies around it in a massive radius. \n\n     Cost: " + constants.UPGRADE_COST + " sugar";
+				desc = "This upgrade causes the " + type + " ant to explode on death, dealing damage to enemies around it. \n\n\n\n     Cost: " + constants.UPGRADE_COST + " sugar";
 				break;
 			case "bull":
-				desc = "This upgrade causes the " + type + " ant to become even more athletic, doubling the attack speed and move speed.\n\n     Cost: " + constants.UPGRADE_COST + " sugar";
+				desc = "This upgrade causes the " + type + " ant to become even more athletic, doubling the attack speed and move speed.\n\n\n     Cost: " + constants.UPGRADE_COST + " sugar";
 				break;
 			default:
 				desc = "This upgrade causes the worker ant to produce sugar at 150% capacity. \n\n     Cost: " + constants.UPGRADE_COST + " sugar";
@@ -94,12 +95,16 @@ public class UpgradeMenu : MonoBehaviour {
 		default:
 			break;
 		}
-		GUI.Label(new Rect(Screen.width-250,130,200,150), desc);
-		if(GUI.Button(new Rect(Screen.width-200,250,100,30),"Purchase")) {
-			Debug.Log("Purchased" + typeInt.ToString() + type + upgrade.ToString());
-			int[] upgradeParam = new int[]{typeInt,upgrade};
-			Debug.Log(upgradeParam[0].ToString() + upgradeParam[1].ToString());
-			gameObject.GetComponent<GameMenu>().playerHive.upgrade(upgradeParam);
+		if(gameObject.GetComponent<GameMenu>().playerHive.upgrades[typeInt][upgrade] == 1) {
+			GUI.Label(new Rect(Screen.width-250,130,200,150), "This upgrade is complete!");
+		} else {
+			GUI.Label(new Rect(Screen.width-250,130,200,150), desc);
+			if(GUI.Button(new Rect(Screen.width-200,250,100,30),"Purchase")) {
+				Debug.Log("Purchased" + typeInt.ToString() + type + upgrade.ToString());
+				int[] upgradeParam = new int[]{typeInt,upgrade};
+				Debug.Log(upgradeParam[0].ToString() + upgradeParam[1].ToString());
+				gameObject.GetComponent<GameMenu>().playerHive.upgrade(upgradeParam);
+			}
 		}
 	}
 
@@ -107,13 +112,13 @@ public class UpgradeMenu : MonoBehaviour {
 		string desc = "";
 		switch(type) {
 		case "army":
-			desc = "Army ants are standard fighters used to wage war against the rival colony. These ants move at a normal speed and have normal health. Army ants are highly effective against  Bull Ants because they can swarm and overpower them.\nCost: 50 Sugar";
+			desc = "Army ants are standard fighters used to wage war against the rival colony. These ants move at a normal speed and have normal health. Army ants are highly effective against  Bull Ants because they can swarm and overpower them.\nCost: " + constants.ARMY_ANT_COST + " Sugar";
 			break;
 		case "fire":
-			desc = "Fire ants are small insects with a very strong attack. What they lack in health they make up for in damage. These ants are very effective against Army Ants due to their range and ability to bring the pain.\nCost: 150 Sugar";
+			desc = "Fire ants are small insects with a very strong attack. What they lack in health they make up for in damage. These ants are very effective against Army Ants due to their range and ability to bring the pain.\nCost: "+constants.FIRE_ANT_COST+" Sugar";
 			break;
 		case "bull":
-			desc = "Bull ants are massive insects that can withstand a large amount of damage but struggle to deal much damage of their own. These ants are very effective against Fire Ants because they can crush those puny punks and live through the pain.\nCost: 100 Sugar";
+			desc = "Bull ants are massive insects that can withstand a large amount of damage but struggle to deal much damage of their own. These ants are very effective against Fire Ants because they can crush those puny punks and live through the pain.\nCost: "+constants.BULL_ANT_COST+" Sugar";
 			break;
 		default:
 			desc = "";
