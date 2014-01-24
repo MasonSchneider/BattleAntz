@@ -1,35 +1,14 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Hive : MonoBehaviour {
 	float nextTick = 0;
-	int SUGAR_RATE = 1;
-//	int BASE_PRODUCTION = 10;
-	int WORKER_COST = 50;
-	int WORKER_PRODUCTION = 10;
-	int ARMY_ANT_COST = 50;
-	int BULL_ANT_COST = 100;
-	int FIRE_ANT_COST = 150;
-	int RETURN_VALUE = 2;
-
-	public int armyantmodifier = 1;
-
-	const int UPGRADE_COST = 500;
-
-	const int U_WORKER = 0;
-	const int U_ARMYANT = 1;
-	const int U_BULLANT = 2;
-	const int U_FIREANT = 3;
-	
-	const int U_SPEED = 0;
-	const int U_HEALTH = 1;
-	const int U_STRENGTH = 2;
-	const int U_SPECIAL = 3;
 	
 	public int sugar;
 	public float health;
 	public int workers;
 	public int income; // total production of the hive
+	private Constants constants;
 
 	// String array storing the current upgrades of the hive
 	// 0-indexed, [ant class][upgrade type]
@@ -39,6 +18,7 @@ public class Hive : MonoBehaviour {
 
 	// Use this for initialization
 	public virtual void Start () {
+		constants = gameObject.GetComponent<Constants>();
 		upgrades[0] = new int[4];
 		upgrades[1] = new int[4];
 		upgrades[2] = new int[4];
@@ -48,17 +28,17 @@ public class Hive : MonoBehaviour {
 	// Update is called once per frame (60fps?)
 	public virtual void Update () {
 		if (Time.time > nextTick) {
-			nextTick = Time.time + SUGAR_RATE;
+			nextTick = Time.time + constants.SUGAR_RATE;
 			sugar += income;
 		}
 	}
 	
 	// Buy a worker
 	public bool buyWorker(){
-		if(sugar >= WORKER_COST){
-			sugar -= WORKER_COST;
+		if(sugar >= constants.WORKER_COST){
+			sugar -= constants.WORKER_COST;
 			workers += 1;
-			income += (int) (WORKER_PRODUCTION*(1+(upgrades[U_WORKER][U_SPEED]+upgrades[U_WORKER][U_STRENGTH])*.10));
+			income += (int) (constants.WORKER_PRODUCTION*(1+(upgrades[constants.U_WORKER][constants.U_SPEED]+upgrades[constants.U_WORKER][constants.U_STRENGTH])*.10));
 			return true;
 		}
 		return false;
@@ -68,8 +48,8 @@ public class Hive : MonoBehaviour {
 	public bool sellWorker(){
 		if(workers > 0){
 			workers -= 1;
-			income -= WORKER_PRODUCTION;
-			sugar += WORKER_COST/RETURN_VALUE;
+			income -= constants.WORKER_PRODUCTION;
+			sugar += constants.WORKER_COST/constants.RETURN_VALUE;
 			return true;
 		}
 		return false;
@@ -77,10 +57,9 @@ public class Hive : MonoBehaviour {
 
 	// Buy an army ant
 	public bool buyArmyAnt(){
-		if (sugar >= ARMY_ANT_COST) {
-			sugar -= ARMY_ANT_COST;
-			antFactory.spawnArmyAnt(upgrades[U_ARMYANT]);
-			armyantmodifier += 1;
+		if (sugar >= constants.ARMY_ANT_COST) {
+			sugar -= constants.ARMY_ANT_COST;
+			antFactory.spawnArmyAnt(upgrades[constants.U_ARMYANT]);
 			return true;
 		}
 		return false;
@@ -88,9 +67,9 @@ public class Hive : MonoBehaviour {
 
 	//Buy a bull ant
 	public bool buyBullAnt(){
-		if (sugar >= BULL_ANT_COST) {
-			sugar -= BULL_ANT_COST;
-			antFactory.spawnBullAnt(upgrades[U_BULLANT]);
+		if (sugar >= constants.BULL_ANT_COST) {
+			sugar -= constants.BULL_ANT_COST;
+			antFactory.spawnBullAnt(upgrades[constants.U_BULLANT]);
 			return true;
 		}
 		return false;
@@ -98,9 +77,9 @@ public class Hive : MonoBehaviour {
 	
 	//Buy a fire ant
 	public bool buyFireAnt(){
-		if (sugar >= FIRE_ANT_COST) {
-			sugar -= FIRE_ANT_COST;
-			antFactory.spawnFireAnt(upgrades[U_FIREANT]);
+		if (sugar >= constants.FIRE_ANT_COST) {
+			sugar -= constants.FIRE_ANT_COST;
+			antFactory.spawnFireAnt(upgrades[constants.U_FIREANT]);
 			return true;
 		}
 		return false;
@@ -119,34 +98,37 @@ public class Hive : MonoBehaviour {
 		}
 	}
 
-	public void upgrade(int[] specificupgrade){
-		if (sugar >= UPGRADE_COST){ // Check if enough sugar
-			if((specificupgrade[0] == U_WORKER && specificupgrade[1] == U_HEALTH) || (specificupgrade[0] == U_WORKER && specificupgrade[1] == U_SPECIAL)){
-				return;
+	public bool upgrade(int[] specificupgrade){
+		int a = specificupgrade [0];
+		int b = specificupgrade [1];
+		if (sugar >= constants.UPGRADE_COST){ // Check if enough sugar
+			if(a == constants.U_WORKER){ // TODO: Worker upgrades
+				Debug.Log("worker" + a + " " + b);
+				return false;
 			}
-			if(specificupgrade[1] == U_SPECIAL){
-				if (upgrades [specificupgrade[0]][specificupgrade[1]] < 1) { // Check if upgrade not full
+			else if(b == constants.U_SPECIAL){
+				if (upgrades [a][b] < 1) { // Check if upgrade not full
 					// reduce sugar
-					sugar -= UPGRADE_COST;
+					sugar -= constants.UPGRADE_COST;
 
-					if(specificupgrade[0] == U_FIREANT){ // baneling 15 damage
-						
-					}
-					if(specificupgrade[0] == U_ARMYANT){ // +1 ad +1 hp for each army ant on map
-						upgrades[U_ARMYANT][U_SPECIAL] = armyantmodifier;
-					}
 					// Increase upgrade
-					upgrades[specificupgrade[0]][specificupgrade[1]]++;
+					upgrades[a][b]++;
+					Debug.Log("special success " + a + " " + b);
+					return true;
 				}
 			}
-			else if (specificupgrade[1] > U_SPEED || specificupgrade[1] == U_STRENGTH || specificupgrade[1] == U_HEALTH){
-				if (upgrades [specificupgrade[0]][specificupgrade[1]] < 2) { // Check if upgrade not full
+			else if (b == constants.U_SPEED || b == constants.U_STRENGTH || b == constants.U_HEALTH){
+				if (upgrades [a][b] < 2) { // Check if upgrade not full
 					// reduce sugar
-					sugar -= UPGRADE_COST;
+					sugar -= constants.UPGRADE_COST;
 					// Increase upgrade
-					upgrades[specificupgrade[0]][specificupgrade[1]]++;
+					upgrades[a][b]++;
+					Debug.Log("speed str hp success " + a + " " + b);
+					return true;
 				}
 			}
 		}
+		Debug.Log ("not success" + a + " " + b);
+		return false;
 	}
 }

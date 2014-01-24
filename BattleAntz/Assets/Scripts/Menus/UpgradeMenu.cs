@@ -7,9 +7,11 @@ public class UpgradeMenu : MonoBehaviour {
 	private int typeInt = 0;
 	private int upgrade = 0;
 	private bool showingInfo;
+	private Constants constants;
 
 	// Use this for initialization
 	void Start () {
+		constants = gameObject.GetComponent<Constants>();
 		showingInfo = true;
 	}
 
@@ -20,24 +22,20 @@ public class UpgradeMenu : MonoBehaviour {
 			this.enabled = false;
 		}
 
-		Debug.Log(type);
-
 		switch(type) {
 		case "army":
 			typeInt = 1;
 			break;
-		case "fire":
+		case "bull":
 			typeInt = 2;
 			break;
-		case "bull":
+		case "fire":
 			typeInt = 3;
 			break;
 		default:
 			typeInt = 0;
 			break;
 		}
-
-		Debug.Log(typeInt.ToString());
 
 		if(showingInfo)
 			showInfo();
@@ -69,27 +67,27 @@ public class UpgradeMenu : MonoBehaviour {
 
 		switch(upgrade) {
 		case 0:
-			desc = "This upgrade causes the " + type + " ant to move towards the enemy faster. This gives the ability to rush the enemy before they know what hit them.\n\n     Cost: 500 Sugar";
+			desc = "This upgrade causes the " + type + " ant to move towards the enemy faster. This gives the ability to rush the enemy before they know what hit them.\n\n     Cost: " + constants.UPGRADE_COST + " sugar";
 			break;
 		case 1:
-			desc = "This upgrade causes the " + type + " ant to spawn with more health. This allows it to leave longer in fights and even helps it beat its counter.\n\n\n     Cost: 500 Sugar";
+			desc = "This upgrade causes the " + type + " ant to spawn with more health. This allows it to leave longer in fights and even helps it beat its counter.\n\n\n     Cost: " + constants.UPGRADE_COST + " sugar";
 			break;
 		case 2:
-			desc = "This upgrade causes the " + type + " ant to have stronger attacks. This gives the ant the power to crush his enemies and carry his team to success.\n\n     Cost: 500 Sugar";;
+			desc = "This upgrade causes the " + type + " ant to have stronger attacks. This gives the ant the power to crush his enemies and carry his team to success.\n\n     Cost: " + constants.UPGRADE_COST + " sugar";
 			break;
 		case 3:
 			switch(type) {
 			case "army":				
-				desc = "This upgrade causes the " + type + " ant to \n\n     Cost: 500 Sugar";
+				desc = "This upgrade causes the " + type + " ant to become more powerful with each other friendly army ant on the field. Gains health and damage for each other army ant.\n\n     Cost: " + constants.UPGRADE_COST + " sugar";
 				break;
 			case "fire":
-				desc = "This upgrade causes the " + type + " ant to \n\n     Cost: 500 Sugar";
+				desc = "This upgrade causes the " + type + " ant to explode on death, dealing damage to enemies around it in a massive radius. \n\n     Cost: " + constants.UPGRADE_COST + " sugar";
 				break;
 			case "bull":
-				desc = "This upgrade causes the " + type + " ant to \n\n     Cost: 500 Sugar";
+				desc = "This upgrade causes the " + type + " ant to become even more athletic, doubling the attack speed and move speed.\n\n     Cost: " + constants.UPGRADE_COST + " sugar";
 				break;
 			default:
-				desc = "This upgrade causes the worker ant to \n\n     Cost: 500 Sugar";
+				desc = "This upgrade causes the worker ant to produce sugar at 150% capacity. \n\n     Cost: " + constants.UPGRADE_COST + " sugar";
 				break;
 			}
 			break;
