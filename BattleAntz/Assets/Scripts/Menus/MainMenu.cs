@@ -13,11 +13,8 @@ public class MainMenu : MonoBehaviour {
 	
 	}
 	void OnGUI () {
-		if (GuiButton.textureButton(new Rect(400, 100, 30, 30), newGameTexture)) {
-			Application.LoadLevel("GameScene");
-		}
 		if (GUI.Button(new Rect(400, 200, 200, 50), "Single Player")) {
-			Application.LoadLevel("SinglePlayer");
+			Application.LoadLevel("LevelSelection");
 		}
 		if (GUI.Button(new Rect(400, 300, 200, 50), "Multi Player")) {
 			Application.LoadLevel("MultiPlayer");

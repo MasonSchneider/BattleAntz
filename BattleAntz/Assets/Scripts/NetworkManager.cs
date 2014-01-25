@@ -13,6 +13,7 @@ public class NetworkManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		style.fontSize = 30;
+		style.normal.textColor = Color.white;
 		DontDestroyOnLoad(this);
 	}
 	
@@ -107,7 +108,7 @@ public class NetworkManager : MonoBehaviour {
 
 		//The name of the game label
 		GUI.Label(new Rect(100, 50, 100, 50), "Name:", style);
-		gameName = GUI.TextField(new Rect(200, 50, 200, 50), gameName, style);
+		gameName = GUI.TextField (new Rect (200, 50, 200, 50), gameName, style);
 
 		// If we are a server
 		if(Network.isServer) {
@@ -153,6 +154,7 @@ public class NetworkManager : MonoBehaviour {
 		if (GUI.Button(new Rect(800, 700, 150, 50), "Back")){
 			stopServer();
 			Application.LoadLevel("MainMenu");
+			Destroy(this);
 		}
 	}
 
