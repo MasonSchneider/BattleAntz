@@ -19,7 +19,7 @@ public class MainMenu : MonoBehaviour {
 		if (GUI.Button(new Rect(400, 300, 200, 50), "Multi Player")) {
 			Application.LoadLevel("MultiPlayer");
 		}
-		if (GUI.Button(new Rect(400, 400, 200, 50), "Story")) {
+		if (GUI.Button(new Rect(400, 400, 200, 50), "About")) {
 			Application.LoadLevel("About");
 		}
 	}
