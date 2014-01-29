@@ -5,10 +5,10 @@ public class BullAnt : Ant {
 	
 	// Use this for initialization
 	void Start () {
-		speed = 0.05f*(1 + upgrades[3])*(1 + upgrades[0]*1.0f/3.0f); // special upgrade of bullant +1 AS and MS
-		damage = 30 + upgrades[2]*6;
-		life = maxHealth = 100 + upgrades[1]*20;
-		range = 1;
+		speed = Constants.BULL_ANT_SPEED*(1.0f + upgrades[3])*(1.0f + upgrades[0]*Constants.UPGRADE_FRACTION); // special upgrade of bullant +1 AS and MS
+		damage = Constants.BULL_ANT_DAMAGE*(1.0f + upgrades[2]*Constants.UPGRADE_FRACTION);
+		life = maxHealth = Constants.BULL_ANT_LIFE*(1.0f + upgrades[1]*Constants.UPGRADE_FRACTION);
+		range = Constants.BULL_ANT_RANGE;
 	}
 	
 	// Update is called once per frame

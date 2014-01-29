@@ -4,10 +4,8 @@ using System.Collections;
 public class AboutMenu : MonoBehaviour {
 
 	private string section;
-	private Constants constants;
 	// Use this for initialization
 	void Start() {
-		constants = gameObject.GetComponent<Constants>();
 		section = "Background";
 	}
 
@@ -40,19 +38,19 @@ public class AboutMenu : MonoBehaviour {
 			infoText = "You and your colony have settled in a family’s backyard with dreams of conquering the neighborhood. Once you’ve finally gotten comfortable, word spreads that your colony has hit the sweet spot for all things sweet. A jealous queen with no home hears about your colony and  decides she deserves to rule your colony and plans a takeover. And so, the invasion begins...\n\nTo conquer the queen you must tell your hive when to make sugar or when to fight back. Sugar is what makes your hive tick so be sure to collect as much as possible in order to make the biggest army this backyard has ever seen!";
 			break;
 		case "Worker Ants":
-			infoText = "From your first breath you’ve been working for the weekend. It will never come. You know it but you still endlessly go out into the unknown toiling day after day for your colony’s supplies.\n\nStrategy: Small drones that collect sugar for the colony. These ants move at a normal speed and cannot attack. Produces +10 sugar every 5 seconds.\n\nCost: "+constants.WORKER_COST+"\nDamage: 0\nLife: 1\nSpeed: 1\nAttack Speed: 1";
+			infoText = "From your first breath you’ve been working for the weekend. It will never come. You know it but you still endlessly go out into the unknown toiling day after day for your colony’s supplies.\n\nStrategy: Small drones that collect sugar for the colony. These ants move at a normal speed and cannot attack. Produces +"+Constants.WORKER_PRODUCTION+" sugar every 5 seconds.\n\nCost: "+Constants.WORKER_COST+"\nDamage: N/A\nLife: N/A\nSpeed: N/A";
 			break;
 		case "Army Ants":
-			infoText = "You were born for this, for the short 3 days of your life you have trained fighting rocks in the garden to strengthen yourself in order for the opportunity to lay down your life for your colony, your queen, and glory in battle.  On your off days you enjoy long walks along the sidewalk after the rain.\n\nStrategy: Standard fighters to wage war against the rival colony. These ants move at a normal speed and have normal health. Army ants are highly effective against  Bull Ants because they can swarm and overpower them.\n\nCost: "+constants.ARMY_ANT_COST+"\nDamage: 10\nLife: 50\nSpeed: 1\nAttack Speed: 1";
+			infoText = "You were born for this, for the short 3 days of your life you have trained fighting rocks in the garden to strengthen yourself in order for the opportunity to lay down your life for your colony, your queen, and glory in battle.  On your off days you enjoy long walks along the sidewalk after the rain.\n\nStrategy: Standard fighters to wage war against the rival colony. These ants move at a fast speed and have normal health. Army ants are highly effective against  Bull Ants because they can swarm and overpower them.\n\nCost: "+Constants.ARMY_ANT_COST+"\nDamage: "+Constants.ARMY_ANT_DAMAGE+"\nLife: "+Constants.ARMY_ANT_LIFE+"\nSpeed: "+Constants.ARMY_ANT_SPEED;
 			break;
 		case "Bull Ants":
-			infoText = "Let’s be honest. You work out. You have perfected your body and can squat a whole leaf. You question whether your enemies even lift, bro. Your only problem on the battlefield is movement, since you skipped leg day too many times.\n\nStrategy: Massive insects that can withstand a large amount of damage, but deals less overall damage. These ants are very effective against Fire Ants.\n\nCost: "+constants.BULL_ANT_COST+"\nDamage: 30\nLife: 100\nSpeed: .5\nAttack Speed: .5";
+			infoText = "Let’s be honest. You work out. You have perfected your body and can squat a whole leaf. You question whether your enemies even lift, bro. Your only problem on the battlefield is movement, since you skipped leg day too many times.\n\nStrategy: Massive insects that can withstand a large amount of damage, but deals less overall damage. These ants are very effective against Fire Ants.\n\nCost: "+Constants.BULL_ANT_COST+"\nDamage: "+Constants.BULL_ANT_DAMAGE+"\nLife: "+Constants.BULL_ANT_LIFE+"\nSpeed: "+Constants.BULL_ANT_SPEED;
 			break;
 		case "Fire Ants":
-			infoText = "You realized you were special when you accidentally killed your family. Since that day, all you have practiced is the art of killing. Your venom is deadly. Your favorite music is Metallica.\n\nStrategy: Weak insects with a very strong attack. These ants are very effective against Army Ants.\n\nCost: "+constants.FIRE_ANT_COST+"\nDamage: 50\nLife: 50\nSpeed: .5\nAttack Speed: .5";
+			infoText = "You realized you were special when you accidentally killed your family. Since that day, all you have practiced is the art of killing. Your venom is deadly. Your favorite music is Metallica.\n\nStrategy: Weak insects with a very strong attack. These ants are very effective against Army Ants.\n\nCost: "+Constants.FIRE_ANT_COST+"\nDamage: "+Constants.FIRE_ANT_DAMAGE+"\nLife: "+Constants.FIRE_ANT_LIFE+"\nSpeed: "+Constants.FIRE_ANT_SPEED;
 			break;
 		case "Credits":
-			infoText = "Battle Antz was created as a final project for the Game Development course at Rose-Hulman Institute of Technology. David Jangdal created the idea for this game and Mason Schneider, Mark Hein, Josh Wright, and Luke Mader joined him in the development.\n\nPoject Leader and AI: David Jangdal\nInterface Developer: Mason Schneider\nBackend Developer: Mark Hein\nGraphics and Sound: Josh Wright\nLevel Interface: Luke Mader\n\nInstructor: Cary Laxer";
+			infoText = "Battle Antz was created as a final project for the Game Development course at Rose-Hulman Institute of Technology. David Jangdal created the idea for this game and Mason Schneider, Mark Hein, Josh Wright, and Luke Mader joined him in the development.\n\nProject Leader and AI: David Jangdal\nInterface Developer: Mason Schneider\nBackend Developer: Mark Hein\nGraphics and Sound: Josh Wright\nLevel Interface: Luke Mader\n\nInstructor: Cary Laxer";
 			break;
 		default:
 			infoText = "You and your colony have settled in a family’s backyard with dreams of conquering the neighborhood. Once you’ve finally gotten comfortable, word spreads that your colony has hit the sweet spot for all things sweet. A jealous queen with no home hears about your colony and  decides she deserves to rule your colony and plans a takeover. And so, the invasion begins...\n\nTo conquer the queen you must tell your hive when to make sugar or when to fight back. Sugar is what makes your hive tick so be sure to collect as much as possible in order to make the biggest army this backyard has ever seen!";

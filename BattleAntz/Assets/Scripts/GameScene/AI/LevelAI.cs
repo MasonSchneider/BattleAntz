@@ -22,16 +22,16 @@ public class LevelAI : MonoBehaviour {
 	private static void setup(){
 		// Level 0 info
 		float[,] level0 = {
-			{1, 	Publics.ARMYANT, 	1},
-			{0.5f, 	Publics.ARMYANT, 	4},
-			{2f, 	Publics.WORKER, 	2},
-			{2, 	Publics.BULLANT, 	1},
-			{2, 	Publics.FIREANT, 	1}};
+			{1, 	Constants.ARMYANT, 	1},
+			{0.5f, 	Constants.ARMYANT, 	4},
+			{2f, 	Constants.WORKER, 	2},
+			{2, 	Constants.BULLANT, 	1},
+			{2, 	Constants.FIREANT, 	1}};
 		levels[0] = level0;
 		
 		// Level 1 info
 		float[,] level1 = {
-			{5, 	Publics.ARMYANT, 1}};
+			{5, 	Constants.ARMYANT, 1}};
 		levels[1] = level1;
 	}
 
