@@ -86,7 +86,7 @@ public class NetworkManager : MonoBehaviour {
 	
 	[RPC]
 	private void startGame(){
-		Publics.multiplayer = true;
+		Constants.multiplayer = true;
 		Application.LoadLevel("GameScene");
 	}
 
@@ -104,7 +104,7 @@ public class NetworkManager : MonoBehaviour {
 	}
 
 	void OnGUI() {
-		if(Publics.multiplayer) return;
+		if(Constants.multiplayer) return;
 
 		//The name of the game label
 		GUI.Label(new Rect(100, 50, 100, 50), "Name:", style);

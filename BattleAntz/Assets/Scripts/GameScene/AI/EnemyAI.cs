@@ -15,10 +15,9 @@ public class EnemyAI : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		t = Time.time;
-		Debug.Log("Doing level " + Publics.level);
-		schedule = LevelAI.getLevel(Publics.level);
+		schedule = LevelAI.getLevel(Constants.level);
 		lastSpawn = Time.time;
-		if(Publics.multiplayer)
+		if(Constants.multiplayer)
 			Destroy(this);
 	}
 
@@ -28,16 +27,16 @@ public class EnemyAI : MonoBehaviour {
 			if(Time.time > lastSpawn + time && i == nextIndex){
 				lastSpawn += time;
 				nextIndex = i<schedule.Length/3-1 ? i+1 : 0;
-				if(schedule[i,1] == Publics.WORKER)
+				if(schedule[i,1] == Constants.WORKER)
 					spawnWorkers((int)schedule[i,2]);
 
-				else if(schedule[i,1] == Publics.ARMYANT)
+				else if(schedule[i,1] == Constants.ARMYANT)
 					spawnArmyAnts((int)schedule[i,2]);
 
-				else if(schedule[i,1] == Publics.BULLANT)
+				else if(schedule[i,1] == Constants.BULLANT)
 					spawnBullAnts((int)schedule[i,2]);
 
-				else if(schedule[i,1] == Publics.FIREANT)
+				else if(schedule[i,1] == Constants.FIREANT)
 					spawnFireAnts((int)schedule[i,2]);
 			}
 		}

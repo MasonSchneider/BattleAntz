@@ -5,14 +5,14 @@ public class GameOverMenu : MonoBehaviour {
 
 	private string gameResult;
 	private GUIStyle style = new GUIStyle();
-	private Hive playerHive;
+//	private Hive playerHive;
 
 
 	// Use this for initialization
 	void Start () {
 		enabled = false;
 		style.fontSize = 30;
-		playerHive = gameObject.GetComponent<GameMenu>().playerHive;
+//		playerHive = gameObject.GetComponent<GameMenu>().playerHive;
 	}
 	
 	// Update is called once per frame

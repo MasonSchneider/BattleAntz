@@ -2,7 +2,11 @@ fileFormatVersion: 2
 guid: 97d02e2a4eac94c05a682cf13f1622fe
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - enemyFactory: {instanceID: 0}
+  - lifeBar: {fileID: 100002, guid: bffc2d36d2bed458f9f0840695638f21, type: 2}
+  - enemyHive: {instanceID: 0}
+  - constants: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

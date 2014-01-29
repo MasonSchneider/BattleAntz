@@ -22,7 +22,7 @@ public class LevelSelection : MonoBehaviour {
 		for(int i=0; i<maxlevels; i++){
 			if (GUI.Button(new Rect(100+spacingX*(i%3), 100+spacingY*(i/3), 200, 50), "Level " + (i+1))) {
 				Application.LoadLevel("GameScene");
-				Publics.level = i;
+				Constants.level = i;
 			}
 		}
 //		if (GUI.Button(new Rect(100, 100, 200, 50), "Level 1")) {

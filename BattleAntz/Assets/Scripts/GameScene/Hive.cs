@@ -8,7 +8,6 @@ public class Hive : MonoBehaviour {
 	public float health;
 	public int workers;
 	public int income; // total production of the hive
-	private Constants constants;
 
 	// String array storing the current upgrades of the hive
 	// 0-indexed, [ant class][upgrade type]
@@ -18,7 +17,6 @@ public class Hive : MonoBehaviour {
 
 	// Use this for initialization
 	public virtual void Start () {
-		constants = gameObject.GetComponent<Constants>();
 		upgrades[0] = new int[4];
 		upgrades[1] = new int[4];
 		upgrades[2] = new int[4];
@@ -28,17 +26,17 @@ public class Hive : MonoBehaviour {
 	// Update is called once per frame (60fps?)
 	public virtual void Update () {
 		if (Time.time > nextTick) {
-			nextTick = Time.time + constants.SUGAR_RATE;
+			nextTick = Time.time + Constants.SUGAR_RATE;
 			sugar += income;
 		}
 	}
 	
 	// Buy a worker
 	public bool buyWorker(){
-		if(sugar >= constants.WORKER_COST){
-			sugar -= constants.WORKER_COST;
+		if(sugar >= Constants.WORKER_COST){
+			sugar -= Constants.WORKER_COST;
 			workers += 1;
-			income += (int) (constants.WORKER_PRODUCTION*(1+(upgrades[constants.U_WORKER][constants.U_SPEED]+upgrades[constants.U_WORKER][constants.U_STRENGTH])*.10));
+			income += (int) (Constants.WORKER_PRODUCTION*(1+(upgrades[Constants.U_WORKER][Constants.U_SPEED]+upgrades[Constants.U_WORKER][Constants.U_STRENGTH])*.10));
 			return true;
 		}
 		return false;
@@ -48,8 +46,8 @@ public class Hive : MonoBehaviour {
 	public bool sellWorker(){
 		if(workers > 0){
 			workers -= 1;
-			income -= constants.WORKER_PRODUCTION;
-			sugar += constants.WORKER_COST/constants.RETURN_VALUE;
+			income -= Constants.WORKER_PRODUCTION;
+			sugar += Constants.WORKER_COST/Constants.RETURN_VALUE;
 			return true;
 		}
 		return false;
@@ -57,9 +55,9 @@ public class Hive : MonoBehaviour {
 
 	// Buy an army ant
 	public bool buyArmyAnt(){
-		if (sugar >= constants.ARMY_ANT_COST) {
-			sugar -= constants.ARMY_ANT_COST;
-			antFactory.spawnArmyAnt(upgrades[constants.U_ARMYANT]);
+		if (sugar >= Constants.ARMY_ANT_COST) {
+			sugar -= Constants.ARMY_ANT_COST;
+			antFactory.spawnArmyAnt(upgrades[Constants.U_ARMYANT]);
 			return true;
 		}
 		return false;
@@ -67,9 +65,9 @@ public class Hive : MonoBehaviour {
 
 	//Buy a bull ant
 	public bool buyBullAnt(){
-		if (sugar >= constants.BULL_ANT_COST) {
-			sugar -= constants.BULL_ANT_COST;
-			antFactory.spawnBullAnt(upgrades[constants.U_BULLANT]);
+		if (sugar >= Constants.BULL_ANT_COST) {
+			sugar -= Constants.BULL_ANT_COST;
+			antFactory.spawnBullAnt(upgrades[Constants.U_BULLANT]);
 			return true;
 		}
 		return false;
@@ -77,9 +75,9 @@ public class Hive : MonoBehaviour {
 	
 	//Buy a fire ant
 	public bool buyFireAnt(){
-		if (sugar >= constants.FIRE_ANT_COST) {
-			sugar -= constants.FIRE_ANT_COST;
-			antFactory.spawnFireAnt(upgrades[constants.U_FIREANT]);
+		if (sugar >= Constants.FIRE_ANT_COST) {
+			sugar -= Constants.FIRE_ANT_COST;
+			antFactory.spawnFireAnt(upgrades[Constants.U_FIREANT]);
 			return true;
 		}
 		return false;
@@ -101,15 +99,15 @@ public class Hive : MonoBehaviour {
 	public bool upgrade(int[] specificupgrade){
 		int a = specificupgrade [0];
 		int b = specificupgrade [1];
-		if (sugar >= constants.UPGRADE_COST){ // Check if enough sugar
-			if(a == constants.U_WORKER){ // TODO: Worker upgrades
+		if (sugar >= Constants.UPGRADE_COST){ // Check if enough sugar
+			if(a == Constants.U_WORKER){ // TODO: Worker upgrades
 				Debug.Log("worker" + a + " " + b);
 				return false;
 			}
-			else if(b == constants.U_SPECIAL){
+			else if(b == Constants.U_SPECIAL){
 				if (upgrades [a][b] < 1) { // Check if upgrade not full
 					// reduce sugar
-					sugar -= constants.UPGRADE_COST;
+					sugar -= Constants.UPGRADE_COST;
 
 					// Increase upgrade
 					upgrades[a][b]++;
@@ -117,10 +115,10 @@ public class Hive : MonoBehaviour {
 					return true;
 				}
 			}
-			else if (b == constants.U_SPEED || b == constants.U_STRENGTH || b == constants.U_HEALTH){
+			else if (b == Constants.U_SPEED || b == Constants.U_STRENGTH || b == Constants.U_HEALTH){
 				if (upgrades [a][b] < 2) { // Check if upgrade not full
 					// reduce sugar
-					sugar -= constants.UPGRADE_COST;
+					sugar -= Constants.UPGRADE_COST;
 					// Increase upgrade
 					upgrades[a][b]++;
 					Debug.Log("speed str hp success " + a + " " + b);

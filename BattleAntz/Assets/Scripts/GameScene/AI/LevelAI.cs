@@ -18,47 +18,47 @@ public class LevelAI : MonoBehaviour {
 		return getLevels()[level];
 	}
 
-	// Each level is built up by {delay from last spawn in seconds, type of ant from Publics, how many to spawn}
+	// Each level is built up by {delay from last spawn in seconds, type of ant from Constants, how many to spawn}
 	private static void setup(){
 		// Level 0 info
 		float[,] level0 = {
-			{1, 	Publics.ARMYANT, 	1}};
+			{1f, 	Constants.WORKER, 	1}};
 		levels[0] = level0;
 
 
 		// Level 1 info
 		float[,] level1 = {
-			{1f, 	Publics.WORKER, 	1},
-			{1f, 	Publics.ARMYANT, 	2}};
+			{1f, 	Constants.WORKER, 	1},
+			{1f, 	Constants.ARMYANT, 	2}};
 		levels[1] = level1;
 
 
 		// Level 2 info
 		float[,] level2 = {
-			{0.5f, 	Publics.WORKER, 	1},
-			{1, 	Publics.BULLANT, 	1},
-			{1, 	Publics.ARMYANT, 	2}};
+			{0.5f, 	Constants.WORKER, 	1},
+			{1, 	Constants.BULLANT, 	1},
+			{1, 	Constants.ARMYANT, 	2}};
 		levels[2] = level2;
 
 
 		// Level 3 info
 		float[,] level3 = {
-			{1, 	Publics.WORKER, 	2},
-			{1, 	Publics.BULLANT, 	1},
-			{1, 	Publics.ARMYANT, 	2},
-			{1, 	Publics.FIREANT, 	1}};
+			{1, 	Constants.WORKER, 	2},
+			{1, 	Constants.BULLANT, 	1},
+			{1, 	Constants.ARMYANT, 	2},
+			{1, 	Constants.FIREANT, 	1}};
 		levels[3] = level3;
 
 
 		// Level 4 info
 		float[,] level4 = {
-			{1, 	Publics.WORKER, 	2},
-			{1, 	Publics.FIREANT, 	1},
-			{0.5f, 	Publics.ARMYANT, 	2},
-			{1, 	Publics.WORKER, 	1},
-			{2, 	Publics.BULLANT, 	1},
-			{0.5f, 	Publics.FIREANT, 	1},
-			{0.5f, 	Publics.ARMYANT, 	2}};
+			{1, 	Constants.WORKER, 	2},
+			{1, 	Constants.FIREANT, 	1},
+			{0.5f, 	Constants.ARMYANT, 	2},
+			{1, 	Constants.WORKER, 	1},
+			{2, 	Constants.BULLANT, 	1},
+			{0.5f, 	Constants.FIREANT, 	1},
+			{0.5f, 	Constants.ARMYANT, 	2}};
 		levels[4] = level4;
 	}
 

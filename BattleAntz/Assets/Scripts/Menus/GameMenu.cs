@@ -22,7 +22,7 @@ public class GameMenu : MonoBehaviour {
 		upgrades.enabled = false;
 		pauseRect = new Rect(Screen.width/2 - 24, 24, 0, 0);
 
-		if(Publics.multiplayer)
+		if(Constants.multiplayer)
 			netMan = GameObject.Find("Network Manager").GetComponent("NetworkManager") as NetworkManager;
 	}
 
@@ -45,13 +45,13 @@ public class GameMenu : MonoBehaviour {
 
 		// Manage Workers
 		if(GUI.Button(new Rect(215,55,43,20),"Buy") && !paused) {
-			if(Publics.multiplayer)
+			if(Constants.multiplayer)
 				netMan.sendWorker();
 			playerHive.buyWorker();
 		}
 
 		if(GUI.Button(new Rect(260,55,43,20),"Sell") && !paused) {
-			if(Publics.multiplayer)
+			if(Constants.multiplayer)
 				netMan.sendSellWorker();
 			playerHive.sellWorker();
 		}
@@ -59,7 +59,7 @@ public class GameMenu : MonoBehaviour {
 
 		// Manage Army Ants
 		if (GUI.Button(new Rect(Screen.width - 350, 35, 50, 50), "Army") && !paused) {
-			if(Publics.multiplayer)
+			if(Constants.multiplayer)
 				netMan.sendArmyAnt();
 			playerHive.buyArmyAnt();
 		}
@@ -70,7 +70,7 @@ public class GameMenu : MonoBehaviour {
 		
 		// Manage Bull Ant
 		if (GUI.Button(new Rect(Screen.width - 250, 35, 50, 50), "Bull") && !paused) {
-			if(Publics.multiplayer)
+			if(Constants.multiplayer)
 				netMan.sendBullAnt();
 			playerHive.buyBullAnt();
 		}
@@ -81,7 +81,7 @@ public class GameMenu : MonoBehaviour {
 
 		// Manage Fire Ant
 		if (GUI.Button(new Rect(Screen.width - 150, 35, 50, 50), "Fire") && !paused) {
-			if(Publics.multiplayer)
+			if(Constants.multiplayer)
 				netMan.sendFireAnt();
 			playerHive.buyFireAnt();
 		}

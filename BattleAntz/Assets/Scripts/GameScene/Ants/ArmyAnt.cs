@@ -5,10 +5,10 @@ public class ArmyAnt : Ant {
 
 	// Use this for initialization
 	void Start () {
-		speed = 0.2f*(1 + upgrades[0]*1.0f/3.0f);
-		damage = 10 + upgrades[2]*3;
-		life = maxHealth = 50 + upgrades[1]*10;
-		range = 1;
+		speed = Constants.ARMY_ANT_SPEED*(1.0f + upgrades[0]*Constants.UPGRADE_FRACTION);
+		damage = Constants.ARMY_ANT_DAMAGE*(1.0f + upgrades[2]*Constants.UPGRADE_FRACTION);
+		life = maxHealth = Constants.ARMY_ANT_LIFE*(1.0f + upgrades[1]*Constants.UPGRADE_FRACTION);
+		range = Constants.ARMY_ANT_LIFE;
 	}
 
 	// Update is called once per frame
