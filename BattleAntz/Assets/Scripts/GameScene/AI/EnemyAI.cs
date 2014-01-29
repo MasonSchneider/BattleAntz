@@ -10,13 +10,13 @@ public class EnemyAI : MonoBehaviour {
 	public AntFactory enemyFactory;
 	public AntFactory computerFactory;
 	public Hive hive;
-	public int level;
 	public float[,] schedule;
 
 	// Use this for initialization
 	void Start () {
 		t = Time.time;
-		schedule = LevelAI.getLevel(level);
+		Debug.Log("Doing level " + Publics.level);
+		schedule = LevelAI.getLevel(Publics.level);
 		lastSpawn = Time.time;
 		if(Publics.multiplayer)
 			Destroy(this);
