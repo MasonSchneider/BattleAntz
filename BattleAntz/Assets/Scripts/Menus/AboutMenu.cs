@@ -10,7 +10,6 @@ public class AboutMenu : MonoBehaviour {
 	}
 
 	void OnGUI() {
-		Debug.Log(GUI.skin.label.fontSize);
 		GUI.skin.box.fontSize = 28;
 		GUI.skin.label.fontSize = 22;
 

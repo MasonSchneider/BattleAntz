@@ -58,7 +58,7 @@ public class GameMenu : MonoBehaviour {
 		// --------------
 
 		// Manage Army Ants
-		if (GUI.Button(new Rect(Screen.width - 350, 35, 50, 50), "Army") && !paused) {
+		if (GUI.Button(new Rect(Screen.width - 350, 35, 50, 50), new GUIContent("Army","Damage: \nLife: \nSpeed: \n")) && !paused) {
 			if(Constants.multiplayer)
 				netMan.sendArmyAnt();
 			playerHive.buyArmyAnt();
@@ -69,7 +69,7 @@ public class GameMenu : MonoBehaviour {
 		}		
 		
 		// Manage Bull Ant
-		if (GUI.Button(new Rect(Screen.width - 250, 35, 50, 50), "Bull") && !paused) {
+		if (GUI.Button(new Rect(Screen.width - 250, 35, 50, 50), new GUIContent("Bull","Damage: \nLife: \nSpeed: \n")) && !paused) {
 			if(Constants.multiplayer)
 				netMan.sendBullAnt();
 			playerHive.buyBullAnt();
@@ -80,7 +80,7 @@ public class GameMenu : MonoBehaviour {
 		}
 
 		// Manage Fire Ant
-		if (GUI.Button(new Rect(Screen.width - 150, 35, 50, 50), "Fire") && !paused) {
+		if (GUI.Button(new Rect(Screen.width - 150, 35, 50, 50), new GUIContent("Fire","Damage: \nLife: \nSpeed: \n")) && !paused) {
 			if(Constants.multiplayer)
 				netMan.sendFireAnt();
 			playerHive.buyFireAnt();
@@ -89,5 +89,8 @@ public class GameMenu : MonoBehaviour {
 			upgrades.enabled = true;
 			upgrades.type = "fire";
 		}
+
+		GUI.Label(new Rect(Screen.width - 300, 100, 100, 100),GUI.tooltip);
+
 	}
 }
