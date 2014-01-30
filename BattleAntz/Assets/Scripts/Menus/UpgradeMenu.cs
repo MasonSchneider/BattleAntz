@@ -7,12 +7,15 @@ public class UpgradeMenu : MonoBehaviour {
 	private int typeInt = 0;
 	private int upgrade = 0;
 	private bool showingInfo;
+	private NetworkManager netMan;
 //	private Constants Constants;
 
 	// Use this for initialization
 	void Start () {
 //		Constants = gameObject.GetComponent<Constants>();
 		showingInfo = true;
+		if(Constants.multiplayer)
+			netMan = GameObject.Find("Network Manager").GetComponent("NetworkManager") as NetworkManager;
 	}
 
 	public void OnGUI() {
@@ -102,6 +105,7 @@ public class UpgradeMenu : MonoBehaviour {
 			if(GUI.Button(new Rect(Screen.width-200,250,100,30),"Purchase")) {
 				Debug.Log("Purchased" + typeInt.ToString() + type + upgrade.ToString());
 				int[] upgradeParam = new int[]{typeInt,upgrade};
+				netMan.sendUpgrades(upgradeParam);
 				Debug.Log(upgradeParam[0].ToString() + upgradeParam[1].ToString());
 				gameObject.GetComponent<GameMenu>().playerHive.upgrade(upgradeParam);
 			}
