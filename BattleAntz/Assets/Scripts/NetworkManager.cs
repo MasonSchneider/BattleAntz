@@ -59,6 +59,10 @@ public class NetworkManager : MonoBehaviour {
 		networkView.RPC("recieveSellWorker", RPCMode.Others);
 	}
 	
+	public void sendUpgrades(){
+		networkView.RPC("recieveUpgrades", RPCMode.Others);
+	}
+	
 	[RPC]
 	private void recieveArmyAnt(){
 		enemyHive().buyArmyAnt();
@@ -81,6 +85,11 @@ public class NetworkManager : MonoBehaviour {
 	
 	[RPC]
 	private void recieveSellWorker(){
+		enemyHive().buyWorker();
+	}
+	
+	[RPC]
+	private void recieveUpgrades(){
 		enemyHive().buyWorker();
 	}
 	

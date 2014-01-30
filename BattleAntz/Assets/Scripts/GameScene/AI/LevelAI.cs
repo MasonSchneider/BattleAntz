@@ -22,7 +22,7 @@ public class LevelAI : MonoBehaviour {
 	private static void setup(){
 		// Level 0 info
 		float[,] level0 = {
-			{1f, 	Constants.WORKER, 	1}};
+			{2f, 	Constants.ARMYANT, 	1}};
 		levels[0] = level0;
 
 
