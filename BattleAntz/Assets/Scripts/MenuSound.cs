@@ -3,7 +3,7 @@ using System.Collections;
 
 public class MenuSound : MonoBehaviour
 {
-	private static MenuSound menuSound = null;
+	public static MenuSound menuSound = null;
 		void Awake(){
 
 		if (MenuSound.menuSound != null && MenuSound.menuSound != this) {
