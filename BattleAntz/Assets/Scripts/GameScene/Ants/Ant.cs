@@ -99,6 +99,7 @@ public class Ant : MonoBehaviour {
 		}
 	}
 	public virtual void die(){
+		enemyFactory.GetComponentInChildren<AntFactory>().antsKilled += 1;
 		Destroy (this.gameObject);
 	}
 }

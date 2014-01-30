@@ -16,6 +16,7 @@ public class FireAnt : Ant {
 	}
 
 	public override void die(){ // Deal 30 damage to enemies around this ant
+		enemyFactory.GetComponentInChildren<AntFactory>().antsKilled += 1;
 		if(upgrades[3] == 1){
 			Ant[] ants = enemyFactory.GetComponentsInChildren<Ant>();
 			foreach(Ant a in ants){

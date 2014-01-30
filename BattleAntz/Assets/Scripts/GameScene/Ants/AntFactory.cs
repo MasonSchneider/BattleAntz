@@ -10,6 +10,7 @@ public class AntFactory : MonoBehaviour {
 	public Hive enemyHive;
 	public bool computer;
 
+	public int antsKilled = 0;
 	private int ants_created = 0;
 
 	// Use this for initialization

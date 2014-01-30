@@ -9,6 +9,12 @@ public class Hive : MonoBehaviour {
 	public int workers;
 	public int income; // total production of the hive
 
+	public int workersCreated = 0;
+	public int armyantsCreated = 0;
+	public int bullantsCreated = 0;
+	public int fireantsCreated = 0;
+	public int sugarProduced = 0;
+
 	// String array storing the current upgrades of the hive
 	// 0-indexed, [ant class][upgrade type]
 	public int[][] upgrades = new int[4][];
@@ -28,6 +34,7 @@ public class Hive : MonoBehaviour {
 		if (Time.time > nextTick) {
 			nextTick = Time.time + Constants.SUGAR_RATE;
 			sugar += income;
+			sugarProduced += income;
 		}
 	}
 	
@@ -36,6 +43,7 @@ public class Hive : MonoBehaviour {
 		if(sugar >= Constants.WORKER_COST){
 			sugar -= Constants.WORKER_COST;
 			workers += 1;
+			workersCreated += 1;
 			income += (int) (Constants.WORKER_PRODUCTION*(1+(upgrades[Constants.U_WORKER][Constants.U_SPEED]+upgrades[Constants.U_WORKER][Constants.U_STRENGTH])*.10));
 			return true;
 		}
@@ -58,6 +66,7 @@ public class Hive : MonoBehaviour {
 		if (sugar >= Constants.ARMY_ANT_COST) {
 			sugar -= Constants.ARMY_ANT_COST;
 			antFactory.spawnArmyAnt(upgrades[Constants.U_ARMYANT]);
+			armyantsCreated += 1;
 			return true;
 		}
 		return false;
@@ -68,6 +77,7 @@ public class Hive : MonoBehaviour {
 		if (sugar >= Constants.BULL_ANT_COST) {
 			sugar -= Constants.BULL_ANT_COST;
 			antFactory.spawnBullAnt(upgrades[Constants.U_BULLANT]);
+			bullantsCreated += 1;
 			return true;
 		}
 		return false;
@@ -78,6 +88,7 @@ public class Hive : MonoBehaviour {
 		if (sugar >= Constants.FIRE_ANT_COST) {
 			sugar -= Constants.FIRE_ANT_COST;
 			antFactory.spawnFireAnt(upgrades[Constants.U_FIREANT]);
+			fireantsCreated += 1;
 			return true;
 		}
 		return false;
@@ -88,10 +99,10 @@ public class Hive : MonoBehaviour {
 		if (health <= 0) {
 			health = 0;
 			if(gameObject.tag == "PlayerHive"){
-				GameObject.Find("Game Menu").GetComponent<GameOverMenu>().gameOver("You lose!");
+				GameObject.Find("Game Menu").GetComponent<GameOverMenu>().gameOver("You lose!", workersCreated, armyantsCreated, bullantsCreated, fireantsCreated, sugarProduced, antFactory.antsKilled);
 			}
 			else{
-				GameObject.Find("Game Menu").GetComponent<GameOverMenu>().gameOver("You win!");
+				GameObject.Find("Game Menu").GetComponent<GameOverMenu>().gameOver("You win!", workersCreated, armyantsCreated, bullantsCreated, fireantsCreated, sugarProduced, antFactory.antsKilled);
 			}
 		}
 	}

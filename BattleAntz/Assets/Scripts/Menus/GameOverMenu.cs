@@ -5,9 +5,14 @@ public class GameOverMenu : MonoBehaviour {
 
 	private string gameResult;
 	private GUIStyle style = new GUIStyle();
-//	private Hive playerHive;
 
-
+	public int workers;
+	public int armyants;
+	public int bullants;
+	public int fireants;
+	public int sugar;
+	public int killed;
+	
 	// Use this for initialization
 	void Start () {
 		enabled = false;
@@ -20,7 +25,13 @@ public class GameOverMenu : MonoBehaviour {
 		
 	}
 
-	public void gameOver(string result){
+	public void gameOver(string result, int workersCreated, int armyantsCreated, int bullantsCreated, int fireantsCreated, int sugarProduced, int antsKilled){
+		workers = workersCreated;
+		armyants = armyantsCreated;
+		bullants = bullantsCreated;
+		fireants = fireantsCreated;
+		sugar = sugarProduced;
+		killed = antsKilled;
 		gameResult = result;
 		enabled = true;
 		Time.timeScale = 0;
@@ -30,12 +41,12 @@ public class GameOverMenu : MonoBehaviour {
 		GUI.Box(new Rect(Screen.width/2-200,Screen.height/2-200,400,400), "");
 		GUI.TextField(new Rect(Screen.width/2-60,Screen.height/2-195,300,50), gameResult, style);
 
-		GUI.Label(new Rect(Screen.width/2-150,Screen.height/2-120,300,50), "Total Sugar Collected: ");
-		GUI.Label(new Rect(Screen.width/2-150,Screen.height/2-95,300,50), "Workers: ");
-		GUI.Label(new Rect(Screen.width/2-150,Screen.height/2-70,300,50), "Army Ants: ");
-		GUI.Label(new Rect(Screen.width/2-150,Screen.height/2-45,300,50), "Bull Ants: ");
-		GUI.Label(new Rect(Screen.width/2-150,Screen.height/2-15,300,50), "Fire Ants: ");
-		GUI.Label(new Rect(Screen.width/2-150,Screen.height/2+10,300,50), "Units Killed: ");
+		GUI.Label(new Rect(Screen.width/2-150,Screen.height/2-120,300,50), "Total Sugar Collected: "+sugar);
+		GUI.Label(new Rect(Screen.width/2-150,Screen.height/2-95,300,50), "Workers: "+workers);
+		GUI.Label(new Rect(Screen.width/2-150,Screen.height/2-70,300,50), "Army Ants: "+armyants);
+		GUI.Label(new Rect(Screen.width/2-150,Screen.height/2-45,300,50), "Bull Ants: "+bullants);
+		GUI.Label(new Rect(Screen.width/2-150,Screen.height/2-15,300,50), "Fire Ants: "+fireants);
+		GUI.Label(new Rect(Screen.width/2-150,Screen.height/2+10,300,50), "Units Killed: "+killed);
 
 		if(GUI.Button(new Rect(Screen.width/2-150,Screen.height/2+60,300,50),"Main Menu")) {
 			Application.LoadLevel("MainMenu");
