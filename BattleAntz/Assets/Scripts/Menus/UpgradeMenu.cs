@@ -105,7 +105,9 @@ public class UpgradeMenu : MonoBehaviour {
 			if(GUI.Button(new Rect(Screen.width-200,250,100,30),"Purchase")) {
 				Debug.Log("Purchased" + typeInt.ToString() + type + upgrade.ToString());
 				int[] upgradeParam = new int[]{typeInt,upgrade};
-				netMan.sendUpgrades(upgradeParam);
+				if(netMan) {
+					netMan.sendUpgrades(upgradeParam);
+				}
 				Debug.Log(upgradeParam[0].ToString() + upgradeParam[1].ToString());
 				gameObject.GetComponent<GameMenu>().playerHive.upgrade(upgradeParam);
 			}

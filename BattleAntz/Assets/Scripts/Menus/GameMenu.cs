@@ -58,7 +58,7 @@ public class GameMenu : MonoBehaviour {
 		// --------------
 
 		// Manage Army Ants
-		if (GUI.Button(new Rect(Screen.width - 350, 35, 50, 50), new GUIContent("Army","Damage: "+Constants.ARMY_ANT_DAMAGE+"\nLife: "+Constants.ARMY_ANT_LIFE+"\nSpeed: "+Constants.ARMY_ANT_SPEED+"\n")) && !paused) {
+		if (GUI.Button(new Rect(Screen.width - 350, 35, 50, 50), new GUIContent("Army","Damage: "+Constants.ARMY_ANT_DAMAGE*(1.0f + playerHive.upgrades[1][2]*Constants.UPGRADE_FRACTION)+"\nLife: "+Constants.ARMY_ANT_LIFE*(1.0f + playerHive.upgrades[1][1]*Constants.UPGRADE_FRACTION)+"\nSpeed: "+Constants.ARMY_ANT_SPEED*(1.0f + playerHive.upgrades[1][0]*Constants.UPGRADE_FRACTION)+"\nCost: "+Constants.ARMY_ANT_COST)) && !paused) {
 			if(Constants.multiplayer)
 				netMan.sendArmyAnt();
 			playerHive.buyArmyAnt();
@@ -72,7 +72,7 @@ public class GameMenu : MonoBehaviour {
 		GUI.tooltip = null;
 		
 		// Manage Bull Ant
-		if (GUI.Button(new Rect(Screen.width - 250, 35, 50, 50), new GUIContent("Bull","Damage: "+Constants.BULL_ANT_DAMAGE+"\nLife: "+Constants.BULL_ANT_LIFE+"\nSpeed: "+Constants.BULL_ANT_SPEED+"\n")) && !paused) {
+		if (GUI.Button(new Rect(Screen.width - 250, 35, 50, 50), new GUIContent("Bull","Damage: "+Constants.BULL_ANT_DAMAGE*(1.0f + playerHive.upgrades[2][2]*Constants.UPGRADE_FRACTION)+"\nLife: "+Constants.BULL_ANT_LIFE*(1.0f + playerHive.upgrades[2][1]*Constants.UPGRADE_FRACTION)+"\nSpeed: "+Constants.BULL_ANT_SPEED*(1.0f + playerHive.upgrades[2][3])*(1.0f + playerHive.upgrades[2][0]*Constants.UPGRADE_FRACTION)+"\nCost: "+Constants.BULL_ANT_COST)) && !paused) {
 			if(Constants.multiplayer)
 				netMan.sendBullAnt();
 			playerHive.buyBullAnt();
@@ -86,7 +86,7 @@ public class GameMenu : MonoBehaviour {
 		GUI.tooltip = null;
 
 		// Manage Fire Ant
-		if (GUI.Button(new Rect(Screen.width - 150, 35, 50, 50), new GUIContent("Fire","Damage: "+Constants.FIRE_ANT_DAMAGE+"\nLife: "+Constants.FIRE_ANT_LIFE+"\nSpeed: "+Constants.FIRE_ANT_SPEED+"\n")) && !paused) {
+		if (GUI.Button(new Rect(Screen.width - 150, 35, 50, 50), new GUIContent("Fire","Damage: "+Constants.FIRE_ANT_DAMAGE*(1.0f + playerHive.upgrades[3][2]*Constants.UPGRADE_FRACTION)+"\nLife: "+Constants.FIRE_ANT_LIFE*(1.0f + playerHive.upgrades[3][1]*Constants.UPGRADE_FRACTION)+"\nSpeed: "+Constants.FIRE_ANT_SPEED*(1.0f + playerHive.upgrades[3][0]*Constants.UPGRADE_FRACTION)+"\nCost: "+Constants.FIRE_ANT_COST)) && !paused) {
 			if(Constants.multiplayer)
 				netMan.sendFireAnt();
 			playerHive.buyFireAnt();
