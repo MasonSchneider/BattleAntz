@@ -3,17 +3,16 @@ using System.Collections;
 
 public class Hive : MonoBehaviour {
 	float nextTick = 0;
-	
 	public int sugar;
 	public float health;
 	public int workers;
 	public int income; // total production of the hive
 
 	public int workersCreated = 0;
-	public int armyantsCreated = 0;
-	public int bullantsCreated = 0;
-	public int fireantsCreated = 0;
 	public int sugarProduced = 0;
+	int armyantsCreated = 0;
+	int fireantsCreated = 0;
+	int bullantsCreated = 0;
 
 	// String array storing the current upgrades of the hive
 	// 0-indexed, [ant class][upgrade type]
@@ -44,6 +43,7 @@ public class Hive : MonoBehaviour {
 			sugar -= Constants.WORKER_COST;
 			workers += 1;
 			workersCreated += 1;
+			Debug.Log ("WorkersCreated: "+workersCreated);
 			income += (int) (Constants.WORKER_PRODUCTION*(1+(upgrades[Constants.U_WORKER][Constants.U_SPEED]+upgrades[Constants.U_WORKER][Constants.U_STRENGTH])*.10));
 			return true;
 		}
@@ -98,46 +98,54 @@ public class Hive : MonoBehaviour {
 		health -= damage/2;
 		if (health <= 0) {
 			health = 0;
-			if(gameObject.tag == "PlayerHive"){
-				GameObject.Find("Game Menu").GetComponent<GameOverMenu>().gameOver("You lose!", workersCreated, armyantsCreated, bullantsCreated, fireantsCreated, sugarProduced, antFactory.antsKilled);
-			}
-			else{
-				GameObject.Find("Game Menu").GetComponent<GameOverMenu>().gameOver("You win!", workersCreated, armyantsCreated, bullantsCreated, fireantsCreated, sugarProduced, antFactory.antsKilled);
-			}
+			endGame();
 		}
 	}
 
+	public void endGame(){
+		if (gameObject.tag == "PlayerHive") {
+			if(health <= 0){
+				GameObject.Find ("Game Menu").GetComponent<GameOverMenu> ().gameOver ("You Lose!", workersCreated, armyantsCreated, bullantsCreated, fireantsCreated, sugarProduced, antFactory.antsKilled);
+			} else {
+				GameObject.Find ("Game Menu").GetComponent<GameOverMenu> ().gameOver ("You win!", workersCreated, armyantsCreated, bullantsCreated, fireantsCreated, sugarProduced, antFactory.antsKilled);
+			}
+		} else {
+			antFactory.enemyHive.endGame();
+		}
+
+	}
+
 	public bool upgrade(int[] specificupgrade){
-		int a = specificupgrade [0];
-		int b = specificupgrade [1];
+		int ant = specificupgrade[0];
+		int type = specificupgrade[1];
 		if (sugar >= Constants.UPGRADE_COST){ // Check if enough sugar
-			if(a == Constants.U_WORKER){ // TODO: Worker upgrades
-				Debug.Log("worker" + a + " " + b);
+			if(ant == Constants.U_WORKER){ // TODO: Worker upgrades
+				Debug.Log("worker" + ant + " " + type);
 				return false;
 			}
-			else if(b == Constants.U_SPECIAL){
-				if (upgrades [a][b] < 1) { // Check if upgrade not full
+			else if(type == Constants.U_SPECIAL){
+				if (upgrades [ant][type] < 1) { // Check if upgrade not full
 					// reduce sugar
 					sugar -= Constants.UPGRADE_COST;
-
+					
 					// Increase upgrade
-					upgrades[a][b]++;
-					Debug.Log("special success " + a + " " + b);
+					upgrades[ant][type]++;
+					Debug.Log("special success " + ant + " " + type);
 					return true;
 				}
 			}
-			else if (b == Constants.U_SPEED || b == Constants.U_STRENGTH || b == Constants.U_HEALTH){
-				if (upgrades [a][b] < 2) { // Check if upgrade not full
+			else if (type == Constants.U_SPEED || type == Constants.U_STRENGTH || type == Constants.U_HEALTH){
+				if (upgrades [ant][type] < 2) { // Check if upgrade not full
 					// reduce sugar
 					sugar -= Constants.UPGRADE_COST;
 					// Increase upgrade
-					upgrades[a][b]++;
-					Debug.Log("speed str hp success " + a + " " + b);
+					upgrades[ant][type]++;
+					Debug.Log("speed str hp success " + ant + " " + type);
 					return true;
 				}
 			}
 		}
-		Debug.Log ("not success" + a + " " + b);
+		Debug.Log ("not success" + ant + " " + type);
 		return false;
 	}
 }
