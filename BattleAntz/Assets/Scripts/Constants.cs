@@ -9,7 +9,7 @@ public class Constants : MonoBehaviour {
 
 	public static int SUGAR_RATE = 1;
 	public static int WORKER_COST = 50;
-	public static int WORKER_PRODUCTION = 2;
+	public static int WORKER_PRODUCTION = 5;
 
 	public static int ARMY_ANT_COST = 50;
 	public static int BULL_ANT_COST = 100;
