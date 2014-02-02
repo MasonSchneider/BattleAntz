@@ -17,6 +17,7 @@ public class Ant : MonoBehaviour {
 	public GameObject enemyFactory;
 	public GameObject lifeBar;
 	public Hive enemyHive;
+	public Material playerAntMaterial;
 
 	// Use this for initialization
 	public void spawn () {
