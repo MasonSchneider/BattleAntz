@@ -12,11 +12,17 @@ public class Ant : MonoBehaviour {
 	protected float life;
 	protected float range;
 
+	protected Vector3 direction;
+	protected Ant targetAnt;
+
 	public int ID;
 	public int[] upgrades;
 	public GameObject enemyFactory;
 	public GameObject lifeBar;
 	public Hive enemyHive;
+
+	public antType type;
+	public enum antType{enemy, player};
 
 	// Use this for initialization
 	public void spawn () {
@@ -24,26 +30,31 @@ public class Ant : MonoBehaviour {
 		lastPosition = transform.position;
 	}
 
-	// Move the ant forward to either an ant or the enemy hive
-	void FixedUpdate(){
-		Vector3 offset;
-		antTarget = getNearestAnt();
-		if(antTarget == null)
-			offset = enemyHive.gameObject.transform.position-transform.position;
-		else{
-			offset = antTarget.gameObject.transform.position-transform.position;
-		}
-		float length = Mathf.Sqrt(offset.sqrMagnitude);
-		
-		transform.Translate(new Vector2(offset.x/length, offset.y/length)*speed);
-	}
 
-	//Attack the other ant if it exists
+	//Attack the other ant if it exists, default behavior
 	public virtual void Update(){
-		if(antTarget != null){
-			antTarget.attack(this);
-		}
-		lifeBar.transform.localScale = new Vector2(life/maxHealth, lifeBar.transform.localScale.y);
+		//Move the ant in its desired direction
+		Vector3 offset = direction-transform.position;
+		float length = Mathf.Sqrt(offset.sqrMagnitude);
+		transform.Translate(new Vector2(offset.x/length, offset.y/length)*speed);
+
+		//If there is an ant to attack, attack it
+		if(targetAnt != null)
+			targetAnt.attack(this);
+
+//		Vector3 offset;
+//		antTarget = getNearestAnt();
+//		if(antTarget == null)
+//			offset = enemyHive.gameObject.transform.position-transform.position;
+//		else{
+//			offset = antTarget.gameObject.transform.position-transform.position;
+//		}
+//		float length = Mathf.Sqrt(offset.sqrMagnitude);
+//		
+//		transform.Translate(new Vector2(offset.x/length, offset.y/length)*speed);
+//		if(antTarget != null){
+//			antTarget.attack(this);
+//		}
 	}
 	
 	// After the ant has moved, check that it is still inbound
@@ -54,6 +65,8 @@ public class Ant : MonoBehaviour {
 			transform.position = lastPosition;
 		}
 		lastPosition = transform.position;
+
+		lifeBar.transform.localScale = new Vector2(life/maxHealth, lifeBar.transform.localScale.y);
 	}
 
 	// Find the nearest enemy ant

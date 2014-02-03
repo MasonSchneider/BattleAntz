@@ -17,7 +17,7 @@ public class EnemyAI : MonoBehaviour {
 		t = Time.time;
 		schedule = LevelAI.getLevel(Constants.level);
 		lastSpawn = Time.time;
-		if(Constants.multiplayer)
+		if(Constants.multiplayer || Constants.EXPERIMENTAL)
 			Destroy(this);
 	}
 

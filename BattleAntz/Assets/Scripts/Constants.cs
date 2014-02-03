@@ -49,6 +49,8 @@ public class Constants : MonoBehaviour {
 	public static int BANELING_DAMAGE = 15;
 	public static int BANELING_RADIUS = 250;
 
-	public static bool multiplayer;
 	public static int level = 0;
+	public static bool multiplayer;
+
+	public static bool EXPERIMENTAL = true;
 }

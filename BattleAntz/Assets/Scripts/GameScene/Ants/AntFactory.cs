@@ -40,6 +40,7 @@ public class AntFactory : MonoBehaviour {
 
 	//Set the correct parameters for the ant to be created
 	private void setupAnt(Ant a, int[] upgrades){
+		a.type = enemyHive.gameObject.tag == "EnemyHive" ? Ant.antType.player : Ant.antType.enemy;
 		a.transform.parent = this.transform;
 		a.enemyHive = enemyHive;
 		a.enemyFactory = enemyFactory;

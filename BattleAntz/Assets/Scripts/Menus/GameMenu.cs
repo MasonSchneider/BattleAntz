@@ -10,6 +10,7 @@ public class GameMenu : MonoBehaviour {
 	private Rect pauseRect;
 
 	public Hive playerHive;
+	public Hive enemyHive;
 	private NetworkManager netMan;
 	public bool paused = false;
 	private UpgradeMenu upgrades;
@@ -62,6 +63,8 @@ public class GameMenu : MonoBehaviour {
 			if(Constants.multiplayer)
 				netMan.sendArmyAnt();
 			playerHive.buyArmyAnt();
+			if(Constants.EXPERIMENTAL)
+				enemyHive.buyArmyAnt();
 		}
 		if (GUI.Button(new Rect(Screen.width - 338, 10, 25, 25), "+") && !paused) {
 			upgrades.enabled = true;
@@ -76,6 +79,8 @@ public class GameMenu : MonoBehaviour {
 			if(Constants.multiplayer)
 				netMan.sendBullAnt();
 			playerHive.buyBullAnt();
+			if(Constants.EXPERIMENTAL)
+				enemyHive.buyBullAnt();
 		}
 		if (GUI.Button(new Rect(Screen.width - 238, 10, 25, 25), "+") && !paused) {
 			upgrades.enabled = true;
@@ -90,6 +95,8 @@ public class GameMenu : MonoBehaviour {
 			if(Constants.multiplayer)
 				netMan.sendFireAnt();
 			playerHive.buyFireAnt();
+			if(Constants.EXPERIMENTAL)
+				enemyHive.buyFireAnt();
 		}
 		if (GUI.Button(new Rect(Screen.width - 138, 10, 25, 25), "+") && !paused) {
 			upgrades.enabled = true;

@@ -40,15 +40,15 @@ public class NetworkManager : MonoBehaviour {
 	}
 	
 	public void sendArmyAnt(){
-		networkView.RPC("recieveArmyAnt", RPCMode.Others);
+//		networkView.RPC("recieveArmyAnt", RPCMode.Others);
 	}
 	
 	public void sendBullAnt(){
-		networkView.RPC("recieveBullAnt", RPCMode.Others);
+//		networkView.RPC("recieveBullAnt", RPCMode.Others);
 	}
 	
 	public void sendFireAnt(){
-		networkView.RPC("recieveFireAnt", RPCMode.Others);
+//		networkView.RPC("recieveFireAnt", RPCMode.Others);
 	}
 	
 	public void sendWorker(){
@@ -65,17 +65,17 @@ public class NetworkManager : MonoBehaviour {
 	
 	[RPC]
 	private void recieveArmyAnt(){
-		enemyHive().buyArmyAnt();
+//		enemyHive().buyArmyAnt();
 	}
 	
 	[RPC]
 	private void recieveBullAnt(){
-		enemyHive().buyBullAnt();
+//		enemyHive().buyBullAnt();
 	}
 	
 	[RPC]
 	private void recieveFireAnt(){
-		enemyHive().buyFireAnt();
+//		enemyHive().buyFireAnt();
 	}
 	
 	[RPC]
