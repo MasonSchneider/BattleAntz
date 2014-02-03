@@ -12,6 +12,7 @@ public class AntFactory : MonoBehaviour {
 
 	public int antsKilled = 0;
 	public int ants_created = 0;
+	public int totalarmyants = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -24,6 +25,7 @@ public class AntFactory : MonoBehaviour {
 	}
 	
 	public void spawnArmyAnt(int[] upgrades){
+		enemyHive.enemyarmyants += 1;
 		ArmyAnt a = (ArmyAnt) Instantiate (this.armyAnt, spawnPosition.transform.position, Quaternion.identity);
 		setupAnt(a, upgrades);
 	}

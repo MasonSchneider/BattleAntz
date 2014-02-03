@@ -9,14 +9,22 @@ public class ArmyAnt : Ant {
 		life = maxHealth = Constants.ARMY_ANT_LIFE*(1.0f + upgrades[1]*Constants.UPGRADE_FRACTION);
 		range = Constants.ARMY_ANT_RANGE;
 
+		if(upgrades[Constants.U_SPECIAL] == 1){
+			damage += enemyHive.enemyarmyants;
+			life += enemyHive.enemyarmyants;
+		}
 	}
 
 	// Update is called once per frame
 	public override void Update () {
 		if (this.enemyHive.tag != "PlayerHive") {
 			this.renderer.material = playerAntMaterial;
-
 		}
 		base.Update();
+	}
+
+	public override void die(){
+		enemyHive.enemyarmyants -= 1;
+		Destroy(this.gameObject);
 	}
 }
