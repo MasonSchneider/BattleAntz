@@ -28,7 +28,7 @@ public class Constants : MonoBehaviour {
 	public static int FIRE_ANT_LIFE = 50;
 
 	public static float ARMY_ANT_RANGE = 1f;
-	public static float BULL_ANT_RANGE = 1f;
+	public static float BULL_ANT_RANGE = 1.5f;
 	public static float FIRE_ANT_RANGE = 2.5f;
 
 	public static int RETURN_VALUE = 2;

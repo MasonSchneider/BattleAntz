@@ -13,6 +13,7 @@ public class Hive : MonoBehaviour {
 	int armyantsCreated = 0;
 	int fireantsCreated = 0;
 	int bullantsCreated = 0;
+	public int enemyarmyants = 0;
 
 	// String array storing the current upgrades of the hive
 	// 0-indexed, [ant class][upgrade type]

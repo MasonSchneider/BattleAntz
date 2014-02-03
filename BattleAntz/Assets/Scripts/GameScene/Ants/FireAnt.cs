@@ -12,6 +12,10 @@ public class FireAnt : Ant {
 	
 	// Update is called once per frame
 	public override void Update () {
+		if (this.enemyHive.tag != "PlayerHive") {
+			this.renderer.material = playerAntMaterial;
+			
+		}
 		base.Update();
 	}
 

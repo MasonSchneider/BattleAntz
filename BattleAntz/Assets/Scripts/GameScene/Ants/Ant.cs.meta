@@ -6,7 +6,7 @@ MonoImporter:
   - enemyFactory: {fileID: 100000, guid: 4b3b20325d8224eb4af2a626f8484a04, type: 2}
   - lifeBar: {instanceID: 0}
   - enemyHive: {instanceID: 0}
-  - constants: {instanceID: 0}
+  - playerAntTexture: {fileID: 2800000, guid: 515f642f76ab37948a8f8f1b3eeefd83, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

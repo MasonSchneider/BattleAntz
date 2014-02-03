@@ -20,12 +20,10 @@ public class Ant : MonoBehaviour {
 	public GameObject enemyFactory;
 	public GameObject lifeBar;
 	public Hive enemyHive;
-
-	public antType type;
-	public enum antType{enemy, player};
+	public Material playerAntMaterial;
 
 	// Use this for initialization
-	public void spawn () {
+	public virtual void spawn () {
 		roadController = GameObject.Find("Road Controller").GetComponent("RoadController") as RoadController;
 		lastPosition = transform.position;
 	}
