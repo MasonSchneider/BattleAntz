@@ -5,7 +5,7 @@ public abstract class Behavior : object {
 	protected Ant ant;
 
 	//Return the direction to move in
-	public abstract Vector3 nextDirection();
+	public abstract Vector2 nextDirection();
 	
 	//Return the ant to be attacked, null if no ant is to be attacked
 	public abstract Ant antToAttack();

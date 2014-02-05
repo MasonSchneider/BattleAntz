@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Ant : MonoBehaviour {
-	private Vector3 lastPosition;
+	private Vector2 lastPosition;
 	private RoadController roadController;
 	private Ant antTarget;
 
@@ -33,9 +33,19 @@ public class Ant : MonoBehaviour {
 	public virtual void Update(){
 	}
 
+	public Vector2 velocity ()
+	{
+		return behavior.nextDirection () * speed;
+	}
+
+	public Vector2 position()
+	{
+		return transform.position;
+	}
+
 	public void FixedUpdate(){
 		//Move the ant in its desired direction
-		transform.Translate(behavior.nextDirection()*speed);
+		transform.Translate (velocity ());
 		
 		//If there is an ant to attack, attack it
 		Ant ant = behavior.antToAttack();
@@ -45,8 +55,8 @@ public class Ant : MonoBehaviour {
 	
 	// After the ant has moved, check that it is still inbound
 	void LateUpdate () {
-		gameObject.rigidbody.velocity = Vector3.zero;
-		gameObject.rigidbody.angularVelocity = Vector3.zero;
+		gameObject.rigidbody.velocity = Vector2.zero;
+		gameObject.rigidbody.angularVelocity = Vector2.zero;
 		if(roadController.outsideRoad(transform.position)){
 			transform.position = lastPosition;
 		}

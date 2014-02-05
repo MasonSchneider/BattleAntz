@@ -8,7 +8,7 @@ public class FireBehavior : Behavior {
 	}
 
 	//Return the direction to move in
-	public override Vector3 nextDirection(){
+	public override Vector2 nextDirection(){
 		return Vector2.zero;
 	}
 	
