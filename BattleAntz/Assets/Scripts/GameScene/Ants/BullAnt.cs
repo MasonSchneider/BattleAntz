@@ -9,14 +9,18 @@ public class BullAnt : Ant {
 		damage = Constants.BULL_ANT_DAMAGE*(1.0f + upgrades[2]*Constants.UPGRADE_FRACTION);
 		life = maxHealth = Constants.BULL_ANT_LIFE*(1.0f + upgrades[1]*Constants.UPGRADE_FRACTION);
 		range = Constants.BULL_ANT_RANGE;
+		behavior = new DefaultBehavior(this);
 	}
 	
-	// Update is called once per frame
-	public override void Update () {
-		if (this.enemyHive.tag != "PlayerHive") {
-			this.renderer.material = playerAntMaterial;
-			
+	public override void spawn(){
+		//This is an enemy, right spawn
+		if (this.enemyHive.tag == "PlayerHive") {
+			behavior = new BullBehavior(this);
 		}
-		base.Update();
+		//This is the player, left spawn
+		else{
+			behavior = new DefaultBehavior(this);
+		}
+		base.spawn();
 	}
 }

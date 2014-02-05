@@ -8,15 +8,19 @@ public class FireAnt : Ant {
 		damage = Constants.FIRE_ANT_DAMAGE*(1.0f + upgrades[2]*Constants.UPGRADE_FRACTION);
 		life = maxHealth = Constants.FIRE_ANT_LIFE*(1.0f + upgrades[1]*Constants.UPGRADE_FRACTION);
 		range = Constants.FIRE_ANT_RANGE;
+		behavior = new DefaultBehavior(this);
 	}
 	
-	// Update is called once per frame
-	public override void Update () {
-		if (this.enemyHive.tag != "PlayerHive") {
-			this.renderer.material = playerAntMaterial;
-			
+	public override void spawn(){
+		//This is an enemy, right spawn
+		if (this.enemyHive.tag == "PlayerHive") {
+			behavior = new FireBehavior(this);
 		}
-		base.Update();
+		//This is the player, left spawn
+		else{
+			behavior = new DefaultBehavior(this);
+		}
+		base.spawn();
 	}
 
 	public override void die(){ // Deal 30 damage to enemies around this ant

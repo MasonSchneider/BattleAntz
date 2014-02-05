@@ -6,14 +6,13 @@ public class Ant : MonoBehaviour {
 	private RoadController roadController;
 	private Ant antTarget;
 
-	protected float maxHealth;
-	protected float speed;
-	protected float damage;
-	protected float life;
-	protected float range;
+	public float maxHealth;
+	public float speed;
+	public float damage;
+	public float life;
+	public float range;
 
-	protected Vector3 direction;
-	protected Ant targetAnt;
+	protected Behavior behavior;
 
 	public int ID;
 	public int[] upgrades;
@@ -26,33 +25,22 @@ public class Ant : MonoBehaviour {
 	public virtual void spawn () {
 		roadController = GameObject.Find("Road Controller").GetComponent("RoadController") as RoadController;
 		lastPosition = transform.position;
+		if (this.enemyHive.tag != "PlayerHive") {
+			this.renderer.material = playerAntMaterial;
+		}
 	}
 
-
-	//Attack the other ant if it exists, default behavior
 	public virtual void Update(){
+	}
+
+	public void FixedUpdate(){
 		//Move the ant in its desired direction
-		Vector3 offset = direction-transform.position;
-		float length = Mathf.Sqrt(offset.sqrMagnitude);
-		transform.Translate(new Vector2(offset.x/length, offset.y/length)*speed);
-
+		transform.Translate(behavior.nextDirection()*speed);
+		
 		//If there is an ant to attack, attack it
-		if(targetAnt != null)
-			targetAnt.attack(this);
-
-//		Vector3 offset;
-//		antTarget = getNearestAnt();
-//		if(antTarget == null)
-//			offset = enemyHive.gameObject.transform.position-transform.position;
-//		else{
-//			offset = antTarget.gameObject.transform.position-transform.position;
-//		}
-//		float length = Mathf.Sqrt(offset.sqrMagnitude);
-//		
-//		transform.Translate(new Vector2(offset.x/length, offset.y/length)*speed);
-//		if(antTarget != null){
-//			antTarget.attack(this);
-//		}
+		Ant ant = behavior.antToAttack();
+		if(ant != null)
+			ant.attack(this);
 	}
 	
 	// After the ant has moved, check that it is still inbound
@@ -65,21 +53,6 @@ public class Ant : MonoBehaviour {
 		lastPosition = transform.position;
 
 		lifeBar.transform.localScale = new Vector2(life/maxHealth, lifeBar.transform.localScale.y);
-	}
-
-	// Find the nearest enemy ant
-	private Ant getNearestAnt(){
-		Ant[] ants = enemyFactory.GetComponentsInChildren<Ant>();
-		Ant target = null;
-		float nearest = -1;
-		foreach(Ant a in ants){
-			Vector2 diff = a.gameObject.transform.position-transform.position;
-			if(diff.sqrMagnitude < nearest || nearest < 0 ){
-				target = a;
-				nearest = diff.sqrMagnitude;
-			}
-		}
-		return target;
 	}
 
 	// If within range, take damage from attacking ant

@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class ArmyAnt : Ant {
-	// Use this for initialization
+
 	void Start () {
 		speed = Constants.ARMY_ANT_SPEED*(1.0f + upgrades[0]*Constants.UPGRADE_FRACTION);
 		damage = Constants.ARMY_ANT_DAMAGE*(1.0f + upgrades[2]*Constants.UPGRADE_FRACTION);
@@ -16,24 +16,15 @@ public class ArmyAnt : Ant {
 	}
 
 	public override void spawn(){
-		base.spawn();
-		if (this.enemyHive.tag != "PlayerHive") {
-			this.renderer.material = playerAntMaterial;
+		//This is an enemy, right spawn
+		if (this.enemyHive.tag == "PlayerHive") {
+			behavior = new ArmyBehavior(this);
 		}
-	}
-
-	// Update is called once per frame
-	public override void Update () {
-		if (this.enemyHive.tag != "PlayerHive") {
-			targetAnt = ArmyBehavior.antToAttack();
-			direction = ArmyBehavior.nextDirection();
-		}
+		//This is the player, left spawn
 		else{
-			targetAnt = DefaultBehavior.antToAttack();
-			direction = DefaultBehavior.nextDirection();
+			behavior = new DefaultBehavior(this);
 		}
-
-		base.Update();
+		base.spawn();
 	}
 
 	public override void die(){
