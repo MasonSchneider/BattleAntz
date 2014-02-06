@@ -98,7 +98,7 @@ public class UpgradeMenu : MonoBehaviour {
 		default:
 			break;
 		}
-		if(gameObject.GetComponent<GameMenu>().playerHive.upgrades[typeInt][upgrade] == 1) {
+		if(gameObject.GetComponent<GameMenu>().playerHive.upgrades[typeInt][upgrade] == 2) {
 			GUI.Label(new Rect(Screen.width-250,130,200,150), "This upgrade is complete!");
 		} else {
 			GUI.Label(new Rect(Screen.width-250,130,200,150), desc);

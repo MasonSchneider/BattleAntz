@@ -26,6 +26,7 @@ public class GameOverMenu : MonoBehaviour {
 	}
 
 	public void gameOver(string result, int workersCreated, int armyantsCreated, int bullantsCreated, int fireantsCreated, int sugarProduced, int antsKilled){
+		gameObject.GetComponent<GameMenu> ().paused = true;
 		workers = workersCreated;
 		sugar = sugarProduced;
 		armyants = armyantsCreated;
