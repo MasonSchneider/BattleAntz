@@ -43,10 +43,10 @@ public class GameOverMenu : MonoBehaviour {
 		GUI.TextField(new Rect(Screen.width/2-60,Screen.height/2-195,300,50), gameResult, style);
 
 		GUI.Label(new Rect(Screen.width/2-150,Screen.height/2-120,300,50), "Total Sugar Collected: "+sugar);
-		GUI.Label(new Rect(Screen.width/2-150,Screen.height/2-95,300,50), "Workers: "+workers);
+		GUI.Label(new Rect(Screen.width/2-150,Screen.height/2-95,300,50), "Workers Created: "+workers);
 		GUI.Label(new Rect(Screen.width/2-150,Screen.height/2-70,300,50), "Army Ants Created: "+armyants);
-		GUI.Label(new Rect(Screen.width/2-150,Screen.height/2-45,300,50), "Bull Ants: "+bullants);
-		GUI.Label(new Rect(Screen.width/2-150,Screen.height/2-15,300,50), "Fire Ants: "+fireants);
+		GUI.Label(new Rect(Screen.width/2-150,Screen.height/2-45,300,50), "Bull Ants Created: "+bullants);
+		GUI.Label(new Rect(Screen.width/2-150,Screen.height/2-15,300,50), "Fire Ants Created: "+fireants);
 		GUI.Label(new Rect(Screen.width/2-150,Screen.height/2+10,300,50), "Units Killed: "+killed);
 
 		if(GUI.Button(new Rect(Screen.width/2-150,Screen.height/2+60,300,50),"Main Menu")) {
