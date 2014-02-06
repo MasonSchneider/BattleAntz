@@ -98,7 +98,9 @@ public class UpgradeMenu : MonoBehaviour {
 		default:
 			break;
 		}
-		if(gameObject.GetComponent<GameMenu>().playerHive.upgrades[typeInt][upgrade] == 2) {
+		if(gameObject.GetComponent<GameMenu>().playerHive.upgrades[typeInt][upgrade] == 1 && upgrade == Constants.U_SPECIAL) { // Special upgrades
+			GUI.Label(new Rect(Screen.width-250,130,200,150), "This upgrade is complete!");
+		} else if(gameObject.GetComponent<GameMenu>().playerHive.upgrades[typeInt][upgrade] == 2) { // Normal Upgrades
 			GUI.Label(new Rect(Screen.width-250,130,200,150), "This upgrade is complete!");
 		} else {
 			GUI.Label(new Rect(Screen.width-250,130,200,150), desc);
