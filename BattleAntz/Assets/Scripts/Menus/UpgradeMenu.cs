@@ -98,17 +98,17 @@ public class UpgradeMenu : MonoBehaviour {
 		default:
 			break;
 		}
-		if(gameObject.GetComponent<GameMenu>().playerHive.upgrades[typeInt][upgrade] == 1) {
+		if(gameObject.GetComponent<GameMenu>().playerHive.upgrades[typeInt][upgrade] == 1 && upgrade == Constants.U_SPECIAL) { // Special upgrades
+			GUI.Label(new Rect(Screen.width-250,130,200,150), "This upgrade is complete!");
+		} else if(gameObject.GetComponent<GameMenu>().playerHive.upgrades[typeInt][upgrade] == 2) { // Normal Upgrades
 			GUI.Label(new Rect(Screen.width-250,130,200,150), "This upgrade is complete!");
 		} else {
 			GUI.Label(new Rect(Screen.width-250,130,200,150), desc);
 			if(GUI.Button(new Rect(Screen.width-200,250,100,30),"Purchase")) {
-				Debug.Log("Purchased" + typeInt.ToString() + type + upgrade.ToString());
 				int[] upgradeParam = new int[]{typeInt,upgrade};
 				if(netMan) {
 					netMan.sendUpgrades(upgradeParam);
 				}
-				Debug.Log(upgradeParam[0].ToString() + upgradeParam[1].ToString());
 				gameObject.GetComponent<GameMenu>().playerHive.upgrade(upgradeParam);
 			}
 		}

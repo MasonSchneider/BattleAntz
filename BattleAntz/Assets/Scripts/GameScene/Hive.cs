@@ -120,7 +120,6 @@ public class Hive : MonoBehaviour {
 		int type = specificupgrade[1];
 		if (sugar >= Constants.UPGRADE_COST){ // Check if enough sugar
 			if(ant == Constants.U_WORKER){ // TODO: Worker upgrades
-				Debug.Log("worker" + ant + " " + type);
 				return false;
 			}
 			else if(type == Constants.U_SPECIAL){
@@ -130,7 +129,6 @@ public class Hive : MonoBehaviour {
 					
 					// Increase upgrade
 					upgrades[ant][type]++;
-					Debug.Log("special success " + ant + " " + type);
 					return true;
 				}
 			}
@@ -140,12 +138,10 @@ public class Hive : MonoBehaviour {
 					sugar -= Constants.UPGRADE_COST;
 					// Increase upgrade
 					upgrades[ant][type]++;
-					Debug.Log("speed str hp success " + ant + " " + type);
 					return true;
 				}
 			}
 		}
-		Debug.Log ("not success" + ant + " " + type);
 		return false;
 	}
 }

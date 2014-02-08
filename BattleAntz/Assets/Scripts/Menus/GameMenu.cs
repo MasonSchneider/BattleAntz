@@ -45,7 +45,7 @@ public class GameMenu : MonoBehaviour {
 		}
 
 		// Manage Workers
-		if(GUI.Button(new Rect(215,55,43,20),"Buy") && !paused) {
+		if(GUI.Button(new Rect(220,55,43,20),"Buy") && !paused) {
 			if(Constants.EXPERIMENTAL){
 				enemyHive.buyWorker();
 				playerHive.buyWorker();
@@ -56,7 +56,7 @@ public class GameMenu : MonoBehaviour {
 				playerHive.buyWorker();
 		}
 
-		if(GUI.Button(new Rect(260,55,43,20),"Sell") && !paused) {
+		if(GUI.Button(new Rect(266,55,43,20),"Sell") && !paused) {
 			if(Constants.EXPERIMENTAL){
 				enemyHive.sellWorker();
 				playerHive.sellWorker();

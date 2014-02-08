@@ -60,6 +60,51 @@ public class LevelAI : MonoBehaviour {
 			{0.5f, 	Constants.FIREANT, 	1},
 			{0.5f, 	Constants.ARMYANT, 	2}};
 		levels[4] = level4;
+
+		// Level 5 info
+		float[,] level5 = {
+			{1, 	Constants.WORKER, 	2},
+			{2, 	Constants.BULLANT, 	1},
+			{1, 	Constants.FIREANT, 	1},
+			{0.5f, 	Constants.ARMYANT, 	2},
+			{1, 	Constants.WORKER, 	2},
+			{1, 	Constants.BULLANT, 	1},
+			{0.5f, 	Constants.FIREANT, 	1},
+			{0.5f, 	Constants.ARMYANT, 	1}};
+		levels[5] = level5;
+
+		// Level 6 info
+		float[,] level6 = {
+			{0.5f, 	Constants.WORKER, 	2},
+			{0.5f, 	Constants.ARMYANT, 	2},
+			{0.5f, 	Constants.WORKER, 	1},
+			{0.5f, 	Constants.ARMYANT, 	2},
+			{1, 	Constants.BULLANT, 	1},
+			{1, 	Constants.FIREANT, 	1},
+			{0.5f, 	Constants.ARMYANT, 	2}};
+		levels[6] = level6;
+
+		// Level 7 info
+		float[,] level7 = {
+			{0.5f, 	Constants.WORKER, 	4},
+			{0.5f, 	Constants.ARMYANT, 	2},
+			{0.5f, 	Constants.WORKER, 	2},
+			{1, 	Constants.BULLANT, 	2},
+			{0.5f, 	Constants.FIREANT, 	2},
+			{0.5f, 	Constants.ARMYANT, 	2}};
+		levels[7] = level7;
+
+		
+		// Level 8 info
+		float[,] level8 = {
+			{0.5f, 	Constants.WORKER, 	3},
+			{0.5f, 	Constants.ARMYANT, 	4},
+			{1, 	Constants.WORKER, 	2},
+			{1, 	Constants.ARMYANT, 	4},
+			{1, 	Constants.BULLANT, 	2},
+			{0.5f, 	Constants.FIREANT, 	2},
+			{0.5f, 	Constants.ARMYANT, 	3}};
+		levels[8] = level8;
 	}
 
 }

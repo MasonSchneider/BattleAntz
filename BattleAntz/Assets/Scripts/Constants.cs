@@ -12,20 +12,20 @@ public class Constants : MonoBehaviour {
 	public static int WORKER_PRODUCTION = 5;
 
 	public static int ARMY_ANT_COST = 50;
-	public static int BULL_ANT_COST = 100;
+	public static int BULL_ANT_COST = 150;
 	public static int FIRE_ANT_COST = 250;
 
 	public static int ARMY_ANT_DAMAGE = 10;
 	public static int BULL_ANT_DAMAGE = 30;
-	public static int FIRE_ANT_DAMAGE = 50;
+	public static int FIRE_ANT_DAMAGE = 45;
 
 	public static float ARMY_ANT_SPEED = .2f;
-	public static float BULL_ANT_SPEED = .05f;
+	public static float BULL_ANT_SPEED = .075f;
 	public static float FIRE_ANT_SPEED = .1f;
 
 	public static int ARMY_ANT_LIFE = 50;
 	public static int BULL_ANT_LIFE = 100;
-	public static int FIRE_ANT_LIFE = 50;
+	public static int FIRE_ANT_LIFE = 40;
 
 	public static float ARMY_ANT_RANGE = 1f;
 	public static float BULL_ANT_RANGE = 1.5f;
