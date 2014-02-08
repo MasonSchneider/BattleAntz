@@ -9,6 +9,7 @@ public class NetworkManager : MonoBehaviour {
 	private GUIStyle style = new GUIStyle();
 	private string gameName = "New game";
 	private Hive _enemyHive;
+	private Hive _playerHive;
 
 	// Use this for initialization
 	void Start () {
@@ -16,7 +17,12 @@ public class NetworkManager : MonoBehaviour {
 		style.normal.textColor = Color.white;
 		DontDestroyOnLoad(this);
 	}
-	
+
+	private void Update(){
+		if(Network.isServer && Constants.multiplayer)
+			sendState();
+	}
+
 	private void startServer() {
 		Network.InitializeServer(2, 25000, !Network.HavePublicAddress());
 		MasterServer.RegisterHost(typeName, gameName);
@@ -38,58 +44,95 @@ public class NetworkManager : MonoBehaviour {
 	private void refreshHostList() {
 		MasterServer.RequestHostList(typeName);
 	}
+
+	public void surrender(){
+		Debug.Log("Should send surrender");
+	}
 	
+	public void pause(){
+		Debug.Log("Should send pause");
+	}
+	
+	public void restart(){
+		Debug.Log("Should send restart");
+	}
+
 	public void sendArmyAnt(){
-//		networkView.RPC("recieveArmyAnt", RPCMode.Others);
+		if(Network.isClient)
+			networkView.RPC("receiveArmyAnt", RPCMode.Others);
 	}
 	
 	public void sendBullAnt(){
-//		networkView.RPC("recieveBullAnt", RPCMode.Others);
+		if(Network.isClient)
+			networkView.RPC("receiveBullAnt", RPCMode.Others);
 	}
 	
 	public void sendFireAnt(){
-//		networkView.RPC("recieveFireAnt", RPCMode.Others);
+		if(Network.isClient)
+			networkView.RPC("receiveFireAnt", RPCMode.Others);
 	}
 	
 	public void sendWorker(){
-		networkView.RPC("recieveWorker", RPCMode.Others);
+		if(Network.isClient)
+			networkView.RPC("receiveWorker", RPCMode.Others);
 	}
 	
 	public void sendSellWorker(){
-		networkView.RPC("recieveSellWorker", RPCMode.Others);
+		if(Network.isClient)
+			networkView.RPC("receiveSellWorker", RPCMode.Others);
 	}
 	
 	public void sendUpgrades(int[] upgradeParam){
-		networkView.RPC("recieveUpgrades", RPCMode.Others, upgradeParam);
+		if(Network.isClient)
+			networkView.RPC("receiveUpgrades", RPCMode.Others, upgradeParam);
+	}
+
+	private void sendState(){
+
+		networkView.RPC("receiveHiveState", RPCMode.Others, new int[]{(int)enemyHive().health, enemyHive().workers, enemyHive().income, enemyHive().sugar});
+		networkView.RPC("receiveAntState", RPCMode.Others);
+	}
+
+	[RPC]
+	private void receiveHiveState(int[] values){
+		playerHive().health = values[0];
+		playerHive().workers = values[1];
+		playerHive().income = values[2];
+		playerHive().sugar = values[3];
+	}
+
+	[RPC]
+	private void receiveAntState(){
+
+	}
+
+	[RPC]
+	private void receiveArmyAnt(){
+		enemyHive().buyArmyAnt();
 	}
 	
 	[RPC]
-	private void recieveArmyAnt(){
-//		enemyHive().buyArmyAnt();
+	private void receiveBullAnt(){
+		enemyHive().buyBullAnt();
 	}
 	
 	[RPC]
-	private void recieveBullAnt(){
-//		enemyHive().buyBullAnt();
+	private void receiveFireAnt(){
+		enemyHive().buyFireAnt();
 	}
 	
 	[RPC]
-	private void recieveFireAnt(){
-//		enemyHive().buyFireAnt();
-	}
-	
-	[RPC]
-	private void recieveWorker(){
+	private void receiveWorker(){
 		enemyHive().buyWorker();
 	}
 	
 	[RPC]
-	private void recieveSellWorker(){
-		enemyHive().buyWorker();
+	private void receiveSellWorker(){
+		enemyHive().sellWorker();
 	}
 	
 	[RPC]
-	private void recieveUpgrades(int[] upgradeParam){
+	private void receiveUpgrades(int[] upgradeParam){
 		enemyHive().upgrade(upgradeParam);
 	}
 	
@@ -166,10 +209,16 @@ public class NetworkManager : MonoBehaviour {
 			Destroy(this);
 		}
 	}
-
+	
 	private Hive enemyHive(){
 		if(_enemyHive == null)
 			_enemyHive = GameObject.FindGameObjectWithTag("EnemyHive").GetComponent("Hive") as Hive;
 		return _enemyHive;
+	}
+	
+	private Hive playerHive(){
+		if(_playerHive == null)
+			_playerHive = GameObject.FindGameObjectWithTag("PlayerHive").GetComponent("Hive") as Hive;
+		return _playerHive;
 	}
 }

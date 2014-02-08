@@ -46,25 +46,38 @@ public class GameMenu : MonoBehaviour {
 
 		// Manage Workers
 		if(GUI.Button(new Rect(215,55,43,20),"Buy") && !paused) {
-			if(Constants.multiplayer)
+			if(Constants.EXPERIMENTAL){
+				enemyHive.buyWorker();
+				playerHive.buyWorker();
+			}
+			else if(Constants.multiplayer && Network.isClient)
 				netMan.sendWorker();
-			playerHive.buyWorker();
+			else 
+				playerHive.buyWorker();
 		}
 
 		if(GUI.Button(new Rect(260,55,43,20),"Sell") && !paused) {
-			if(Constants.multiplayer)
+			if(Constants.EXPERIMENTAL){
+				enemyHive.sellWorker();
+				playerHive.sellWorker();
+			}
+			else if(Constants.multiplayer && Network.isClient)
 				netMan.sendSellWorker();
-			playerHive.sellWorker();
+			else 
+				playerHive.sellWorker();
 		}
 		// --------------
 
 		// Manage Army Ants
 		if (GUI.Button(new Rect(Screen.width - 350, 35, 50, 50), new GUIContent("Army","Damage: "+Constants.ARMY_ANT_DAMAGE*(1.0f + playerHive.upgrades[1][2]*Constants.UPGRADE_FRACTION)+"\nLife: "+Constants.ARMY_ANT_LIFE*(1.0f + playerHive.upgrades[1][1]*Constants.UPGRADE_FRACTION)+"\nSpeed: "+Constants.ARMY_ANT_SPEED*(1.0f + playerHive.upgrades[1][0]*Constants.UPGRADE_FRACTION)+"\nCost: "+Constants.ARMY_ANT_COST)) && !paused) {
-			if(Constants.multiplayer)
-				netMan.sendArmyAnt();
-			playerHive.buyArmyAnt();
-			if(Constants.EXPERIMENTAL)
+			if(Constants.EXPERIMENTAL){
 				enemyHive.buyArmyAnt();
+				playerHive.buyArmyAnt();
+			}
+			else if(Constants.multiplayer && Network.isClient)
+				netMan.sendArmyAnt();
+			else 
+				playerHive.buyArmyAnt();
 		}
 		if (GUI.Button(new Rect(Screen.width - 338, 10, 25, 25), "+") && !paused) {
 			upgrades.enabled = true;
@@ -76,11 +89,14 @@ public class GameMenu : MonoBehaviour {
 		
 		// Manage Bull Ant
 		if (GUI.Button(new Rect(Screen.width - 250, 35, 50, 50), new GUIContent("Bull","Damage: "+Constants.BULL_ANT_DAMAGE*(1.0f + playerHive.upgrades[2][2]*Constants.UPGRADE_FRACTION)+"\nLife: "+Constants.BULL_ANT_LIFE*(1.0f + playerHive.upgrades[2][1]*Constants.UPGRADE_FRACTION)+"\nSpeed: "+Constants.BULL_ANT_SPEED*(1.0f + playerHive.upgrades[2][3])*(1.0f + playerHive.upgrades[2][0]*Constants.UPGRADE_FRACTION)+"\nCost: "+Constants.BULL_ANT_COST)) && !paused) {
-			if(Constants.multiplayer)
-				netMan.sendBullAnt();
-			playerHive.buyBullAnt();
-			if(Constants.EXPERIMENTAL)
+			if(Constants.EXPERIMENTAL){
 				enemyHive.buyBullAnt();
+				playerHive.buyBullAnt();
+			}
+			else if(Constants.multiplayer && Network.isClient)
+				netMan.sendBullAnt();
+			else 
+				playerHive.buyBullAnt();
 		}
 		if (GUI.Button(new Rect(Screen.width - 238, 10, 25, 25), "+") && !paused) {
 			upgrades.enabled = true;
@@ -92,11 +108,14 @@ public class GameMenu : MonoBehaviour {
 
 		// Manage Fire Ant
 		if (GUI.Button(new Rect(Screen.width - 150, 35, 50, 50), new GUIContent("Fire","Damage: "+Constants.FIRE_ANT_DAMAGE*(1.0f + playerHive.upgrades[3][2]*Constants.UPGRADE_FRACTION)+"\nLife: "+Constants.FIRE_ANT_LIFE*(1.0f + playerHive.upgrades[3][1]*Constants.UPGRADE_FRACTION)+"\nSpeed: "+Constants.FIRE_ANT_SPEED*(1.0f + playerHive.upgrades[3][0]*Constants.UPGRADE_FRACTION)+"\nCost: "+Constants.FIRE_ANT_COST)) && !paused) {
-			if(Constants.multiplayer)
-				netMan.sendFireAnt();
-			playerHive.buyFireAnt();
-			if(Constants.EXPERIMENTAL)
+			if(Constants.EXPERIMENTAL){
+				playerHive.buyFireAnt();
 				enemyHive.buyFireAnt();
+			}
+			else if(Constants.multiplayer && Network.isClient)
+				netMan.sendFireAnt();
+			else 
+				playerHive.buyFireAnt();
 		}
 		if (GUI.Button(new Rect(Screen.width - 138, 10, 25, 25), "+") && !paused) {
 			upgrades.enabled = true;

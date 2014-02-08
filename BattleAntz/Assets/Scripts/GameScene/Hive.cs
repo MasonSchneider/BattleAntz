@@ -44,7 +44,6 @@ public class Hive : MonoBehaviour {
 			sugar -= Constants.WORKER_COST;
 			workers += 1;
 			workersCreated += 1;
-			Debug.Log ("WorkersCreated: "+workersCreated);
 			income += (int) (Constants.WORKER_PRODUCTION*(1+(upgrades[Constants.U_WORKER][Constants.U_SPEED]+upgrades[Constants.U_WORKER][Constants.U_STRENGTH])*.10));
 			return true;
 		}
