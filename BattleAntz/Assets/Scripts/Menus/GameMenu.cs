@@ -38,20 +38,20 @@ public class GameMenu : MonoBehaviour {
 		GUI.Label(new Rect(140,55,100,40), "Workers: " + playerHive.workers);
 
 		// Pause Game
-		if (GuiButton.textureButton(pauseRect, pauseTexture)) {
+		if ((GuiButton.textureButton(pauseRect, pauseTexture) || ((Event.current.type == EventType.KeyUp) && Event.current.keyCode == KeyCode.P))) {
 			Time.timeScale = 0;
 			paused = true;
 			gameObject.GetComponent<PauseMenu>().enabled = true;
 		}
 
 		// Manage Workers
-		if(GUI.Button(new Rect(220,55,43,20),"Buy") && !paused) {
+		if((GUI.Button(new Rect(220,55,43,20),"Buy") || ((Event.current.type == EventType.KeyUp) && Event.current.keyCode == KeyCode.Q)) && !paused) {
 			if(Constants.multiplayer)
 				netMan.sendWorker();
 			playerHive.buyWorker();
 		}
 
-		if(GUI.Button(new Rect(265,55,43,20),"Sell") && !paused) {
+		if((GUI.Button(new Rect(265,55,43,20),"Sell") || ((Event.current.type == EventType.KeyUp) && Event.current.keyCode == KeyCode.A)) && !paused) {
 			if(Constants.multiplayer)
 				netMan.sendSellWorker();
 			playerHive.sellWorker();
@@ -59,7 +59,7 @@ public class GameMenu : MonoBehaviour {
 		// --------------
 
 		// Manage Army Ants
-		if (GUI.Button(new Rect(Screen.width - 350, 35, 50, 50), new GUIContent("Army","Damage: "+Constants.ARMY_ANT_DAMAGE*(1.0f + playerHive.upgrades[1][2]*Constants.UPGRADE_FRACTION)+"\nLife: "+Constants.ARMY_ANT_LIFE*(1.0f + playerHive.upgrades[1][1]*Constants.UPGRADE_FRACTION)+"\nSpeed: "+Constants.ARMY_ANT_SPEED*(1.0f + playerHive.upgrades[1][0]*Constants.UPGRADE_FRACTION)+"\nCost: "+Constants.ARMY_ANT_COST)) && !paused) {
+		if ((GUI.Button(new Rect(Screen.width - 350, 35, 50, 50), new GUIContent("Army","Damage: "+Constants.ARMY_ANT_DAMAGE*(1.0f + playerHive.upgrades[1][2]*Constants.UPGRADE_FRACTION)+"\nLife: "+Constants.ARMY_ANT_LIFE*(1.0f + playerHive.upgrades[1][1]*Constants.UPGRADE_FRACTION)+"\nSpeed: "+Constants.ARMY_ANT_SPEED*(1.0f + playerHive.upgrades[1][0]*Constants.UPGRADE_FRACTION)+"\nCost: "+Constants.ARMY_ANT_COST)) || ((Event.current.type == EventType.KeyUp) && Event.current.keyCode == KeyCode.W)) && !paused) {
 			if(Constants.multiplayer)
 				netMan.sendArmyAnt();
 			playerHive.buyArmyAnt();
@@ -75,7 +75,7 @@ public class GameMenu : MonoBehaviour {
 		GUI.tooltip = null;
 		
 		// Manage Bull Ant
-		if (GUI.Button(new Rect(Screen.width - 250, 35, 50, 50), new GUIContent("Bull","Damage: "+Constants.BULL_ANT_DAMAGE*(1.0f + playerHive.upgrades[2][2]*Constants.UPGRADE_FRACTION)+"\nLife: "+Constants.BULL_ANT_LIFE*(1.0f + playerHive.upgrades[2][1]*Constants.UPGRADE_FRACTION)+"\nSpeed: "+Constants.BULL_ANT_SPEED*(1.0f + playerHive.upgrades[2][3])*(1.0f + playerHive.upgrades[2][0]*Constants.UPGRADE_FRACTION)+"\nCost: "+Constants.BULL_ANT_COST)) && !paused) {
+		if ((GUI.Button(new Rect(Screen.width - 250, 35, 50, 50), new GUIContent("Bull","Damage: "+Constants.BULL_ANT_DAMAGE*(1.0f + playerHive.upgrades[2][2]*Constants.UPGRADE_FRACTION)+"\nLife: "+Constants.BULL_ANT_LIFE*(1.0f + playerHive.upgrades[2][1]*Constants.UPGRADE_FRACTION)+"\nSpeed: "+Constants.BULL_ANT_SPEED*(1.0f + playerHive.upgrades[2][3])*(1.0f + playerHive.upgrades[2][0]*Constants.UPGRADE_FRACTION)+"\nCost: "+Constants.BULL_ANT_COST)) || ((Event.current.type == EventType.KeyUp) && Event.current.keyCode == KeyCode.E)) && !paused) {
 			if(Constants.multiplayer)
 				netMan.sendBullAnt();
 			playerHive.buyBullAnt();
@@ -91,7 +91,7 @@ public class GameMenu : MonoBehaviour {
 		GUI.tooltip = null;
 
 		// Manage Fire Ant
-		if (GUI.Button(new Rect(Screen.width - 150, 35, 50, 50), new GUIContent("Fire","Damage: "+Constants.FIRE_ANT_DAMAGE*(1.0f + playerHive.upgrades[3][2]*Constants.UPGRADE_FRACTION)+"\nLife: "+Constants.FIRE_ANT_LIFE*(1.0f + playerHive.upgrades[3][1]*Constants.UPGRADE_FRACTION)+"\nSpeed: "+Constants.FIRE_ANT_SPEED*(1.0f + playerHive.upgrades[3][0]*Constants.UPGRADE_FRACTION)+"\nCost: "+Constants.FIRE_ANT_COST)) && !paused) {
+		if ((GUI.Button(new Rect(Screen.width - 150, 35, 50, 50), new GUIContent("Fire","Damage: "+Constants.FIRE_ANT_DAMAGE*(1.0f + playerHive.upgrades[3][2]*Constants.UPGRADE_FRACTION)+"\nLife: "+Constants.FIRE_ANT_LIFE*(1.0f + playerHive.upgrades[3][1]*Constants.UPGRADE_FRACTION)+"\nSpeed: "+Constants.FIRE_ANT_SPEED*(1.0f + playerHive.upgrades[3][0]*Constants.UPGRADE_FRACTION)+"\nCost: "+Constants.FIRE_ANT_COST)) || ((Event.current.type == EventType.KeyUp) && Event.current.keyCode == KeyCode.R)) && !paused) {
 			if(Constants.multiplayer)
 				netMan.sendFireAnt();
 			playerHive.buyFireAnt();
@@ -105,6 +105,5 @@ public class GameMenu : MonoBehaviour {
 
 		GUI.Label(new Rect(Screen.width - 150, 100, 100, 100),GUI.tooltip);
 		GUI.tooltip = null;
-
 	}
 }
