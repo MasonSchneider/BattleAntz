@@ -21,7 +21,7 @@ public class GameMenu : MonoBehaviour {
 		gameObject.GetComponent<PauseMenu>().enabled = false;
 		upgrades = gameObject.GetComponent<UpgradeMenu>();
 		upgrades.enabled = false;
-		pauseRect = new Rect(Screen.width/2 - 24, 24, 0, 0);
+		pauseRect = new Rect(Screen.width/2 - 30, 24, 0, 0);
 
 		if(Constants.multiplayer)
 			netMan = GameObject.Find("Network Manager").GetComponent("NetworkManager") as NetworkManager;
