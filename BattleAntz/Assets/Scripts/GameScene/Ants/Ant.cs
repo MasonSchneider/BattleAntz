@@ -4,7 +4,6 @@ using System.Collections;
 public class Ant : MonoBehaviour {
 	private Vector3 lastPosition;
 	private RoadController roadController;
-	private Ant antTarget;
 
 	public float maxHealth;
 	public float speed;
@@ -25,48 +24,72 @@ public class Ant : MonoBehaviour {
 	public virtual void spawn () {
 		roadController = GameObject.Find("Road Controller").GetComponent("RoadController") as RoadController;
 		lastPosition = transform.position;
-		if (this.enemyHive.tag != "PlayerHive") {
+		if (this.enemyHive.tag == "PlayerHive") {
 			this.renderer.material = playerAntMaterial;
+			if(Constants.multiplayer)
+				networkView.RPC("setTexture", RPCMode.Others, true);
 		}
+	}
+	
+	[RPC]
+	private void setTexture(bool player){
+		if(player) this.renderer.material = playerAntMaterial;
 	}
 
 	public virtual void Update(){
+		if(Constants.multiplayer && Network.isServer)
+			networkView.RPC("updateHealth", RPCMode.Others, this.life);
+	}
+	
+	[RPC]
+	private void updateHealth(float health){
+		this.life = health;
 	}
 
 	public void FixedUpdate(){
+		if(Constants.multiplayer && Network.isClient)
+			return;
 		//Move the ant in its desired direction
 		transform.Translate(behavior.nextDirection()*speed);
 		
 		//If there is an ant to attack, attack it
 		Ant ant = behavior.antToAttack();
-		if(ant != null)
-			ant.attack(this);
+		if(ant != null){
+			float distance = Mathf.Sqrt((ant.gameObject.transform.position-transform.position).sqrMagnitude);
+			if(distance < this.range){
+				ant.doDamage(this.damage * Time.deltaTime);
+			}
+		}
 	}
 	
 	// After the ant has moved, check that it is still inbound
 	void LateUpdate () {
 		gameObject.rigidbody.velocity = Vector3.zero;
 		gameObject.rigidbody.angularVelocity = Vector3.zero;
+		lifeBar.transform.localScale = new Vector2(life/maxHealth, lifeBar.transform.localScale.y);
+
+		if(Constants.multiplayer && Network.isClient){
+			return;
+		}
 		if(roadController.outsideRoad(transform.position)){
 			transform.position = lastPosition;
 		}
 		lastPosition = transform.position;
 
-		lifeBar.transform.localScale = new Vector2(life/maxHealth, lifeBar.transform.localScale.y);
 	}
 
-	// If within range, take damage from attacking ant
-	public void attack(Ant a){
-		float distance = Mathf.Sqrt((a.gameObject.transform.position-transform.position).sqrMagnitude);
-		if(distance < a.range){
-			life -= a.damage * Time.deltaTime;
-		}
-		if(life < 0)
-			die();
-	}
+//	// If within range, take damage from attacking ant
+//	public void attack(Ant a){
+//		float distance = Mathf.Sqrt((a.gameObject.transform.position-transform.position).sqrMagnitude);
+//		if(distance < a.range){
+//			life -= a.damage * Time.deltaTime;
+//		}
+//		if(life < 0)
+//			die();
+//	}
 
 	// Take damage from attacking ant
-	public void doDamage(int damage){
+	public void doDamage(float damage){
 		if (life <= 0)
 			return;
 		life -= damage;
@@ -76,6 +99,8 @@ public class Ant : MonoBehaviour {
 
 	// Gets called everytime an ant collides with something
 	void OnCollisionEnter(Collision collision) {
+		if(Constants.multiplayer && Network.isClient)
+			return;
 		//If colliding with enemy hive, do dmg and destroy self
 		if(collision.gameObject.tag == enemyHive.tag){
 			enemyHive.takeDamage(damage);
@@ -84,6 +109,9 @@ public class Ant : MonoBehaviour {
 	}
 	public virtual void die(){
 		enemyFactory.GetComponentInChildren<AntFactory>().antsKilled += 1;
-		Destroy (this.gameObject);
+		if(Constants.multiplayer && Network.isServer)
+			Network.Destroy(this.gameObject);
+		else if(!Constants.multiplayer)
+			Destroy (this.gameObject);
 	}
 }

@@ -26,17 +26,29 @@ public class AntFactory : MonoBehaviour {
 	
 	public void spawnArmyAnt(int[] upgrades){
 		enemyHive.enemyarmyants += 1;
-		ArmyAnt a = (ArmyAnt) Instantiate (this.armyAnt, spawnPosition.transform.position, Quaternion.identity);
+		ArmyAnt a;
+		if(Constants.multiplayer)
+			a = (ArmyAnt) Network.Instantiate(this.armyAnt, spawnPosition.transform.position, Quaternion.identity, 0);
+		else
+			a = (ArmyAnt) Instantiate(this.armyAnt, spawnPosition.transform.position, Quaternion.identity);
 		setupAnt(a, upgrades);
 	}
 	
 	public void spawnFireAnt(int[] upgrades){
-		FireAnt a = (FireAnt) Instantiate (this.fireAnt, spawnPosition.transform.position, Quaternion.identity);
+		FireAnt a;
+		if(Constants.multiplayer)
+			a = (FireAnt) Network.Instantiate(this.fireAnt, spawnPosition.transform.position, Quaternion.identity, 0);
+		else
+			a = (FireAnt) Instantiate(this.fireAnt, spawnPosition.transform.position, Quaternion.identity);
 		setupAnt(a, upgrades);
 	}
 	
 	public void spawnBullAnt(int[] upgrades){
-		BullAnt a = (BullAnt) Instantiate (this.bullAnt, spawnPosition.transform.position, Quaternion.identity);
+		BullAnt a;
+		if(Constants.multiplayer)
+			a = (BullAnt) Network.Instantiate(this.bullAnt, spawnPosition.transform.position, Quaternion.identity, 0);
+		else
+			a = (BullAnt) Instantiate(this.bullAnt, spawnPosition.transform.position, Quaternion.identity);
 		setupAnt(a, upgrades);
 	}
 

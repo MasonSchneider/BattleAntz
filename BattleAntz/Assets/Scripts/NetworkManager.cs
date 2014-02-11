@@ -11,6 +11,10 @@ public class NetworkManager : MonoBehaviour {
 	private Hive _enemyHive;
 	private Hive _playerHive;
 
+	private float delay;
+
+	public Object armyPrefab;
+
 	// Use this for initialization
 	void Start () {
 		style.fontSize = 30;
@@ -19,7 +23,7 @@ public class NetworkManager : MonoBehaviour {
 	}
 
 	private void Update(){
-		if(Network.isServer && Constants.multiplayer)
+		if(Network.isServer && Constants.multiplayer && Time.time > delay)
 			sendState();
 	}
 
@@ -50,6 +54,10 @@ public class NetworkManager : MonoBehaviour {
 	}
 	
 	public void pause(){
+		Debug.Log("Should send pause");
+	}
+
+	public void resume(){
 		Debug.Log("Should send pause");
 	}
 	
@@ -88,9 +96,7 @@ public class NetworkManager : MonoBehaviour {
 	}
 
 	private void sendState(){
-
 		networkView.RPC("receiveHiveState", RPCMode.Others, new int[]{(int)enemyHive().health, enemyHive().workers, enemyHive().income, enemyHive().sugar});
-		networkView.RPC("receiveAntState", RPCMode.Others);
 	}
 
 	[RPC]
@@ -139,15 +145,16 @@ public class NetworkManager : MonoBehaviour {
 	[RPC]
 	private void startGame(){
 		Constants.multiplayer = true;
+		delay = Time.time + 0.5f;
 		Application.LoadLevel("GameScene");
 	}
 
 	void OnServerInitialized() {
-		Debug.Log("Server Initializied");
+//		Debug.Log("Server Initializied");
 	}
 	
 	void OnConnectedToServer() {
-		Debug.Log("Connected to server");
+//		Debug.Log("Connected to server");
 	} 
 
 	void OnMasterServerEvent(MasterServerEvent msEvent) {

@@ -144,4 +144,15 @@ public class Hive : MonoBehaviour {
 		}
 		return false;
 	}
+
+	public float[] getAntsStatus(){
+		Ant[] ants = antFactory.GetComponentsInChildren<Ant>();
+		float[] antsStatus = new float[ants.Length];
+		for(int i=0; i<ants.Length; i++){
+			antsStatus[i] = 1;
+		}
+		return antsStatus;
+	}
+
+
 }

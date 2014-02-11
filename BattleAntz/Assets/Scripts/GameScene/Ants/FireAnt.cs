@@ -2,19 +2,21 @@
 using System.Collections;
 
 public class FireAnt : Ant {
-	// Use this for initialization
+
 	void Start () {
+		maxHealth = Constants.FIRE_ANT_LIFE;
+		if(Constants.multiplayer && Network.isClient)
+			return;
 		speed = Constants.FIRE_ANT_SPEED*(1.0f + upgrades[0]*Constants.UPGRADE_FRACTION);
 		damage = Constants.FIRE_ANT_DAMAGE*(1.0f + upgrades[2]*Constants.UPGRADE_FRACTION);
-		life = maxHealth = Constants.FIRE_ANT_LIFE*(1.0f + upgrades[1]*Constants.UPGRADE_FRACTION);
+		life = Constants.FIRE_ANT_LIFE*(1.0f + upgrades[1]*Constants.UPGRADE_FRACTION);
 		range = Constants.FIRE_ANT_RANGE;
-		behavior = new DefaultBehavior(this);
 	}
 	
 	public override void spawn(){
 		//This is an enemy, right spawn
 		if (this.enemyHive.tag == "PlayerHive") {
-			behavior = new FireBehavior(this);
+			behavior = new ArmyBehavior(this);
 		}
 		//This is the player, left spawn
 		else{
@@ -24,7 +26,6 @@ public class FireAnt : Ant {
 	}
 
 	public override void die(){ // Deal 30 damage to enemies around this ant
-		enemyFactory.GetComponentInChildren<AntFactory>().antsKilled += 1;
 		if(upgrades[3] == 1){
 			Ant[] ants = enemyFactory.GetComponentsInChildren<Ant>();
 			foreach(Ant a in ants){
@@ -34,6 +35,6 @@ public class FireAnt : Ant {
 				}
 			}
 		}
-		Destroy(this.gameObject);
+		base.die();
 	}
 }

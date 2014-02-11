@@ -2,7 +2,13 @@ fileFormatVersion: 2
 guid: f1a53741e2c3e734ead2638c533b5dff
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - pauseTexture: {instanceID: 0}
+  - fireAntTexture: {instanceID: 0}
+  - armyAntTexture: {instanceID: 0}
+  - bullAntTexture: {instanceID: 0}
+  - playerHive: {instanceID: 0}
+  - enemyHive: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
