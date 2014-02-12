@@ -8,13 +8,13 @@ public class ArmyBehavior : Behavior {
 	}
 
 	//Return the direction to move in
-	public override Vector3 nextDirection(){
+	public override Vector2 nextDirection(){
 		Ant antTarget = getLowestAnt();
 		GameObject target = antTarget==null ? ant.enemyHive.gameObject : antTarget.gameObject;
-		Vector3 offset = target.transform.position-ant.transform.position;
+		Vector2 offset = target.transform.position-ant.transform.position;
 		float length = Mathf.Sqrt(offset.sqrMagnitude);
 		
-		return new Vector3(offset.x/length, offset.y/length, 0);
+		return new Vector2(offset.x/length, offset.y/length);
 	}
 	
 	//Return the ant to be attacked, null if no ant is to be attacked
