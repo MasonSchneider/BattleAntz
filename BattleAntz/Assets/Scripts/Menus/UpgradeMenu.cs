@@ -19,7 +19,7 @@ public class UpgradeMenu : MonoBehaviour {
 	}
 
 	public void OnGUI() {
-		if(gameObject.GetComponent<GameMenu>().paused) return;
+		if(Constants.paused) return;
 		GUI.Box(new Rect(Screen.width-400,90,400,200), "Upgrades");
 		if(GUI.Button(new Rect(Screen.width-30,95,25,25), "X")) {
 			showingInfo = true;

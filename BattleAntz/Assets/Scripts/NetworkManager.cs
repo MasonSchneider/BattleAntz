@@ -39,6 +39,7 @@ public class NetworkManager : MonoBehaviour {
 	
 	private void disconnect(){
 		Network.Disconnect();
+		Constants.multiplayer = false;
 	}
 	
 	private void connect(HostData hostData) {
@@ -48,21 +49,23 @@ public class NetworkManager : MonoBehaviour {
 	private void refreshHostList() {
 		MasterServer.RequestHostList(typeName);
 	}
-
-	public void surrender(){
-		Debug.Log("Should send surrender");
-	}
 	
 	public void pause(){
-		Debug.Log("Should send pause");
+		networkView.RPC("receivePause", RPCMode.Others, true);
 	}
 
 	public void resume(){
-		Debug.Log("Should send pause");
+		networkView.RPC("receivePause", RPCMode.Others, false);
+	}
+	
+	public void surrender(){
+		networkView.RPC("receiveSurrender", RPCMode.Others);
+		stopServer();
+		Destroy(this);
 	}
 	
 	public void restart(){
-		Debug.Log("Should send restart");
+		networkView.RPC("receiveRestart", RPCMode.Others);
 	}
 
 	public void sendArmyAnt(){
@@ -108,8 +111,24 @@ public class NetworkManager : MonoBehaviour {
 	}
 
 	[RPC]
-	private void receiveAntState(){
-
+	private void receivePause(bool pause){
+		Constants.paused = pause;
+		Time.timeScale = pause ? 0 : 1;
+	}
+	
+	[RPC]
+	private void receiveRestart(){
+		Application.LoadLevel("GameScene");
+		Time.timeScale = 1;
+	}
+	
+	[RPC]
+	private void receiveSurrender(){
+		Time.timeScale = 1;
+		Application.LoadLevel("MainMenu");
+		Constants.paused = false;
+		disconnect();
+		Destroy(this);
 	}
 
 	[RPC]

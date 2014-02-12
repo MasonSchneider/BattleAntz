@@ -12,7 +12,6 @@ public class GameMenu : MonoBehaviour {
 	public Hive playerHive;
 	public Hive enemyHive;
 	private NetworkManager netMan;
-	public bool paused = false;
 	private UpgradeMenu upgrades;
 	
 	// Use this for initialization
@@ -40,12 +39,13 @@ public class GameMenu : MonoBehaviour {
 		// Pause Game
 		if ((GuiButton.textureButton(pauseRect, pauseTexture) || ((Event.current.type == EventType.KeyUp) && Event.current.keyCode == KeyCode.P))) {
 			Time.timeScale = 0;
-			paused = true;
+			netMan.pause();
+			Constants.paused = true;
 			gameObject.GetComponent<PauseMenu>().enabled = true;
 		}
 
 		// Manage Workers
-		if((GUI.Button(new Rect(220,55,43,20),"Buy") || ((Event.current.type == EventType.KeyUp) && Event.current.keyCode == KeyCode.Q)) && !paused) {
+		if((GUI.Button(new Rect(220,55,43,20),"Buy") || ((Event.current.type == EventType.KeyUp) && Event.current.keyCode == KeyCode.Q)) && !Constants.paused) {
 			if(Constants.EXPERIMENTAL){
 				enemyHive.buyWorker();
 				playerHive.buyWorker();
@@ -56,7 +56,7 @@ public class GameMenu : MonoBehaviour {
 				playerHive.buyWorker();
 		}
 		
-		if((GUI.Button(new Rect(265,55,43,20),"Sell") || ((Event.current.type == EventType.KeyUp) && Event.current.keyCode == KeyCode.A)) && !paused) {
+		if((GUI.Button(new Rect(265,55,43,20),"Sell") || ((Event.current.type == EventType.KeyUp) && Event.current.keyCode == KeyCode.A)) && !Constants.paused) {
 			if(Constants.EXPERIMENTAL){
 				enemyHive.sellWorker();
 				playerHive.sellWorker();
@@ -69,7 +69,7 @@ public class GameMenu : MonoBehaviour {
 		// --------------
 
 		// Manage Army Ants
-		if ((GUI.Button(new Rect(Screen.width - 350, 35, 50, 50), new GUIContent("Army","Damage: "+Constants.ARMY_ANT_DAMAGE*(1.0f + playerHive.upgrades[1][2]*Constants.UPGRADE_FRACTION)+"\nLife: "+Constants.ARMY_ANT_LIFE*(1.0f + playerHive.upgrades[1][1]*Constants.UPGRADE_FRACTION)+"\nSpeed: "+Constants.ARMY_ANT_SPEED*(1.0f + playerHive.upgrades[1][0]*Constants.UPGRADE_FRACTION)+"\nCost: "+Constants.ARMY_ANT_COST)) || ((Event.current.type == EventType.KeyUp) && Event.current.keyCode == KeyCode.W)) && !paused) {
+		if ((GUI.Button(new Rect(Screen.width - 350, 35, 50, 50), new GUIContent("Army","Damage: "+Constants.ARMY_ANT_DAMAGE*(1.0f + playerHive.upgrades[1][2]*Constants.UPGRADE_FRACTION)+"\nLife: "+Constants.ARMY_ANT_LIFE*(1.0f + playerHive.upgrades[1][1]*Constants.UPGRADE_FRACTION)+"\nSpeed: "+Constants.ARMY_ANT_SPEED*(1.0f + playerHive.upgrades[1][0]*Constants.UPGRADE_FRACTION)+"\nCost: "+Constants.ARMY_ANT_COST)) || ((Event.current.type == EventType.KeyUp) && Event.current.keyCode == KeyCode.W)) && !Constants.paused) {
 			if(Constants.EXPERIMENTAL){
 				enemyHive.buyArmyAnt();
 				playerHive.buyArmyAnt();
@@ -79,7 +79,7 @@ public class GameMenu : MonoBehaviour {
 			else 
 				playerHive.buyArmyAnt();
 		}
-		if (GUI.Button(new Rect(Screen.width - 338, 10, 25, 25), "+") && !paused) {
+		if (GUI.Button(new Rect(Screen.width - 338, 10, 25, 25), "+") && !Constants.paused) {
 			upgrades.enabled = true;
 			upgrades.type = "army";
 		}
@@ -88,7 +88,7 @@ public class GameMenu : MonoBehaviour {
 		GUI.tooltip = null;
 		
 		// Manage Bull Ant
-		if ((GUI.Button(new Rect(Screen.width - 250, 35, 50, 50), new GUIContent("Bull","Damage: "+Constants.BULL_ANT_DAMAGE*(1.0f + playerHive.upgrades[2][2]*Constants.UPGRADE_FRACTION)+"\nLife: "+Constants.BULL_ANT_LIFE*(1.0f + playerHive.upgrades[2][1]*Constants.UPGRADE_FRACTION)+"\nSpeed: "+Constants.BULL_ANT_SPEED*(1.0f + playerHive.upgrades[2][3])*(1.0f + playerHive.upgrades[2][0]*Constants.UPGRADE_FRACTION)+"\nCost: "+Constants.BULL_ANT_COST)) || ((Event.current.type == EventType.KeyUp) && Event.current.keyCode == KeyCode.E)) && !paused) {
+		if ((GUI.Button(new Rect(Screen.width - 250, 35, 50, 50), new GUIContent("Bull","Damage: "+Constants.BULL_ANT_DAMAGE*(1.0f + playerHive.upgrades[2][2]*Constants.UPGRADE_FRACTION)+"\nLife: "+Constants.BULL_ANT_LIFE*(1.0f + playerHive.upgrades[2][1]*Constants.UPGRADE_FRACTION)+"\nSpeed: "+Constants.BULL_ANT_SPEED*(1.0f + playerHive.upgrades[2][3])*(1.0f + playerHive.upgrades[2][0]*Constants.UPGRADE_FRACTION)+"\nCost: "+Constants.BULL_ANT_COST)) || ((Event.current.type == EventType.KeyUp) && Event.current.keyCode == KeyCode.E)) && !Constants.paused) {
 			if(Constants.EXPERIMENTAL){
 				enemyHive.buyBullAnt();
 				playerHive.buyBullAnt();
@@ -98,7 +98,7 @@ public class GameMenu : MonoBehaviour {
 			else 
 				playerHive.buyBullAnt();
 		}
-		if (GUI.Button(new Rect(Screen.width - 238, 10, 25, 25), "+") && !paused) {
+		if (GUI.Button(new Rect(Screen.width - 238, 10, 25, 25), "+") && !Constants.paused) {
 			upgrades.enabled = true;
 			upgrades.type = "bull";
 		}
@@ -107,7 +107,7 @@ public class GameMenu : MonoBehaviour {
 		GUI.tooltip = null;
 
 		// Manage Fire Ant
-		if ((GUI.Button(new Rect(Screen.width - 150, 35, 50, 50), new GUIContent("Fire","Damage: "+Constants.FIRE_ANT_DAMAGE*(1.0f + playerHive.upgrades[3][2]*Constants.UPGRADE_FRACTION)+"\nLife: "+Constants.FIRE_ANT_LIFE*(1.0f + playerHive.upgrades[3][1]*Constants.UPGRADE_FRACTION)+"\nSpeed: "+Constants.FIRE_ANT_SPEED*(1.0f + playerHive.upgrades[3][0]*Constants.UPGRADE_FRACTION)+"\nCost: "+Constants.FIRE_ANT_COST)) || ((Event.current.type == EventType.KeyUp) && Event.current.keyCode == KeyCode.R)) && !paused) {
+		if ((GUI.Button(new Rect(Screen.width - 150, 35, 50, 50), new GUIContent("Fire","Damage: "+Constants.FIRE_ANT_DAMAGE*(1.0f + playerHive.upgrades[3][2]*Constants.UPGRADE_FRACTION)+"\nLife: "+Constants.FIRE_ANT_LIFE*(1.0f + playerHive.upgrades[3][1]*Constants.UPGRADE_FRACTION)+"\nSpeed: "+Constants.FIRE_ANT_SPEED*(1.0f + playerHive.upgrades[3][0]*Constants.UPGRADE_FRACTION)+"\nCost: "+Constants.FIRE_ANT_COST)) || ((Event.current.type == EventType.KeyUp) && Event.current.keyCode == KeyCode.R)) && !Constants.paused) {
 			if(Constants.EXPERIMENTAL){
 				playerHive.buyFireAnt();
 				enemyHive.buyFireAnt();
@@ -117,7 +117,7 @@ public class GameMenu : MonoBehaviour {
 			else 
 				playerHive.buyFireAnt();
 		}
-		if (GUI.Button(new Rect(Screen.width - 138, 10, 25, 25), "+") && !paused) {
+		if (GUI.Button(new Rect(Screen.width - 138, 10, 25, 25), "+") && !Constants.paused) {
 			upgrades.enabled = true;
 			upgrades.type = "fire";
 		}
