@@ -14,11 +14,11 @@ public class EnemyAI : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		if(Constants.multiplayer || Constants.EXPERIMENTAL)
+			Destroy(this);
 		t = Time.time;
 		schedule = LevelAI.getLevel(Constants.level);
 		lastSpawn = Time.time;
-		if(Constants.multiplayer || Constants.EXPERIMENTAL)
-			Destroy(this);
 	}
 
 	void preScheduleAI(){

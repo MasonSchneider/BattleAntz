@@ -4,7 +4,7 @@ using System.Collections;
 public class MainCamera : MonoBehaviour
 {
 	const float SCREEN_MOVEMENT_COEFFICIENT = 7;
-	private Vector2 mapPosition;
+	private Vector3 mapPosition;
 	private float minCamaraZoom = 6;
 	private float maxCameraZoom = 18;
 
