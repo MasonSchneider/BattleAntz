@@ -29,13 +29,13 @@ public class AntFlockingBehavior
 
 	public Vector2 nextAlignmentVelocity()
 	{
-		Vector2 sum = Vector2.zero;
+//		Vector2 sum = Vector2.zero;
 		foreach(Ant other in flock)
 		{
-			if (shouldAlignWith(other))
-			{
-				sum += other.velocity();
-			}
+//			if (shouldAlignWith(other))
+//			{
+//				sum += other.velocity();
+//			}
 		}
 //		return (1.0 / NEIGHBOR_COUNT) * sum;
 		return Vector2.zero;
@@ -48,13 +48,13 @@ public class AntFlockingBehavior
 
 	float nextSeparationVelocity ()
 	{
-		Vector2 sum = Vector2.zero;
+//		Vector2 sum = Vector2.zero;
 		foreach (Ant other in flock)
 		{
-			if (shouldSeparateFrom(other))
-			{
-				sum += (unit.velocity() + other.velocity()) / distance (other);
-			}
+//			if (shouldSeparateFrom(other))
+//			{
+//				sum += (unit.velocity() + other.velocity()) / distance (other);
+//			}
 		}
 //		return sum;
 		return 0;
@@ -67,13 +67,13 @@ public class AntFlockingBehavior
 
 	float nextCohesionVelocity ()
 	{
-		Vector2 sum = Vector2.zero;
+//		Vector2 sum = Vector2.zero;
 		foreach (Ant other in flock)
 		{
-			if (shouldAlignWith(other))
-			{
-				sum += (unit.position() - other.position());
-			}
+//			if (shouldAlignWith(other))
+//			{
+//				sum += (unit.position() - other.position());
+//			}
 		}
 //		return sum;
 		return 0;

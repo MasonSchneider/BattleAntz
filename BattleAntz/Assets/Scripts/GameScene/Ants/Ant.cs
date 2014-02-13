@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Ant : MonoBehaviour {
-	private Vector2 lastPosition;
+	private Vector3 lastPosition;
 	private RoadController roadController;
 
 	public float maxHealth;
@@ -46,12 +46,12 @@ public class Ant : MonoBehaviour {
 		this.life = health;
 	}
 
-	public Vector2 velocity ()
+	public Vector3 velocity()
 	{
 		return behavior.nextDirection () * speed;
 	}
 
-	public Vector2 position()
+	public Vector3 position()
 	{
 		return transform.position;
 	}
@@ -60,7 +60,7 @@ public class Ant : MonoBehaviour {
 		if(Constants.multiplayer && Network.isClient)
 			return;
 		//Move the ant in its desired direction
-		transform.Translate (velocity ());
+		transform.Translate(velocity());
 		
 		//If there is an ant to attack, attack it
 		Ant ant = behavior.antToAttack();
