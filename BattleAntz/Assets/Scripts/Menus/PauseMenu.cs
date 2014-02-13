@@ -19,21 +19,24 @@ public class PauseMenu : MonoBehaviour {
 	void OnGUI () {
 		GUI.Box(new Rect(Screen.width/2-200,Screen.height/2-200,400,300), "Paused");
 		if(GUI.Button(new Rect(Screen.width/2-150,Screen.height/2-150,300,50),"Resume Game") || ((Event.current.type == EventType.KeyUp) && Event.current.keyCode == KeyCode.P)) {
-			networkManager.resume();
+			if(networkManager)
+				networkManager.resume();
 			Constants.paused = false;
 			Time.timeScale = 1;
 			gameObject.GetComponent<PauseMenu>().enabled = false;
 		}
 		if(GUI.Button(new Rect(Screen.width/2-150,Screen.height/2-75,300,50),"Surrender")) {
 			Constants.paused = false;
-			networkManager.surrender();
+			if(networkManager)
+				networkManager.surrender();
 			Application.LoadLevel("MainMenu");
 			Time.timeScale = 1;
 		}
 		
 		if(GUI.Button(new Rect(Screen.width/2-150,Screen.height/2,300,50),"Restart")) {
 			Constants.paused = false;
-			networkManager.restart();
+			if(networkManager)
+				networkManager.restart();
 			Application.LoadLevel("GameScene");
 			Time.timeScale = 1;
 		}

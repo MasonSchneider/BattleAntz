@@ -11,7 +11,7 @@ public class GameMenu : MonoBehaviour {
 
 	public Hive playerHive;
 	public Hive enemyHive;
-	private NetworkManager netMan;
+	private NetworkManager networkManager;
 	private UpgradeMenu upgrades;
 	
 	// Use this for initialization
@@ -23,7 +23,7 @@ public class GameMenu : MonoBehaviour {
 		pauseRect = new Rect(Screen.width/2 - 30, 24, 0, 0);
 
 		if(Constants.multiplayer)
-			netMan = GameObject.Find("Network Manager").GetComponent("NetworkManager") as NetworkManager;
+			networkManager = GameObject.Find("Network Manager").GetComponent("NetworkManager") as NetworkManager;
 	}
 
 	void OnGUI () {
@@ -39,7 +39,8 @@ public class GameMenu : MonoBehaviour {
 		// Pause Game
 		if ((GuiButton.textureButton(pauseRect, pauseTexture) || ((Event.current.type == EventType.KeyUp) && Event.current.keyCode == KeyCode.P))) {
 			Time.timeScale = 0;
-			netMan.pause();
+			if(networkManager)
+				networkManager.pause();
 			Constants.paused = true;
 			gameObject.GetComponent<PauseMenu>().enabled = true;
 		}
@@ -51,7 +52,7 @@ public class GameMenu : MonoBehaviour {
 				playerHive.buyWorker();
 			}
 			else if(Constants.multiplayer && Network.isClient)
-				netMan.sendWorker();
+				networkManager.sendWorker();
 			else 
 				playerHive.buyWorker();
 		}
@@ -62,7 +63,7 @@ public class GameMenu : MonoBehaviour {
 				playerHive.sellWorker();
 			}
 			else if(Constants.multiplayer && Network.isClient)
-				netMan.sendSellWorker();
+				networkManager.sendSellWorker();
 			else 
 				playerHive.sellWorker();
 		}
@@ -75,7 +76,7 @@ public class GameMenu : MonoBehaviour {
 				playerHive.buyArmyAnt();
 			}
 			else if(Constants.multiplayer && Network.isClient)
-				netMan.sendArmyAnt();
+				networkManager.sendArmyAnt();
 			else 
 				playerHive.buyArmyAnt();
 		}
@@ -94,7 +95,7 @@ public class GameMenu : MonoBehaviour {
 				playerHive.buyBullAnt();
 			}
 			else if(Constants.multiplayer && Network.isClient)
-				netMan.sendBullAnt();
+				networkManager.sendBullAnt();
 			else 
 				playerHive.buyBullAnt();
 		}
@@ -113,7 +114,7 @@ public class GameMenu : MonoBehaviour {
 				enemyHive.buyFireAnt();
 			}
 			else if(Constants.multiplayer && Network.isClient)
-				netMan.sendFireAnt();
+				networkManager.sendFireAnt();
 			else 
 				playerHive.buyFireAnt();
 		}
