@@ -132,8 +132,4 @@ public class UpgradeMenu : MonoBehaviour {
 		}
 		GUI.Label(new Rect(Screen.width-250,130,200,150), desc);
 	}
-
-	private void showSpeed() {
-
-	}
 }
