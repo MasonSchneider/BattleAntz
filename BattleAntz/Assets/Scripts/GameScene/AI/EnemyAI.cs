@@ -19,6 +19,10 @@ public class EnemyAI : MonoBehaviour {
 		t = Time.time;
 		schedule = LevelAI.getLevel(Constants.level);
 		lastSpawn = Time.time;
+		if(Constants.level < 10)
+			strategy = 0;
+		else
+			strategy = 3;
 	}
 
 	void preScheduleAI(){
