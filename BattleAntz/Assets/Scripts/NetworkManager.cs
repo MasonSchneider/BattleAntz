@@ -119,6 +119,7 @@ public class NetworkManager : MonoBehaviour {
 	[RPC]
 	private void receiveRestart(){
 		Application.LoadLevel("GameScene");
+		Constants.paused = false;
 		Time.timeScale = 1;
 	}
 	

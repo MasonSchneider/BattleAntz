@@ -21,7 +21,7 @@ public class ArmyAnt : Ant {
 	public override void spawn(){
 		//This is an enemy, right spawn
 		if (this.enemyHive.tag == "PlayerHive") {
-			behavior = new ArmyBehavior(this);
+			behavior = new DefaultBehavior(this);
 		}
 		//This is the player, left spawn
 		else{

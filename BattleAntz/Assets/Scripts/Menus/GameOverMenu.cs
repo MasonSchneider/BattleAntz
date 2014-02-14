@@ -5,6 +5,7 @@ public class GameOverMenu : MonoBehaviour {
 
 	private string gameResult;
 	private GUIStyle style = new GUIStyle();
+	private NetworkManager networkManager;
 
 	public int workers;
 	public int armyants;
@@ -17,7 +18,8 @@ public class GameOverMenu : MonoBehaviour {
 	void Start () {
 		enabled = false;
 		style.fontSize = 30;
-//		playerHive = gameObject.GetComponent<GameMenu>().playerHive;
+		if(Constants.multiplayer)
+			networkManager = GameObject.Find("Network Manager").GetComponent("NetworkManager") as NetworkManager;
 	}
 	
 	// Update is called once per frame
@@ -50,11 +52,17 @@ public class GameOverMenu : MonoBehaviour {
 		GUI.Label(new Rect(Screen.width/2-150,Screen.height/2+10,300,50), "Units Killed: "+killed);
 
 		if(GUI.Button(new Rect(Screen.width/2-150,Screen.height/2+60,300,50),"Main Menu")) {
+			if(networkManager)
+				networkManager.surrender();
 			Application.LoadLevel("MainMenu");
+			Constants.paused = false;
 			Time.timeScale = 1;
 		}
 		
 		if(GUI.Button(new Rect(Screen.width/2-150,Screen.height/2+125,300,50),"Restart")) {
+			if(networkManager)
+				networkManager.restart();
+			Constants.paused = false;
 			Application.LoadLevel("GameScene");
 			Time.timeScale = 1;
 		}
