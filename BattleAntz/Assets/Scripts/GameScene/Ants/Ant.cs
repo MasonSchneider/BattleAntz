@@ -46,13 +46,11 @@ public class Ant : MonoBehaviour {
 		this.life = health;
 	}
 
-	public Vector3 velocity()
-	{
-		return behavior.nextDirection () * speed;
+	public Vector2 velocity() {
+		return (Vector2) behavior.nextDirection () * speed;
 	}
 
-	public Vector3 position()
-	{
+	public Vector3 position() {
 		return transform.position;
 	}
 

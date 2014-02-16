@@ -9,6 +9,31 @@ public abstract class Behavior : object {
 	
 	//Return the ant to be attacked, null if no ant is to be attacked
 	public abstract Ant antToAttack();
+
+	private string allyFactoryTag() {
+		if (ant.enemyFactory.tag == "PlayerFactory") {
+			return "EnemyFactory";
+		} else {
+			return "PlayerFactory";
+		}
+	}
+
+	private string enemyFactoryTag() {
+		if (ant.enemyFactory.tag == "PlayerFactory") {
+			return "PlayerFactory";
+		} else {
+			return "EnemyFactory";
+		}
+	}
+
+	protected Ant[] getAllyAnts() {
+		return GameObject.FindGameObjectWithTag(allyFactoryTag()).GetComponentsInChildren<Ant>();
+
+	}
+
+	protected Ant[] getEnemyAnts() {
+		return GameObject.FindGameObjectWithTag(enemyFactoryTag()).GetComponentsInChildren<Ant>();
+	}
 	
 	// Find the nearest enemy ant
 	protected Ant getNearestAnt(){
