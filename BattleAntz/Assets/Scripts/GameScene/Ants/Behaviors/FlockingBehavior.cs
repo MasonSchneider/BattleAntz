@@ -19,19 +19,8 @@ public class FlockingBehavior : Behavior
 	}
 
 	public override Vector2 nextDirection() {
-		Ant[] flock = getAllyAnts();
-		Vector2 direction;
-		if(flock.Length < 2){
-			Vector2 offset = ant.enemyHive.gameObject.transform.position-ant.transform.position;
-			float length = Mathf.Sqrt(offset.sqrMagnitude);
-			direction = new Vector2(offset.x/length, offset.y/length);
-		}
-		else{
-			calculator.setFlock(getAllyAnts());
-			direction = calculator.nextVelocity();// / ant.speed;
-		}
-			
-		return direction;
+		calculator.setFlocks(getAllyAnts(), getEnemyAnts());
+		return calculator.nextVelocity();
 	}
 
 	public override Ant antToAttack (){

@@ -59,7 +59,7 @@ public class Ant : MonoBehaviour {
 		if(Constants.multiplayer && Network.isClient)
 			return;
 		//Move the ant in its desired direction
-		transform.Translate((Vector2) behavior.nextDirection () * speed);
+		transform.Translate((Vector2) behavior.nextDirection().normalized * speed);
 		
 		//If there is an ant to attack, attack it
 		Ant ant = behavior.antToAttack();

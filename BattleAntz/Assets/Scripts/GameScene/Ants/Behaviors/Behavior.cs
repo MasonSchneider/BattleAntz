@@ -11,20 +11,11 @@ public abstract class Behavior : object {
 	public abstract Ant antToAttack();
 
 	protected Ant[] getAllyAnts() {
-		Ant[] ants = ant.allyFactory.GetComponentsInChildren<Ant>();
-//		ArrayList list = new ArrayList(ants);
-//		list.Remove(ant);
-//		ants = (Ant[])list.ToArray(typeof(Ant)) as Ant[];
-		return ants;
-
+		return ant.allyFactory.GetComponentsInChildren<Ant>();
 	}
 
 	protected Ant[] getEnemyAnts() {
-		Ant[] ants = ant.enemyFactory.GetComponentsInChildren<Ant>();
-//		ArrayList list = new ArrayList(ants);
-//		list.Remove(ant);
-//		ants = (Ant[])list.ToArray()as Ant[];
-		return ants;
+		return ant.enemyFactory.GetComponentsInChildren<Ant>();
 	}
 	
 	// Find the nearest enemy ant

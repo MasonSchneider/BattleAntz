@@ -7,29 +7,56 @@ public class FlockingCalculator : object {
 	public static float ALIGNMENT_WEIGHT = 1.0f / 3.0f;
 	public static float SEPARATION_WEIGHT = 1.0f / 3.0f;
 	public static float COHESION_WEIGHT = 1.0f / 3.0f;
+	public static float POSITION_WEIGHT = 2.0F;
 	public static int NEIGHBOR_COUNT = 4;
 	public static float MIN_DISTANCE = 0.0f;
 	public static float MAX_DISTANCE = 5.0f;
 
 	private Ant unit;
-	private Ant[] flock;
+	private Ant[] allyFlock;
+	private Ant[] enemyFlock;
 
-	public FlockingCalculator (Ant unit, Ant[] flock) {
+	public FlockingCalculator (Ant unit, Ant[] allyFlock) {
 		this.unit = unit;
-		this.flock = flock;
+		this.allyFlock = allyFlock;
 	}
 
-	public void setFlock(Ant[] flock){
-		this.flock = flock;
+	public void setFlocks(Ant[] allyFlock, Ant[] enemyFlock){
+		this.allyFlock = allyFlock;
+		this.enemyFlock = enemyFlock;
 	}
 
 	public Vector2 nextVelocity() {
-		return nextAlignmentVelocity () * ALIGNMENT_WEIGHT + nextSeparationVelocity () * SEPARATION_WEIGHT + nextCohesionVelocity () * COHESION_WEIGHT;
+		return 	nextAlignmentVelocity () * ALIGNMENT_WEIGHT + 
+				nextSeparationVelocity () * SEPARATION_WEIGHT + 
+				nextCohesionVelocity () * COHESION_WEIGHT + 
+				nextDesiredPosition();
+	}
+
+	Vector2 nextDesiredPosition(){
+		Vector2 desiredPosition;
+		if(enemyFlock.Length == 0){
+			Vector2 center = flockCenter(allyFlock);
+			desiredPosition = new Vector2(center.x + POSITION_WEIGHT, center.y);
+		}
+		else{
+			desiredPosition = flockCenter(enemyFlock).normalized;
+		}
+		return desiredPosition;
+	}
+
+	Vector2 flockCenter(Ant[] flock){
+		Vector2 flockCenter = Vector2.zero;
+		foreach(Ant ant in flock) {
+			flockCenter = flockCenter + (Vector2) ant.transform.position;	
+		}
+		flockCenter = flockCenter / (flock.Length );
+		return (flockCenter - (Vector2) unit.position());
 	}
 
 	Vector2 nextAlignmentVelocity() {
 		Vector2 sum = Vector2.zero;
-		foreach(Ant other in flock) {
+		foreach(Ant other in allyFlock) {
 			if (other != unit && shouldAlignWith(other)) {
 				sum += (Vector2) other.velocity();
 			}
@@ -43,7 +70,7 @@ public class FlockingCalculator : object {
 
 	Vector2 nextSeparationVelocity () {
 		Vector2 sum = Vector2.zero;
-		foreach (Ant other in flock) {
+		foreach (Ant other in allyFlock) {
 			if (other != unit && shouldSeparateFrom(other)) {
 				sum += (Vector2) (unit.velocity() + other.velocity()) / distance (other);
 			}
@@ -57,7 +84,7 @@ public class FlockingCalculator : object {
 
 	Vector2 nextCohesionVelocity () {
 		Vector2 sum = Vector2.zero;
-		foreach (Ant other in flock) {
+		foreach (Ant other in allyFlock) {
 			if (other != unit && shouldAlignWith(other)) {
 				sum += (Vector2) (unit.position() - other.position());
 			}
