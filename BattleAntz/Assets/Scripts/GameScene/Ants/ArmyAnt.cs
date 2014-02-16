@@ -21,11 +21,11 @@ public class ArmyAnt : Ant {
 	public override void spawn(){
 		//This is an enemy, right spawn
 		if (this.enemyHive.tag == "PlayerHive") {
-			behavior = new FlockingBehavior(this);
+			behavior = new DefaultBehavior(this);
 		}
 		//This is the player, left spawn
 		else{
-			behavior = new DefaultBehavior(this);
+			behavior = new FlockingBehavior(this);
 		}
 		base.spawn();
 	}

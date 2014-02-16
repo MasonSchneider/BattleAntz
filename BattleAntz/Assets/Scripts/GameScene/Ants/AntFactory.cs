@@ -57,6 +57,7 @@ public class AntFactory : MonoBehaviour {
 		a.transform.parent = this.transform;
 		a.enemyHive = enemyHive;
 		a.enemyFactory = enemyFactory;
+		a.allyFactory = this.gameObject;
 		a.ID = ants_created++;
 		a.upgrades = upgrades;
 		a.spawn();

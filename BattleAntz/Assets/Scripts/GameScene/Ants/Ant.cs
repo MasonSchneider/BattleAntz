@@ -16,6 +16,7 @@ public class Ant : MonoBehaviour {
 	public int ID;
 	public int[] upgrades;
 	public GameObject enemyFactory;
+	public GameObject allyFactory;
 	public GameObject lifeBar;
 	public Hive enemyHive;
 	public Material playerAntMaterial;
