@@ -19,6 +19,10 @@ public class FlockingCalculator : object {
 		this.flock = flock;
 	}
 
+	public void setFlock(Ant[] flock){
+		this.flock = flock;
+	}
+
 	public Vector2 nextVelocity() {
 		return nextAlignmentVelocity () * ALIGNMENT_WEIGHT + nextSeparationVelocity () * SEPARATION_WEIGHT + nextCohesionVelocity () * COHESION_WEIGHT;
 	}
@@ -26,7 +30,7 @@ public class FlockingCalculator : object {
 	Vector2 nextAlignmentVelocity() {
 		Vector2 sum = Vector2.zero;
 		foreach(Ant other in flock) {
-			if (shouldAlignWith(other)) {
+			if (other != unit && shouldAlignWith(other)) {
 				sum += (Vector2) other.velocity();
 			}
 		}
@@ -40,7 +44,7 @@ public class FlockingCalculator : object {
 	Vector2 nextSeparationVelocity () {
 		Vector2 sum = Vector2.zero;
 		foreach (Ant other in flock) {
-			if (shouldSeparateFrom(other)) {
+			if (other != unit && shouldSeparateFrom(other)) {
 				sum += (Vector2) (unit.velocity() + other.velocity()) / distance (other);
 			}
 		}
@@ -54,7 +58,7 @@ public class FlockingCalculator : object {
 	Vector2 nextCohesionVelocity () {
 		Vector2 sum = Vector2.zero;
 		foreach (Ant other in flock) {
-			if (shouldAlignWith(other)) {
+			if (other != unit && shouldAlignWith(other)) {
 				sum += (Vector2) (unit.position() - other.position());
 			}
 		}
