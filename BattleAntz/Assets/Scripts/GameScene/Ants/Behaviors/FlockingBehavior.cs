@@ -17,11 +17,11 @@ public class FlockingBehavior : Behavior
 	public FlockingBehavior (Ant ant)
 	{
 		this.ant = ant;
-		this.calculator = new FlockingCalculator (ant, getAllyAnts());
+		this.calculator = new FlockingCalculator (ant);
 	}
 
 	public override Vector2 nextDirection() {
-		if (getAllyAnts().Count.Equals(0)) {
+		if (getAllyAnts().Length == 0) {
 			Ant antTarget = getNearestAnt ();
 			GameObject target = antTarget == null ? ant.enemyHive.gameObject : antTarget.gameObject;
 			Vector2 offset = target.transform.position - ant.transform.position;
@@ -29,7 +29,7 @@ public class FlockingBehavior : Behavior
 
 			return new Vector2 (offset.x / length, offset.y / length);
 		} else {
-			calculator.setFlock (getAllyAnts ());
+			calculator.setFlocks (getAllyAnts(), getEnemyAnts());
 			return calculator.nextVelocity () / ant.speed;
 		}
 	}

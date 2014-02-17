@@ -5,13 +5,14 @@ using System.Collections.Generic;
 
 
 public class FlockingCalculator : object {
-	public static float ALIGNMENT_WEIGHT = 1.0f / 3.0f;
-	public static float SEPARATION_WEIGHT = 1.0f / 3.0f;
-	public static float COHESION_WEIGHT = 1.0f / 3.0f;
-	public static float POSITION_WEIGHT = 2.0F;
+	public static float ALIGNMENT_WEIGHT = 0.5f;
+	public static float SEPARATION_WEIGHT = 1.0f;
+	public static float COHESION_WEIGHT = 0.001f;
+	public static float POSITION_WEIGHT = 1.0F;
+	public static float THREAT_WEIGHT = 1.0f;
 	public static int NEIGHBOR_COUNT = 4;
-	public static float MIN_DISTANCE = 0.0f;
-	public static float MAX_DISTANCE = 1.0f;
+	public static float MIN_DISTANCE = 5.0f;
+	public static float MAX_DISTANCE = 10.0f;
 
 	private Ant unit;
 	private Ant[] allyFlock;
@@ -26,10 +27,26 @@ public class FlockingCalculator : object {
 		this.enemyFlock = enemyFlock;
 	}
 
+	Vector2 nextThreatVelocity ()
+	{
+		if (this.enemyFlock.Length > 0) {
+			Ant closestAnt = this.enemyFlock[0];
+			foreach (Ant enemy in this.enemyFlock) {
+				if (enemy.position().x < closestAnt.position().x) {
+					closestAnt = enemy;
+				}
+			}
+			return closestAnt.position() - unit.position();
+		} else {
+			return Vector2.zero;
+		}
+	}
+
 	public Vector2 nextVelocity() {
-		return 	nextAlignmentVelocity () * ALIGNMENT_WEIGHT + 
-				nextSeparationVelocity () * SEPARATION_WEIGHT + 
-				nextCohesionVelocity () * COHESION_WEIGHT +
+		return 	nextAlignmentVelocity() * ALIGNMENT_WEIGHT + 
+				nextSeparationVelocity() * SEPARATION_WEIGHT + 
+				nextCohesionVelocity() * COHESION_WEIGHT +
+				nextThreatVelocity() * THREAT_WEIGHT +
 				nextDesiredPosition();
 	}
 
