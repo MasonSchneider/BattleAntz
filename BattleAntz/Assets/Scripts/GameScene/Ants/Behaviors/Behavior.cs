@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public abstract class Behavior : object {
 	protected Ant ant;
@@ -14,7 +15,7 @@ public abstract class Behavior : object {
 		return ant.allyFactory.GetComponentsInChildren<Ant>();
 	}
 
-	protected Ant[] getEnemyAnts() {
+	protected ICollection<Ant> getEnemyAnts() {
 		return ant.enemyFactory.GetComponentsInChildren<Ant>();
 	}
 	

@@ -50,4 +50,12 @@ public class RoadController : MonoBehaviour {
 			inside.y += lowerLeft.transform.position.y - outside.y;
 		return inside;
 	}
+
+	public float height() {
+		return upperRight.transform.position.y - lowerLeft.transform.position.y;
+	}
+
+	public float width() {
+		return upperRight.transform.position.x - lowerLeft.transform.position.x;
+	}
 }

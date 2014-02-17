@@ -13,14 +13,25 @@ using UnityEngine;
 public class FlockingBehavior : Behavior
 {
 	FlockingCalculator calculator;
-	public FlockingBehavior (Ant ant){
+
+	public FlockingBehavior (Ant ant)
+	{
 		this.ant = ant;
-		calculator = new FlockingCalculator(ant, getAllyAnts());
+		this.calculator = new FlockingCalculator (ant, getAllyAnts());
 	}
 
 	public override Vector2 nextDirection() {
-		calculator.setFlocks(getAllyAnts(), getEnemyAnts());
-		return calculator.nextVelocity();
+		if (getAllyAnts().Count.Equals(0)) {
+			Ant antTarget = getNearestAnt ();
+			GameObject target = antTarget == null ? ant.enemyHive.gameObject : antTarget.gameObject;
+			Vector2 offset = target.transform.position - ant.transform.position;
+			float length = Mathf.Sqrt (offset.sqrMagnitude);
+
+			return new Vector2 (offset.x / length, offset.y / length);
+		} else {
+			calculator.setFlock (getAllyAnts ());
+			return calculator.nextVelocity () / ant.speed;
+		}
 	}
 
 	public override Ant antToAttack (){
