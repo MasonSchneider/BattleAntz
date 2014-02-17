@@ -15,7 +15,7 @@ public abstract class Behavior : object {
 		return ant.allyFactory.GetComponentsInChildren<Ant>();
 	}
 
-	protected ICollection<Ant> getEnemyAnts() {
+	protected Ant[] getEnemyAnts() {
 		return ant.enemyFactory.GetComponentsInChildren<Ant>();
 	}
 	
