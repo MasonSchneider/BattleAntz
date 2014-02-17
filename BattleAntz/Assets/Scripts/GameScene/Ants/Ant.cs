@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Ant : MonoBehaviour {
 	private Vector3 lastPosition;
+	private Vector2 lastVelocity;
 	private RoadController roadController;
 
 	public float maxHealth;

@@ -1,6 +1,7 @@
 // AntFlockingBehavior Algorithm object
 // by Isaac Sanders, Winter 2014
 using UnityEngine;
+using System.Collections.Generic;
 
 
 public class FlockingCalculator : object {
@@ -16,12 +17,11 @@ public class FlockingCalculator : object {
 	private Ant[] allyFlock;
 	private Ant[] enemyFlock;
 
-	public FlockingCalculator (Ant unit, Ant[] allyFlock) {
+	public FlockingCalculator (Ant unit) {
 		this.unit = unit;
-		this.allyFlock = allyFlock;
 	}
 
-	public void setFlocks(Ant[] allyFlock, Ant[] enemyFlock){
+	public void setFlocks(Ant[] allyFlock, Ant[] enemyFlock) {
 		this.allyFlock = allyFlock;
 		this.enemyFlock = enemyFlock;
 	}
@@ -48,7 +48,7 @@ public class FlockingCalculator : object {
 	Vector2 flockCenter(Ant[] flock){
 		Vector2 flockCenter = Vector2.zero;
 		foreach(Ant ant in flock) {
-			flockCenter = flockCenter + (Vector2) ant.transform.position;	
+			flockCenter = flockCenter + (Vector2) ant.transform.position;
 		}
 		flockCenter = flockCenter / (flock.Length );
 		return (flockCenter - (Vector2) unit.position());
@@ -65,7 +65,8 @@ public class FlockingCalculator : object {
 	}
 	
 	bool shouldAlignWith (Ant other) {
-		return MIN_DISTANCE <= distance(other) && MAX_DISTANCE >= distance(other);
+		float dist = distance (other);
+		return MIN_DISTANCE <= dist && MAX_DISTANCE >= dist;
 	}	
 
 	Vector2 nextSeparationVelocity () {
@@ -93,7 +94,7 @@ public class FlockingCalculator : object {
 	}
 
 	float distance(Ant other) {
-		return (unit.position() - other.position()).sqrMagnitude;
+		return Vector2.Distance (unit.position(), other.position());
 	}
 }
 
