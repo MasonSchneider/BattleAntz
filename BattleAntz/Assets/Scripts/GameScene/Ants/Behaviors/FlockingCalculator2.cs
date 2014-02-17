@@ -17,19 +17,14 @@ public class FlockingCalculator2 : object {
 	public float maxScale = 2f;
 	public Vector3 vind = Vector3.zero;
 	
-//	private float defaultSpreadness;
-//	private float defaultSeparationDist;
 	private Vector3 boidsMassCenter;
 
-
-	
 	private Ant unit;
 	private Ant[] allyFlock;
 	private Ant[] enemyFlock;
 	
-	public FlockingCalculator2 (Ant unit, Ant[] allyFlock) {
+	public FlockingCalculator2 (Ant unit) {
 		this.unit = unit;
-		this.allyFlock = allyFlock;
 	}
 	
 	public void setFlocks(Ant[] allyFlock, Ant[] enemyFlock){
@@ -38,16 +33,43 @@ public class FlockingCalculator2 : object {
 	}
 	
 	public Vector2 nextVelocity() {
-		
 		Vector2 v1, v2, v3, v4;
 		v1 = Cohesion ();
 		v2 = Separation ();
 		v3 = Alignment ();
-		v4 = tendToPlace ();
+		v4 = nextDesiredPosition ();
 
 		return unit.velocity() + v1 + v2 + v3 + v4;
 	}
+
+	Vector2 nextDesiredPosition(){
+		Vector2 desiredPosition;
+		if(enemyFlock.Length == 0){
+			Vector2 center = flockCenter(allyFlock);
+			desiredPosition = new Vector2(center.x + 1.3f, center.y);
+		}
+		else{
+			Vector2 center = flockCenter(enemyFlock);
+			float distance = Vector2.Distance(center, flockCenter(allyFlock));
+			if( distance < 15 )
+				desiredPosition = flockCenter(enemyFlock).normalized;
+			else{
+				center = flockCenter(allyFlock);
+				desiredPosition = new Vector2(center.x + 1.3f, center.y);
+			}
+		}
+		return desiredPosition;
+	}
 	
+	Vector2 flockCenter(Ant[] flock){
+		Vector2 flockCenter = Vector2.zero;
+		foreach(Ant ant in flock) {
+			flockCenter = flockCenter + (Vector2) ant.transform.position;
+		}
+		flockCenter = flockCenter / (flock.Length );
+		return (flockCenter - (Vector2) unit.position());
+	}
+
 	private Vector3 Cohesion () {
 		boidsMassCenter = Vector3.zero;
 		

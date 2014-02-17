@@ -11,7 +11,7 @@ public class FlockingCalculator : object {
 	public static float POSITION_WEIGHT = 2.0F;
 	public static int NEIGHBOR_COUNT = 4;
 	public static float MIN_DISTANCE = 0.0f;
-	public static float MAX_DISTANCE = 5.0f;
+	public static float MAX_DISTANCE = 1.0f;
 
 	private Ant unit;
 	private Ant[] allyFlock;
@@ -29,7 +29,7 @@ public class FlockingCalculator : object {
 	public Vector2 nextVelocity() {
 		return 	nextAlignmentVelocity () * ALIGNMENT_WEIGHT + 
 				nextSeparationVelocity () * SEPARATION_WEIGHT + 
-				nextCohesionVelocity () * COHESION_WEIGHT + 
+				nextCohesionVelocity () * COHESION_WEIGHT +
 				nextDesiredPosition();
 	}
 
@@ -61,7 +61,7 @@ public class FlockingCalculator : object {
 				sum += (Vector2) other.velocity();
 			}
 		}
-		return sum * (1.0f / NEIGHBOR_COUNT);
+		return sum * (1.0f / allyFlock.Length);
 	}
 	
 	bool shouldAlignWith (Ant other) {
