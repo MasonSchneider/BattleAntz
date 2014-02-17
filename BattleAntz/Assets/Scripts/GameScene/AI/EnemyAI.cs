@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class EnemyAI : MonoBehaviour {
 	private int strategy = 0;
@@ -19,10 +20,17 @@ public class EnemyAI : MonoBehaviour {
 		t = Time.time;
 		schedule = LevelAI.getLevel(Constants.level);
 		lastSpawn = Time.time;
-		if(Constants.level < 10)
+		if (Constants.level < 8) 
+		{
 			strategy = 0;
-		else
+		} else if (Constants.level == 8) 
+		{
+			strategy = 2;
+		}
+		else if (Constants.level == 10)
+		{
 			strategy = 3;
+		}
 	}
 
 	void preScheduleAI(){
@@ -59,17 +67,16 @@ public class EnemyAI : MonoBehaviour {
 		}
 
 		//Build a worker and a random ant
-		else if(strategy == 2 && hive.sugar > 650){
-			while(hive.sugar > 100){
-				hive.buyWorker();
-				int r = Random.Range(0, 4);
-				if(r == 0)
-					hive.buyArmyAnt();
-				else if(r == 1)
-					hive.buyBullAnt();
-				else if(r == 2)
-					hive.buyFireAnt();
-			}
+		else if(strategy == 2){
+			while (hive.sugar >= 1000)
+			    hive.buyWorker();
+			int r = Random.Range(0, 4);
+			if(r == 0)
+				hive.buyArmyAnt();
+			else if(r == 1)
+				hive.buyBullAnt();
+			else if(r == 2)
+				hive.buyFireAnt();
 		}
 
 		else if(strategy == 3)
