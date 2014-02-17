@@ -20,7 +20,8 @@ public class FireAnt : Ant {
 		}
 		//This is the player, left spawn
 		else{
-			behavior = new DefaultBehavior(this);
+			behavior = new FlockingBehavior(this);
+
 		}
 		base.spawn();
 	}

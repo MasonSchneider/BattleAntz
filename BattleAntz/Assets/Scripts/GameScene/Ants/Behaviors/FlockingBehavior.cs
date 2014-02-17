@@ -12,26 +12,32 @@ using UnityEngine;
 
 public class FlockingBehavior : Behavior
 {
-	FlockingCalculator calculator;
+	FlockingCalculator2 calculator;
 
 	public FlockingBehavior (Ant ant)
 	{
 		this.ant = ant;
-		this.calculator = new FlockingCalculator (ant);
+		this.calculator = new FlockingCalculator2	 (ant);
+//		if(ant.GetType() == typeof(ArmyAnt)){
+//			calculator.COHESION_WEIGHT = 1f;
+//		}
+//		else if(ant.GetType() == typeof(FireAnt)){
+//			calculator.SEPARATION_WEIGHT = 1f;
+//		}
 	}
 
 	public override Vector2 nextDirection() {
-		if (getAllyAnts().Length == 0) {
-			Ant antTarget = getNearestAnt ();
-			GameObject target = antTarget == null ? ant.enemyHive.gameObject : antTarget.gameObject;
-			Vector2 offset = target.transform.position - ant.transform.position;
-			float length = Mathf.Sqrt (offset.sqrMagnitude);
-
-			return new Vector2 (offset.x / length, offset.y / length);
-		} else {
-			calculator.setFlocks (getAllyAnts(), getEnemyAnts());
-			return calculator.nextVelocity () / ant.speed;
-		}
+//		if (getAllyAnts().Length == 0) {
+//			Ant antTarget = getNearestAnt ();
+//			GameObject target = antTarget == null ? ant.enemyHive.gameObject : antTarget.gameObject;
+//			Vector2 offset = target.transform.position - ant.transform.position;
+//			float length = Mathf.Sqrt (offset.sqrMagnitude);
+//
+//			return new Vector2 (offset.x / length, offset.y / length);
+//		} else {
+		calculator.setFlocks (getAllyAnts(), getEnemyAnts());
+		return calculator.nextVelocity () / ant.speed;
+//		}
 	}
 
 	public override Ant antToAttack (){

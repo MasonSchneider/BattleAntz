@@ -5,14 +5,14 @@ using System.Collections.Generic;
 
 
 public class FlockingCalculator : object {
-	public static float ALIGNMENT_WEIGHT = 0.5f;
-	public static float SEPARATION_WEIGHT = 1.0f;
-	public static float COHESION_WEIGHT = 0.001f;
-	public static float POSITION_WEIGHT = 1.0F;
-	public static float THREAT_WEIGHT = 1.0f;
-	public static int NEIGHBOR_COUNT = 4;
-	public static float MIN_DISTANCE = 5.0f;
-	public static float MAX_DISTANCE = 10.0f;
+	public float ALIGNMENT_WEIGHT = 1.0f;
+	public float SEPARATION_WEIGHT = 1.0f;
+	public float COHESION_WEIGHT = 1.0f;
+	public float POSITION_WEIGHT = 1.0F;
+	public float THREAT_WEIGHT = 1.0f;
+	public int NEIGHBOR_COUNT = 4;
+	public float MIN_DISTANCE = 5.0f;
+	public float MAX_DISTANCE = 10.0f;
 
 	private Ant unit;
 	private Ant[] allyFlock;
@@ -46,18 +46,25 @@ public class FlockingCalculator : object {
 		return 	nextAlignmentVelocity() * ALIGNMENT_WEIGHT + 
 				nextSeparationVelocity() * SEPARATION_WEIGHT + 
 				nextCohesionVelocity() * COHESION_WEIGHT +
-				nextThreatVelocity() * THREAT_WEIGHT +
-				nextDesiredPosition();
+				nextThreatVelocity() * THREAT_WEIGHT;
+//				nextDesiredPosition();
 	}
 
 	Vector2 nextDesiredPosition(){
 		Vector2 desiredPosition;
 		if(enemyFlock.Length == 0){
 			Vector2 center = flockCenter(allyFlock);
-			desiredPosition = new Vector2(center.x + POSITION_WEIGHT, center.y);
+			desiredPosition = new Vector2(center.x + 1.3f, center.y);
 		}
 		else{
-			desiredPosition = flockCenter(enemyFlock).normalized;
+			Vector2 center = flockCenter(enemyFlock);
+			float distance = Vector2.Distance(center, flockCenter(allyFlock));
+			if( distance < 10 )
+				desiredPosition = flockCenter(enemyFlock).normalized;
+			else{
+				center = flockCenter(allyFlock);
+				desiredPosition = new Vector2(center.x + 1.3f, center.y);
+			}
 		}
 		return desiredPosition;
 	}
