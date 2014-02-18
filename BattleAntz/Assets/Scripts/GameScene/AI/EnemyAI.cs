@@ -6,6 +6,7 @@ public class EnemyAI : MonoBehaviour {
 	private int strategy = 0;
 	private float t;
 	private float lastSpawn;
+	private float lastWorker;
 	private float nextIndex = 0;
 
 	public AntFactory enemyFactory;
@@ -18,6 +19,7 @@ public class EnemyAI : MonoBehaviour {
 		if(Constants.multiplayer || Constants.EXPERIMENTAL)
 			Destroy(this);
 		t = Time.time;
+		lastWorker = Time.time;
 		schedule = LevelAI.getLevel(Constants.level);
 		lastSpawn = Time.time;
 		if (Constants.level < 8) 
@@ -71,19 +73,23 @@ public class EnemyAI : MonoBehaviour {
 			//Build a worker and a random ant
 			else if(strategy == 2){
 				while (hive.sugar >= 1000)
-				    hive.buyWorker();
-				int r = Random.Range(0, 4);
-				if(r == 0)
-					hive.buyArmyAnt();
-				else if(r == 1)
-					hive.buyBullAnt();
-				else if(r == 2)
-					hive.buyFireAnt();
+					hive.buyWorker();
+				randomSpawn();
 			}
 
 			else if(strategy == 3)
 				macroCounterStrat();
 		}
+	}
+
+	private void randomSpawn(){
+		int r = Random.Range(0, 4);
+		if(r == 0)
+			hive.buyArmyAnt();
+		else if(r == 1)
+			hive.buyBullAnt();
+		else if(r == 2)
+			hive.buyFireAnt();
 	}
 
 	//Build the same amount of units the enemy has or else workers
@@ -108,7 +114,13 @@ public class EnemyAI : MonoBehaviour {
 		if(cFireAnts < eFireAnts)
 			spawnFireAnts(eFireAnts - cFireAnts);
 
-		hive.buyWorker();
+		if(Time.time > lastWorker && cArmyAnts >= eArmyAnts && cBullAnts >= eBullAnts && cFireAnts >= eFireAnts){
+			Debug.Log("Build Worker");
+			hive.buyWorker();
+			lastWorker =  Time.time + 1.0f;
+		}
+		if(cArmyAnts >= eArmyAnts && cBullAnts >= eBullAnts && cFireAnts >= eFireAnts && hive.sugar > 3000)
+			randomSpawn();
 	}
 
 	//Get number of ants from either computer or player
