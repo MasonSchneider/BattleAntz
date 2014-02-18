@@ -90,7 +90,7 @@ public class FlockingCalculator2 : object {
 		Vector2 cohesion = Vector2.zero;
 		foreach (Ant other in allyFlock) {
 			if (unit != other) {
-				cohesion += (Vector2)other.position();	
+				cohesion += (Vector2) other.position();	
 			}
 		}
 		cohesion /= (allyFlock.Length - 1);
