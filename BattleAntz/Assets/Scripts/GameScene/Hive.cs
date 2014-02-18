@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class Hive : MonoBehaviour {
-	float nextTick = 0;
+	float nextTick = Constants.initalLevelPause; //So resources don't start accumulating while the game is paused
 	public int sugar;
 	public float health;
 	public int workers;
@@ -31,8 +31,8 @@ public class Hive : MonoBehaviour {
 	
 	// Update is called once per frame (60fps?)
 	public virtual void Update () {
-		if (Time.time > nextTick) {
-			nextTick = Time.time + Constants.SUGAR_RATE;
+		if (Time.timeSinceLevelLoad > nextTick) {
+			nextTick = Time.timeSinceLevelLoad + Constants.SUGAR_RATE;
 			sugar += income;
 			sugarProduced += income;
 		}

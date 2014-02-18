@@ -56,31 +56,34 @@ public class EnemyAI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(strategy == 0){
-			preScheduleAI();
-		}
+		if (Time.timeSinceLevelLoad > Constants.initalLevelPause)
+		{
+			if(strategy == 0){
+				preScheduleAI();
+			}
 
-		//Just build and army ant every two seconds
-		if(strategy == 1 && Time.time > t) {
-			t = Time.time + 2;
-			hive.buyArmyAnt();
-		}
-
-		//Build a worker and a random ant
-		else if(strategy == 2){
-			while (hive.sugar >= 1000)
-			    hive.buyWorker();
-			int r = Random.Range(0, 4);
-			if(r == 0)
+			//Just build and army ant every two seconds
+			if(strategy == 1 && Time.time > t) {
+				t = Time.time + 2;
 				hive.buyArmyAnt();
-			else if(r == 1)
-				hive.buyBullAnt();
-			else if(r == 2)
-				hive.buyFireAnt();
-		}
+			}
 
-		else if(strategy == 3)
-			macroCounterStrat();
+			//Build a worker and a random ant
+			else if(strategy == 2){
+				while (hive.sugar >= 1000)
+				    hive.buyWorker();
+				int r = Random.Range(0, 4);
+				if(r == 0)
+					hive.buyArmyAnt();
+				else if(r == 1)
+					hive.buyBullAnt();
+				else if(r == 2)
+					hive.buyFireAnt();
+			}
+
+			else if(strategy == 3)
+				macroCounterStrat();
+		}
 	}
 
 	//Build the same amount of units the enemy has or else workers

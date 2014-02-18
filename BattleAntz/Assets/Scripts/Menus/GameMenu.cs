@@ -26,9 +26,39 @@ public class GameMenu : MonoBehaviour {
 			networkManager = GameObject.Find("Network Manager").GetComponent("NetworkManager") as NetworkManager;
 	}
 
+	void Update()
+	{
+		if (Time.timeSinceLevelLoad < Constants.initalLevelPause) 
+		{
+			Constants.paused = true;
+		} else 
+		{
+			Constants.paused = false;
+		}
+			
+	}
+
 	void OnGUI () {
 		// Create the menu area
 		GUI.Box(new Rect(0,0,Screen.width,90), "Battle Antz");
+
+		// Print Level to the screen
+		if (Time.timeSinceLevelLoad < Constants.initalLevelPause) 
+		{
+			string levelString = "";
+			
+			if(networkManager)
+				levelString = "Begin";
+			else if (Constants.level == 10)
+				levelString = "Final Level";
+			else
+				levelString = "Level " + (Constants.level + 1);
+
+			GUI.skin.label.fontSize = 40;
+
+			GUI.Label(new Rect(Screen.width/2 - 100, Screen.height/2 - 25,200,50), levelString);
+			GUI.skin.label.fontSize = 12;
+		}
 
 		// Display hive stats
 		GUI.Label(new Rect(16,15,100,40), "Sugar: " + playerHive.sugar);

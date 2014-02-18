@@ -41,8 +41,15 @@ public class GameOverMenu : MonoBehaviour {
 	}
 	
 	void OnGUI () {
-		GUI.Box(new Rect(Screen.width/2-200,Screen.height/2-200,400,400), "");
+		//Resize the box to accomodate the continue button (or not)
+		Rect menuBox;
+		if(gameResult.Equals("You win!") && !networkManager && Constants.level != 10)
+			menuBox = new Rect(Screen.width / 2 - 200, Screen.height / 2 - 200, 400, 465);
+		else 
+			menuBox = new Rect(Screen.width / 2 - 200, Screen.height / 2 - 200, 400, 400);
+		GUI.Box(menuBox, "");
 		GUI.TextField(new Rect(Screen.width/2-60,Screen.height/2-195,300,50), gameResult, style);
+
 
 		GUI.Label(new Rect(Screen.width/2-150,Screen.height/2-120,300,50), "Total Sugar Collected: "+sugar);
 		GUI.Label(new Rect(Screen.width/2-150,Screen.height/2-95,300,50), "Workers Created: "+workers);
@@ -65,6 +72,23 @@ public class GameOverMenu : MonoBehaviour {
 			Constants.paused = false;
 			Application.LoadLevel("GameScene");
 			Time.timeScale = 1;
+		}
+
+		
+		if(gameResult.Equals("You win!") && !networkManager && Constants.level != 10)
+		{
+			if(GUI.Button(new Rect(Screen.width/2-150,Screen.height/2+190,300,50),"Continue")) {
+				if(networkManager)
+					networkManager.restart();
+				Constants.paused = false;
+
+				if(Constants.level == 8)
+					Constants.level = 10;
+				else
+					Constants.level++;
+				Application.LoadLevel("GameScene");
+				Time.timeScale = 1;
+			}
 		}
 	}
 }

@@ -9,7 +9,7 @@ public class Constants : MonoBehaviour {
 
 	public static int SUGAR_RATE = 1;
 	public static int WORKER_COST = 50;
-	public static int WORKER_PRODUCTION = 2;
+	public static int WORKER_PRODUCTION = 4;
 
 	public static int ARMY_ANT_COST = 50;
 	public static int BULL_ANT_COST = 150;
@@ -52,6 +52,8 @@ public class Constants : MonoBehaviour {
 	public static int level = 0;
 	public static bool multiplayer = false;
 	public static bool paused = false;
+
+	public static float initalLevelPause = 2.5f;
 
 	public static bool EXPERIMENTAL = false;
 }
