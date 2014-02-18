@@ -12,7 +12,7 @@ using UnityEngine;
 
 public class FlockingBehavior : Behavior
 {
-	FlockingCalculator calculator;
+	FlockingCalculator2 calculator;
 
 	public FlockingBehavior (Ant ant){
 		this.ant = ant;
