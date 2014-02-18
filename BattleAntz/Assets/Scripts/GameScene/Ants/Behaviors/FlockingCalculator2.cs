@@ -9,6 +9,7 @@ public class FlockingCalculator2 : object {
 	public float COHESION		 	= 5.0f;
 	public float ALIGNMENT		 	= 1.0f;
 	public float POSITION		 	= 1.0f;
+	public float THREAT			 	= 1.0f;
 
 	private Ant unit;
 	private Ant[] allyFlock;
@@ -29,7 +30,8 @@ public class FlockingCalculator2 : object {
 		Vector2 separationFire 	= Separation<FireAnt>(allyFlock) * SEPARATION_FIRE;
 		Vector2 cohesion 		= Cohesion() * COHESION;
 		Vector2 alignment 		= Alignment() * ALIGNMENT;
-		Vector2 position 		= nextDesiredPosition() * POSITION;
+		Vector2 threat	 		= nextThreatVelocity() * THREAT;
+//		Vector2 position 		= nextDesiredPosition() * POSITION;
 
 //		Debug.Log("Cohesion:   " + cohesion);
 //		Debug.Log("SeparaArmy: " + separationArmy);
@@ -38,7 +40,7 @@ public class FlockingCalculator2 : object {
 //		Debug.Log("Alignment:  " + alignment);
 //		Debug.Log("Position:   " + position);
 //		Debug.Log("ThreatPos:  " + v5);
-		return cohesion + alignment + separationArmy + separationBull + separationFire + position;
+		return cohesion + alignment + separationArmy + separationBull + separationFire + threat;
 	}
 	
 	Vector2 nextThreatVelocity (){
@@ -51,10 +53,9 @@ public class FlockingCalculator2 : object {
 			}
 			return closestAnt.position() - unit.position();
 		} else {
-			return Vector2.zero;
+			return flockCenter(allyFlock) + new Vector2(100, 0);
 		}
 	}
-
 
 	Vector2 nextDesiredPosition(){
 		Vector2 mouseWorld = (GameObject.Find("Main Camera").GetComponent("Camera") as Camera).ScreenToWorldPoint(Input.mousePosition);

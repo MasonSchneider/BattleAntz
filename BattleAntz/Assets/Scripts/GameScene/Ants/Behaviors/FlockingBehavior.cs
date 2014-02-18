@@ -14,33 +14,17 @@ public class FlockingBehavior : Behavior
 {
 	FlockingCalculator2 calculator;
 
-	public FlockingBehavior (Ant ant)
-	{
+	public FlockingBehavior (Ant ant){
 		this.ant = ant;
 		this.calculator = new FlockingCalculator2(ant);
-//		if(ant.GetType() == typeof(ArmyAnt)){
-//			calculator.COHESION_WEIGHT = 1f;
-//		}
-//		else if(ant.GetType() == typeof(FireAnt)){
-//			calculator.SEPARATION_WEIGHT = 1f;
-//		}
 	}
 
 	public override Vector2 nextDirection() {
-//		if (getAllyAnts().Length == 0) {
-//			Ant antTarget = getNearestAnt ();
-//			GameObject target = antTarget == null ? ant.enemyHive.gameObject : antTarget.gameObject;
-//			Vector2 offset = target.transform.position - ant.transform.position;
-//			float length = Mathf.Sqrt (offset.sqrMagnitude);
-//
-//			return new Vector2 (offset.x / length, offset.y / length);
-//		} else {
 		Ant[] ants = getAllyAnts();
 		calculator.setFlocks (ants, getEnemyAnts());
 		Vector2 direction = calculator.nextVelocity().normalized;
-		float speed = Vector2.Distance(flockCenter(ants), ant.position()) < 1 ? slowestSpeed(ants) : ant.speed;
+		float speed = Vector2.Distance(flockCenter(ants), ant.position()) < 0 ? slowestSpeed(ants) : ant.speed;
 		return direction * (speed / ant.speed);
-//		}
 	}
 
 	Vector2 flockCenter(Ant[] flock){

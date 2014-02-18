@@ -53,5 +53,5 @@ public class Constants : MonoBehaviour {
 	public static bool multiplayer = false;
 	public static bool paused = false;
 
-	public static bool EXPERIMENTAL = false;
+	public static bool EXPERIMENTAL = true;
 }
