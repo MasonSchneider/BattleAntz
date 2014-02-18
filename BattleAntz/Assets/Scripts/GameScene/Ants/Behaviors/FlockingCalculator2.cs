@@ -3,10 +3,10 @@ using System.Collections;
 
 public class FlockingCalculator2 : object {
 	public float SEPARATION_DIST 	= 1.3f;
-	public float SEPARATION_ARMY 	= 3f;
+	public float SEPARATION_ARMY 	= 30f;
 	public float SEPARATION_BULL 	= 10f;
 	public float SEPARATION_FIRE 	= 50f;
-	public float COHESION		 	= 500.0f;
+	public float COHESION		 	= 5.0f;
 	public float ALIGNMENT		 	= 1.0f;
 	public float POSITION		 	= 1.0f;
 
@@ -90,12 +90,11 @@ public class FlockingCalculator2 : object {
 		Vector2 cohesion = Vector2.zero;
 		foreach (Ant other in allyFlock) {
 			if (unit != other) {
-				cohesion += (Vector2)unit.position();	
+				cohesion += (Vector2)other.position();	
 			}
 		}
-		
 		cohesion /= (allyFlock.Length - 1);
-		return (cohesion - (Vector2)unit.position());
+		return cohesion - (Vector2)unit.position();
 	}
 	
 	private Vector2 Separation<T>(Ant[] flock){
