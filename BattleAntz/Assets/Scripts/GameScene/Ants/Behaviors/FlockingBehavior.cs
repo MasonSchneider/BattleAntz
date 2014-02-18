@@ -35,10 +35,20 @@ public class FlockingBehavior : Behavior
 //
 //			return new Vector2 (offset.x / length, offset.y / length);
 //		} else {
-		calculator.setFlocks (getAllyAnts(), getEnemyAnts());
+		Ant[] ants = getAllyAnts();
+		calculator.setFlocks (ants, getEnemyAnts());
 		Vector2 direction = calculator.nextVelocity().normalized;
-		return direction * (slowestSpeed(getAllyAnts()) / ant.speed);
+		float speed = Vector2.Distance(flockCenter(ants), ant.position()) < 1 ? slowestSpeed(ants) : ant.speed;
+		return direction * (speed / ant.speed);
 //		}
+	}
+
+	Vector2 flockCenter(Ant[] flock){
+		Vector2 flockCenter = Vector2.zero;
+		foreach(Ant ant in flock) {
+			flockCenter = flockCenter + (Vector2) ant.position();
+		}
+		return (flockCenter / flock.Length);
 	}
 
 	private float slowestSpeed(Ant[] flock){
