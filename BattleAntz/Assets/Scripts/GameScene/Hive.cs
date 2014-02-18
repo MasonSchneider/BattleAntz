@@ -21,6 +21,11 @@ public class Hive : MonoBehaviour {
 	
 	public AntFactory antFactory;
 
+	public Vector2 position ()
+	{
+		return transform.position;
+	}
+
 	// Use this for initialization
 	public virtual void Start () {
 		upgrades[0] = new int[4];
