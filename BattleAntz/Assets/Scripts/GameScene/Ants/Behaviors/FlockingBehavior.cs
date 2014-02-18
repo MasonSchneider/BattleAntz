@@ -17,7 +17,7 @@ public class FlockingBehavior : Behavior
 	public FlockingBehavior (Ant ant)
 	{
 		this.ant = ant;
-		this.calculator = new FlockingCalculator2	 (ant);
+		this.calculator = new FlockingCalculator2(ant);
 //		if(ant.GetType() == typeof(ArmyAnt)){
 //			calculator.COHESION_WEIGHT = 1f;
 //		}
@@ -36,8 +36,18 @@ public class FlockingBehavior : Behavior
 //			return new Vector2 (offset.x / length, offset.y / length);
 //		} else {
 		calculator.setFlocks (getAllyAnts(), getEnemyAnts());
-		return calculator.nextVelocity () / ant.speed;
+		Vector2 direction = calculator.nextVelocity().normalized;
+		return direction * (slowestSpeed(getAllyAnts()) / ant.speed);
 //		}
+	}
+
+	private float slowestSpeed(Ant[] flock){
+		Ant slowest = flock[0];
+		foreach(Ant a in flock){
+			if(a.speed < slowest.speed)
+				slowest = a;
+		}
+		return slowest.speed;
 	}
 
 	public override Ant antToAttack (){

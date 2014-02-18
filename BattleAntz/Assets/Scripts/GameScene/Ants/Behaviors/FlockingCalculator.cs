@@ -43,39 +43,50 @@ public class FlockingCalculator : object {
 	}
 
 	public Vector2 nextVelocity() {
-		return 	nextAlignmentVelocity() * ALIGNMENT_WEIGHT + 
-				nextSeparationVelocity() * SEPARATION_WEIGHT + 
-				nextCohesionVelocity() * COHESION_WEIGHT +
-				nextThreatVelocity() * THREAT_WEIGHT;
-//				nextDesiredPosition();
+		Vector2 cohesion = nextCohesionVelocity ();
+		Vector2 separation = nextSeparationVelocity ();
+		Vector2 alignment = nextAlignmentVelocity ();
+		Vector2 position = nextDesiredPosition ();
+		Vector2 threat = nextThreatVelocity();
+		Debug.Log("Cohesion:   " + cohesion);
+		Debug.Log("Separation: " + separation);
+		Debug.Log("Alignment:  " + alignment);
+		Debug.Log("Position:   " + position);
+		Debug.Log("ThreatPos:  " + threat);
+
+		return 	alignment * ALIGNMENT_WEIGHT + 
+				separation * SEPARATION_WEIGHT + 
+				cohesion * COHESION_WEIGHT +
+				threat * THREAT_WEIGHT + 
+				position;
 	}
 
 	Vector2 nextDesiredPosition(){
-		Vector2 desiredPosition;
-		if(enemyFlock.Length == 0){
-			Vector2 center = flockCenter(allyFlock);
-			desiredPosition = new Vector2(center.x + 1.3f, center.y);
-		}
-		else{
-			Vector2 center = flockCenter(enemyFlock);
-			float distance = Vector2.Distance(center, flockCenter(allyFlock));
-			if( distance < 10 )
-				desiredPosition = flockCenter(enemyFlock).normalized;
-			else{
-				center = flockCenter(allyFlock);
-				desiredPosition = new Vector2(center.x + 1.3f, center.y);
-			}
-		}
-		return desiredPosition;
+		return Vector2.zero - flockCenter(allyFlock);
+//		Vector2 desiredPosition;
+//		if(enemyFlock.Length == 0){
+//			Vector2 center = flockCenter(allyFlock);
+//			desiredPosition = new Vector2(center.x + 1.3f, center.y);
+//		}
+//		else{
+//			Vector2 center = flockCenter(enemyFlock);
+//			float distance = Vector2.Distance(center, flockCenter(allyFlock));
+//			if( distance < 10 )
+//				desiredPosition = flockCenter(enemyFlock).normalized;
+//			else{
+//				center = flockCenter(allyFlock);
+//				desiredPosition = new Vector2(center.x + 1.3f, center.y);
+//			}
+//		}
+//		return desiredPosition;
 	}
 
 	Vector2 flockCenter(Ant[] flock){
 		Vector2 flockCenter = Vector2.zero;
 		foreach(Ant ant in flock) {
-			flockCenter = flockCenter + (Vector2) ant.transform.position;
+			flockCenter = flockCenter + (Vector2) ant.position();
 		}
-		flockCenter = flockCenter / (flock.Length );
-		return (flockCenter - (Vector2) unit.position());
+		return (flockCenter / flock.Length);
 	}
 
 	Vector2 nextAlignmentVelocity() {
