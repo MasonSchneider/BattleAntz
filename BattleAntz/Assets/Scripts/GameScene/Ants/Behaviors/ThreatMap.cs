@@ -17,14 +17,20 @@ using System.Linq;
 public class ThreatMap : object {
 	IEnumerable<Ant> enemies;
 
-	public ThreatMap (IEnumerable<Ant> enemies) {
-		this.enemies = enemies;
+	public ThreatMap() {
 	}
 
-	public float getThreatLevel(Vector2 position) {
-		float threat = 0;
+	public Vector2 getTarget(Ant ant, IEnumerable<Ant> enemies) {
+		Vector2 current = ant.position();
+		Vector2 target = ant.enemyHive.position();
+
 		foreach (Ant enemy in enemies) {
+			if (Vector2.Distance(current, enemy.position()) < Vector2.Distance(current, target)) {
+				target = enemy.position();
+			}
 		}
-		return threat;
+
+
+		return target;
 	}
 }
