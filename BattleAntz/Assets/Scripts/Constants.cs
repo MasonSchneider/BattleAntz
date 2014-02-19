@@ -46,7 +46,7 @@ public class Constants : MonoBehaviour {
 	public static int U_STRENGTH = 2;
 	public static int U_SPECIAL = 3;
 
-	public static int BANELING_DAMAGE = 4;
+	public static int BANELING_DAMAGE = 10;
 	public static int BANELING_RADIUS = 8;
 
 	public static int level = 0;
